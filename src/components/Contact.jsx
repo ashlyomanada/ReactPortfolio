@@ -1,11 +1,15 @@
 import React from "react";
+import { useScroll } from "../context/ScrollContext";
 
 const Contact = () => {
+  const { sectionRefs } = useScroll();
+
   return (
     <>
       <div
         id="contact"
-        className="lg:min-h-screen bg-neutral-200 flex items-center justify-center p-5 lg:px-20"
+        ref={sectionRefs.Contact}
+        className="lg:min-h-screen bg-neutral-200 flex items-center justify-center md:p-5 lg:px-20"
       >
         <div className="border-b border-gray-900/10 w-full flex flex-col items-center justify-center">
           <h2 className="font-bold text-black text-3xl text-center p-3">
@@ -19,17 +23,18 @@ const Contact = () => {
               className="hidden  sm:flex flex-col justify-center px-16 lg:px-20 gap-5 bg-teal-800 shadow-md rounded-l-md"
             >
               <div className="flex items-center gap-4 text-lg font-semibold">
-                <i class="fa-solid fa-envelope"></i> <p>myemail@gmail.com</p>
+                <i className="fa-solid fa-envelope"></i>{" "}
+                <p>myemail@gmail.com</p>
               </div>
               <div className="flex items-center gap-4 text-lg font-semibold">
-                <i class="fa-solid fa-phone-volume"></i> <p>+123456789</p>
+                <i className="fa-solid fa-phone-volume"></i> <p>+123456789</p>
               </div>
               <div className="flex items-center gap-4 text-lg font-semibold">
-                <i class="fa-brands fa-instagram"></i> <p>Ashly Omanada</p>
+                <i className="fa-brands fa-instagram"></i> <p>Ashly Omanada</p>
               </div>
 
               <div className="flex items-center gap-4 text-lg font-semibold">
-                <i class="fa-brands fa-square-facebook"></i>
+                <i className="fa-brands fa-square-facebook"></i>
                 <p>Ashly Omanada</p>
               </div>
             </div>

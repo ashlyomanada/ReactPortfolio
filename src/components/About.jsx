@@ -1,11 +1,14 @@
-import Button from "./Button";
+import Button from "./buttons/Button";
 import AboutImg from "../assets/about.jpg";
+import { useScroll } from "../context/ScrollContext";
 
 const About = () => {
+  const { sectionRefs } = useScroll();
   return (
     <>
       <div
         id="about"
+        ref={sectionRefs.About}
         className="min-h-screen py-10 md:py-0 text-black bg-neutral-200 flex justify-center items-center flex-col gap-3 md:gap-12 lg:flex-row"
       >
         <div data-aos="fade-left" data-aos-duration="2000">

@@ -1,11 +1,17 @@
 import React from "react";
 import MyImage from "../assets/picture.png";
-import Button from "./Button";
+import Button from "./buttons/Button";
+import { useScroll } from "../context/ScrollContext";
 
 const Home = () => {
+  const { sectionRefs } = useScroll();
+
   return (
     <>
-      <div className="h-screen bg-neutral-200 text-black">
+      <div
+        className="h-screen bg-neutral-200 text-black"
+        ref={sectionRefs.Home}
+      >
         <div className="h-screen flex flex-col-reverse justify-center items-center sm:flex-col-reverse md:flex-col-reverse lg:flex-row gap-3 lg:gap:0">
           <div
             data-aos="fade-right"

@@ -19,7 +19,6 @@ function App() {
     <>
       <Router>
         <Navbar />
-        <Routes></Routes>
         <Home />
         <About />
         <Services />
