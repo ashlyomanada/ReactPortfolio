@@ -39,7 +39,7 @@ export const data = [
             Filipino comfort dishes, especially savory pares meals. The site features the menu, 
             promotions, and easy options for online orders or reservations, all designed to give 
             visitors a taste of Kapares' warm hospitality and flavorful cuisine.`,
-    technologies: ["tailwind.png", "html.png", "css.png"],
+    technologies: ["html.png", "css.png"],
     url: "https://ashlyomanada.github.io/kapares-resto/",
   },
   {
@@ -48,7 +48,7 @@ export const data = [
     description: `  Bundat is a bold and flavorful burger shop website that highlights its mouthwatering, 
           over-the-top burgers made for serious appetites. The site features the full menu, combo deals, and a 
           fun, street-style vibe that invites customers to order online or drop by for a satisfying bite.`,
-    technologies: ["tailwind.png", "html.png", "css.png"],
+    technologies: ["html.png", "css.png"],
     url: "https://ashlyomanada.github.io/bundat-burger-shop/",
   },
 ];
