@@ -1,0 +1,1 @@
+{"staticRoutes":["/blog","/certifications","/gallery","/projects","/tech-stack","/uses","/"],"dynamicRoutes":["/blog/:slug()","/projects/:slug()"],"sitemap":false}
