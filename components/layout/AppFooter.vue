@@ -28,10 +28,10 @@
           <h4 class="font-mono text-xs uppercase tracking-wider text-amber-500 font-semibold mb-3">Navigation</h4>
           <ul class="space-y-2 text-xs">
             <li><NuxtLink to="/#hero" class="hover:text-amber-400 transition-colors">01 — Profile</NuxtLink></li>
-            <li><NuxtLink to="/#experience" class="hover:text-amber-400 transition-colors">03 — Experience</NuxtLink></li>
-            <li><NuxtLink to="/#projects" class="hover:text-amber-400 transition-colors">05 — Projects</NuxtLink></li>
-            <li><NuxtLink to="/#tech-stack" class="hover:text-amber-400 transition-colors">06 — Tech Stack</NuxtLink></li>
-            <li><NuxtLink to="/#blog" class="hover:text-amber-400 transition-colors">08 — Blog</NuxtLink></li>
+            <li><NuxtLink to="/#projects" class="hover:text-amber-400 transition-colors">03 — Projects</NuxtLink></li>
+            <li><NuxtLink to="/#experience" class="hover:text-amber-400 transition-colors">04 — Experience</NuxtLink></li>
+            <li><NuxtLink to="/#tech-stack" class="hover:text-amber-400 transition-colors">05 — Tech Stack</NuxtLink></li>
+            <li><NuxtLink to="/#blog" class="hover:text-amber-400 transition-colors">09 — Blog</NuxtLink></li>
             <li><NuxtLink to="/#contact" class="hover:text-amber-400 transition-colors">10 — Contact</NuxtLink></li>
           </ul>
         </div>

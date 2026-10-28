@@ -6,26 +6,26 @@
     <!-- 02 Key Stats Strip -->
     <SectionsStatsStrip />
 
-    <!-- 03 Experience Timeline -->
-    <SectionsExperienceSection />
-
-    <!-- 04 Education & Honors -->
-    <SectionsEducationSection />
-
-    <!-- 05 Featured Projects Showcase -->
+    <!-- 03 Featured Projects Showcase -->
     <SectionsFeaturedProjectsSection />
 
-    <!-- 06 Tech Stack & Tooling -->
+    <!-- 04 Experience Timeline -->
+    <SectionsExperienceSection />
+
+    <!-- 05 Tech Stack & Tooling -->
     <SectionsTechStackSection />
 
-    <!-- 07 Certifications & Badges -->
+    <!-- 06 Certifications & Badges -->
     <SectionsCertificationsSection />
 
-    <!-- 08 Engineering Blog -->
-    <SectionsBlogSection />
+    <!-- 07 Education & Honors -->
+    <SectionsEducationSection />
 
-    <!-- 09 GitHub and GitLab Contribution Heatmaps -->
+    <!-- 08 GitHub and GitLab Contribution Heatmaps -->
     <SectionsGithubSection />
+
+    <!-- 09 Engineering Blog -->
+    <SectionsBlogSection />
 
     <!-- 10 Contact Form -->
     <SectionsContactSection @toast="handleToast" />

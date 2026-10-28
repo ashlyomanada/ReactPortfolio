@@ -1,6 +1,6 @@
 import { defineProdDiagnostics } from 'nostics';
 import { ansiFormatter } from 'nostics/formatters/ansi';
-import { shallowReactive, reactive, effectScope, getCurrentScope, hasInjectionContext, getCurrentInstance, inject, toRef, defineComponent, computed, h, shallowRef, provide, cloneVNode, createElementBlock, onServerPrefetch, toRaw, isRef, toValue, ref, nextTick, unref, queuePostFlushCb, createApp, onErrorCaptured, createVNode, resolveDynamicComponent, mergeProps, withCtx, createTextVNode, isVNode, createCommentVNode, resolveComponent, isReadonly, defineAsyncComponent, useSSRContext, Suspense, Fragment, toDisplayString, isShallow, isReactive } from 'vue';
+import { shallowReactive, reactive, effectScope, getCurrentScope, hasInjectionContext, getCurrentInstance, inject, toRef, defineComponent, computed, h, shallowRef, provide, cloneVNode, createElementBlock, onServerPrefetch, toRaw, isRef, toValue, ref, nextTick, unref, queuePostFlushCb, createApp, onErrorCaptured, createVNode, resolveDynamicComponent, mergeProps, withCtx, createTextVNode, isVNode, createCommentVNode, withAsyncContext, toDisplayString, resolveComponent, isReadonly, defineAsyncComponent, useSSRContext, Suspense, Fragment, isShallow, isReactive } from 'vue';
 import { aM as createHooks, c as createError, K as parseURL, at as decodePath, Z as withQuery, C as joinURL, aN as isScriptProtocol, aO as sanitizeStatusCode, a3 as $fetch, aP as baseURL, aQ as klona, Q as hash, p as publicAssetsURL, aR as parseQuery, aS as hasProtocol, a5 as withTrailingSlash, Y as withoutTrailingSlash, am as getRequestURL, $ as defu, aT as titleCase, aU as toRouteMatcher, aV as createRouter$1, aW as withoutBase, aX as withLeadingSlash, aY as withBase, aZ as stringifyQuery, a_ as stringifyParsedURL, a$ as digest } from '../nitro/nitro.mjs';
 import * as import__Users_ccci_Desktop_Projects_ReactPortfolio_node_modules_unhead_dist_plugins_mjs from 'unhead/plugins';
 import { FlatMetaPlugin, defineHeadPlugin, TemplateParamsPlugin } from 'unhead/plugins';
@@ -12,6 +12,7 @@ import { fnv1a64Base36 } from 'fnv1a-64';
 import { identify } from 'object-identity';
 import { isPlainObject } from '@vue/shared';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs, ssrInterpolate, ssrRenderStyle, ssrRenderAttr, ssrIncludeBooleanAttr, ssrRenderTeleport, ssrRenderList, ssrRenderClass } from 'vue/server-renderer';
+import { z } from 'zod';
 
 // \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
@@ -2377,47 +2378,47 @@ var virtual_nuxt_node_modules_2F_cache_2Fnuxt_2F_nuxt_2Froutes_default = [
 	{
 		name: "blog-slug",
 		path: "/blog/:slug()",
-		component: () => import('../build/_slug_-TQWmpEwP.mjs')
+		component: () => import('../build/_slug_-DsTSTgmQ.mjs')
 	},
 	{
 		name: "projects-slug",
 		path: "/projects/:slug()",
-		component: () => import('../build/_slug_-DZVLaf1b.mjs')
+		component: () => import('../build/_slug_-Cuqv07U0.mjs')
 	},
 	{
 		name: "blog",
 		path: "/blog",
-		component: () => import('../build/blog-fovds9KV.mjs')
+		component: () => import('../build/blog-wO_dEhKh.mjs')
 	},
 	{
 		name: "certifications",
 		path: "/certifications",
-		component: () => import('../build/certifications-LoQSuN4I.mjs')
+		component: () => import('../build/certifications-PVJJ9LIg.mjs')
 	},
 	{
 		name: "gallery",
 		path: "/gallery",
-		component: () => import('../build/gallery-Rq7eutq4.mjs')
+		component: () => import('../build/gallery-C2VyZkRk.mjs')
 	},
 	{
 		name: "projects",
 		path: "/projects",
-		component: () => import('../build/projects-CbY7Qkpa.mjs')
+		component: () => import('../build/projects-b474gXWc.mjs')
 	},
 	{
 		name: "tech-stack",
 		path: "/tech-stack",
-		component: () => import('../build/tech-stack-BwL8g-Kp.mjs')
+		component: () => import('../build/tech-stack-ByaUjnz7.mjs')
 	},
 	{
 		name: "uses",
 		path: "/uses",
-		component: () => import('../build/uses-DrsiMEPw.mjs')
+		component: () => import('../build/uses-DTxSW0aq.mjs')
 	},
 	{
 		name: "index",
 		path: "/",
-		component: () => import('../build/pages-DGv8uXne.mjs')
+		component: () => import('../build/pages-Bv1bvTsy.mjs')
 	}
 ];
 // node_modules/nuxt/dist/pages/runtime/plugins/router.js
@@ -4811,7 +4812,7 @@ var robot_meta_server_default = defineNuxtPlugin({ setup() {
 	}] });
 } });
 // node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseA.vue?nuxt_component=async&nuxt_component_name=ProseA&nuxt_component_export=default
-var ProseA_default = defineAsyncComponent(() => import('../build/ProseA-tDBbR5Gk.mjs').then((r) => r["default"] || r.default || r));
+var ProseA_default = defineAsyncComponent(() => import('../build/ProseA-BmnfjSN2.mjs').then((r) => r["default"] || r.default || r));
 // node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseBlockquote.vue?nuxt_component=async&nuxt_component_name=ProseBlockquote&nuxt_component_export=default
 var ProseBlockquote_default = defineAsyncComponent(() => import('../build/ProseBlockquote-FH8zh-4G.mjs').then((r) => r["default"] || r.default || r));
 // node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseCode.vue?nuxt_component=async&nuxt_component_name=ProseCode&nuxt_component_export=default
@@ -5170,11 +5171,11 @@ var ScrollProgress_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ d
 	}
 });
 // components/layout/ScrollProgress.vue
-var _sfc_setup$9 = ScrollProgress_vue_vue_type_script_setup_true_lang_default.setup;
+var _sfc_setup$20 = ScrollProgress_vue_vue_type_script_setup_true_lang_default.setup;
 ScrollProgress_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/layout/ScrollProgress.vue");
-	return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+	return _sfc_setup$20 ? _sfc_setup$20(props, ctx) : void 0;
 };
 var ScrollProgress_default = Object.assign(ScrollProgress_vue_vue_type_script_setup_true_lang_default, { __name: "LayoutScrollProgress" });
 // node_modules/@nuxtjs/color-mode/dist/runtime/composables.js
@@ -5195,192 +5196,8 @@ function bound(source) {
 function ssrRenderList$2(source, renderItem) {
 	ssrRenderList(bound(source), renderItem);
 }
-// components/layout/AppHeader.vue?vue&type=script&setup=true&lang.ts
-var AppHeader_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
-	__name: "AppHeader",
-	__ssrInlineRender: true,
-	emits: ["openPalette", "toggleMobileMenu"],
-	setup(__props) {
-		const colorMode = useColorMode();
-		const isScrolled = ref(false);
-		const activeSection = ref("hero");
-		const navItems = [
-			{
-				num: "01",
-				name: "Profile",
-				href: "/#hero",
-				id: "hero"
-			},
-			{
-				num: "03",
-				name: "Experience",
-				href: "/#experience",
-				id: "experience"
-			},
-			{
-				num: "05",
-				name: "Projects",
-				href: "/#projects",
-				id: "projects"
-			},
-			{
-				num: "06",
-				name: "Stack",
-				href: "/#tech-stack",
-				id: "tech-stack"
-			},
-			{
-				num: "08",
-				name: "Writing",
-				href: "/#blog",
-				id: "blog"
-			},
-			{
-				num: "09",
-				name: "Activity",
-				href: "/#github",
-				id: "github"
-			},
-			{
-				num: "10",
-				name: "Contact",
-				href: "/#contact",
-				id: "contact"
-			}
-		];
-		return (_ctx, _push, _parent, _attrs) => {
-			const _component_NuxtLink = NuxtLink;
-			const _component_Icon = components_default$1;
-			_push(`<header${ssrRenderAttrs(mergeProps({ class: ["fixed top-0 left-0 right-0 z-40 transition-all duration-300", unref(isScrolled) ? "glass-nav shadow-lg" : "bg-transparent py-2"] }, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/",
-				class: "group flex items-center gap-3"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`<div class="w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-amber-400 group-hover:border-amber-400 transition-colors shadow-md"${_scopeId}> AO<span class="text-amber-500 text-xs animate-pulse"${_scopeId}>•</span></div><div class="flex flex-col"${_scopeId}><span class="font-extrabold tracking-tight text-sm sm:text-base text-(--text-primary) group-hover:text-amber-400 transition-colors"${_scopeId}> Ashly Omanada </span><span class="text-[11px] font-mono text-slate-400 hidden sm:inline"${_scopeId}> Full-Stack Developer </span></div>`);
-					else return [createVNode("div", { class: "w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-amber-400 group-hover:border-amber-400 transition-colors shadow-md" }, [createTextVNode(" AO"), createVNode("span", { class: "text-amber-500 text-xs animate-pulse" }, "•")]), createVNode("div", { class: "flex flex-col" }, [createVNode("span", { class: "font-extrabold tracking-tight text-sm sm:text-base text-(--text-primary) group-hover:text-amber-400 transition-colors" }, " Ashly Omanada "), createVNode("span", { class: "text-[11px] font-mono text-slate-400 hidden sm:inline" }, " Full-Stack Developer ")])];
-				}),
-				_: 1
-			}, _parent));
-			_push(`<nav class="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 dark:bg-slate-900/80 border border-slate-800 text-xs font-medium backdrop-blur-md"><!--[-->`);
-			ssrRenderList$2(navItems, (item) => {
-				_push(`<a${ssrRenderAttr("href", item.href)} class="${ssrRenderClass([unref(activeSection) === item.id ? "bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30" : "", "px-3 py-1.5 rounded-full transition-colors text-slate-300 hover:text-white hover:bg-slate-800"])}"><span class="font-mono text-[10px] text-amber-500 mr-1">${ssrInterpolate(item.num)}</span> ${ssrInterpolate(item.name)}</a>`);
-			});
-			_push(`<!--]--></nav><div class="flex items-center gap-2 sm:gap-3"><button type="button" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all cursor-pointer" aria-label="Open Command Palette">`);
-			_push(ssrRenderComponent(_component_Icon, {
-				name: "heroicons:magnifying-glass",
-				class: "w-3.5 h-3.5 text-amber-400"
-			}, null, _parent));
-			_push(`<span class="hidden md:inline">Commands</span><kbd class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-400">⌘K</kbd></button><button type="button" class="p-2 text-slate-300 hover:text-amber-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all cursor-pointer"${ssrRenderAttr("aria-label", `Switch to ${unref(colorMode).value === "dark" ? "light" : "dark"} mode`)}>`);
-			_push(ssrRenderComponent(_component_Icon, {
-				name: unref(colorMode).value === "dark" ? "heroicons:sun" : "heroicons:moon",
-				class: "w-4 h-4 transition-transform duration-300 hover:rotate-45"
-			}, null, _parent));
-			_push(`</button><button type="button" class="lg:hidden p-2 text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all" aria-label="Toggle mobile menu">`);
-			_push(ssrRenderComponent(_component_Icon, {
-				name: "heroicons:bars-3",
-				class: "w-5 h-5"
-			}, null, _parent));
-			_push(`</button></div></div></header>`);
-		};
-	}
-});
-// components/layout/AppHeader.vue
-var _sfc_setup$8 = AppHeader_vue_vue_type_script_setup_true_lang_default.setup;
-AppHeader_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
-	const ssrContext = useSSRContext();
-	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/layout/AppHeader.vue");
-	return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
-};
-var AppHeader_default = Object.assign(AppHeader_vue_vue_type_script_setup_true_lang_default, { __name: "LayoutAppHeader" });
-// node_modules/nuxt/dist/app/components/route-provider.js
-var defineRouteProvider = (name = "RouteProvider") => defineComponent({
-	name,
-	props: {
-		route: {
-			type: Object,
-			required: true
-		},
-		vnode: Object,
-		vnodeRef: Object,
-		renderKey: String,
-		trackRootNodes: Boolean,
-		routeRecord: Object
-	},
-	setup(props) {
-		const previousKey = props.renderKey;
-		const previousRoute = props.route;
-		const route = {};
-		for (const key in props.route) Object.defineProperty(route, key, {
-			get: () => previousKey === props.renderKey ? props.route[key] : previousRoute[key],
-			enumerable: true
-		});
-		provide(PageRouteSymbol, shallowReactive(route));
-		return () => {
-			if (!props.vnode) return props.vnode;
-			return h(props.vnode, { ref: props.vnodeRef });
-		};
-	}
-});
-var RouteProvider = defineRouteProvider();
-// node_modules/nuxt/dist/pages/runtime/page.js
-var page_default = defineComponent({
-	name: "NuxtPage",
-	inheritAttrs: false,
-	props: {
-		name: { type: String },
-		transition: {
-			type: [Boolean, Object],
-			default: void 0
-		},
-		keepalive: {
-			type: [Boolean, Object],
-			default: void 0
-		},
-		route: { type: Object },
-		pageKey: {
-			type: [Function, String],
-			default: null
-		}
-	},
-	setup(props, { attrs, slots, expose }) {
-		const nuxtApp = useNuxtApp();
-		const pageRef = ref();
-		inject(PageRouteSymbol, null);
-		expose({ pageRef });
-		inject(LayoutMetaSymbol, null);
-		nuxtApp.deferHydration();
-		return () => {
-			return h(RouterView, {
-				name: props.name,
-				route: props.route,
-				...attrs
-			}, { default: markStableSlot((routeProps) => {
-				return h(Suspense, { suspensible: true }, { default() {
-					return h(RouteProvider, {
-						vnode: slots.default ? normalizeSlot(slots.default, routeProps) : routeProps.Component,
-						route: routeProps.route,
-						vnodeRef: pageRef
-					});
-				} });
-			}) });
-		};
-	}
-});
-function markStableSlot(fn) {
-	const wrapped = ((routeProps) => {
-		const result = fn(routeProps);
-		if (Array.isArray(result)) return result;
-		if (result == null || !isVNode(result)) return [createCommentVNode()];
-		return [result];
-	});
-	wrapped._n = true;
-	return wrapped;
-}
-function normalizeSlot(slot, data) {
-	const slotContent = slot(data);
-	return slotContent.length === 1 ? h(slotContent[0]) : h(Fragment, void 0, slotContent);
-}
+// \0virtual:public?%2Fimages%2Fportrait.png
+var _virtual_public__2Fimages_2Fportrait_default = publicAssetsURL("/images/portrait.png");
 // content/profile.ts
 var profile = {
 	name: "Ashly Omanada",
@@ -5453,25 +5270,29 @@ var profile = {
 			label: "Years Building",
 			value: 3,
 			suffix: "+",
-			description: "Hands-on production & freelance engineering experience"
+			description: "Hands-on production & freelance engineering experience",
+			measurement: "TODO: Specify which roles and dates are included in this experience total."
 		},
 		{
 			label: "Projects Delivered",
 			value: 12,
 			suffix: "+",
-			description: "From enterprise evaluation portals to interactive apps"
+			description: "From enterprise evaluation portals to interactive apps",
+			measurement: "TODO: Define what qualifies as a delivered project for this count."
 		},
 		{
 			label: "Technologies Mastered",
 			value: 18,
 			suffix: "+",
-			description: "Full-stack languages, libraries, databases & cloud tools"
+			description: "Full-stack languages, libraries, databases & cloud tools",
+			measurement: "TODO: Document how technologies are counted as mastered."
 		},
 		{
 			label: "Code Quality Score",
 			value: 99,
 			suffix: "%",
-			description: "Consistently high Lighthouse performance & accessibility marks"
+			description: "Consistently high Lighthouse performance & accessibility marks",
+			measurement: "TODO: Identify the audited pages, Lighthouse categories, and test date behind this score."
 		}
 	],
 	experiences: [{
@@ -5557,8 +5378,18 @@ var profile = {
 			repoUrl: "https://github.com/ashlyomanada",
 			problem: "Regional police evaluation historically relied on fragmented paper scorecards and delayed spreadsheet submissions, causing significant review lag and human collation error.",
 			role: "Full-Stack Architect & Lead Developer",
+			myRole: "Full-Stack Architect & Lead Developer",
+			stack: [
+				"Vue.js",
+				"CodeIgniter 4",
+				"MySQL",
+				"Bootstrap 5",
+				"REST APIs"
+			],
 			architecture: "Modular Vue.js SPA frontend consuming normalized REST endpoints via a secure CodeIgniter 4 backend with role-based access control (RBAC) and indexed MySQL tables.",
+			keyDecisions: ["TODO: Add the key engineering decisions made for this project."],
 			outcome: "Reduced report turnaround time from weeks to seconds, providing real-time ranking transparency and automated deadline enforcement across all participating units.",
+			result: "Reduced report turnaround time from weeks to seconds, providing real-time ranking transparency and automated deadline enforcement across all participating units.",
 			keyFeatures: [
 				"Dual-portal architecture: Granular admin evaluation management + public unit rating viewer",
 				"Real-time automated score weighting and predictive performance categorization",
@@ -5583,8 +5414,17 @@ var profile = {
 			repoUrl: "https://github.com/ashlyomanada/movietuneapp",
 			problem: "Modern streaming viewers struggle with discovery fatigue across fragmented movie catalogs without quick access to trailers and ratings.",
 			role: "Frontend Engineer",
+			myRole: "Frontend Engineer",
+			stack: [
+				"React 19",
+				"Tailwind CSS",
+				"TMDB API",
+				"Vite"
+			],
 			architecture: "React client with asynchronous data fetching, client-side caching, fluid debounced search, and responsive grid layouts.",
+			keyDecisions: ["TODO: Add the key engineering decisions made for this project."],
 			outcome: "Achieved sub-100ms search interactions and an intuitive, mobile-friendly browsing experience.",
+			result: "Achieved sub-100ms search interactions and an intuitive, mobile-friendly browsing experience.",
 			keyFeatures: [
 				"Real-time debounced movie and actor querying",
 				"Interactive trailer player modals and rating breakdowns",
@@ -5609,8 +5449,17 @@ var profile = {
 			repoUrl: "https://github.com/ashlyomanada/kapares-resto",
 			problem: "Local food businesses need immediate visual appeal and simple mobile menus without relying exclusively on third-party delivery apps.",
 			role: "UI Designer & Web Developer",
+			myRole: "UI Designer & Web Developer",
+			stack: [
+				"HTML5",
+				"CSS3",
+				"JavaScript",
+				"Responsive UI"
+			],
 			architecture: "Lightweight semantic HTML5 structure with hand-crafted CSS variables and smooth interactive navigation.",
+			keyDecisions: ["TODO: Add the key engineering decisions made for this project."],
 			outcome: "Delivered a 100/100 Lighthouse performance rating with instant load times on low-bandwidth mobile connections.",
+			result: "Delivered a 100/100 Lighthouse performance rating with instant load times on low-bandwidth mobile connections.",
 			keyFeatures: [
 				"Mouthwatering visual menu showcases with pricing tiers",
 				"Location and operating hour indicators with direct message links",
@@ -5635,8 +5484,17 @@ var profile = {
 			repoUrl: "https://github.com/ashlyomanada/bundat-burger-shop",
 			problem: "Street-food brands require high-impact visual identity to stand out from generic food court options.",
 			role: "Frontend Developer",
+			myRole: "Frontend Developer",
+			stack: [
+				"HTML5",
+				"CSS3",
+				"Modern Typography",
+				"Mobile UI"
+			],
 			architecture: "Minimalist, zero-framework architecture ensuring maximum reliability and zero maintenance overhead.",
+			keyDecisions: ["TODO: Add the key engineering decisions made for this project."],
 			outcome: "Elevated the shop’s local brand presence and streamlined menu browsing for hungry patrons.",
+			result: "Elevated the shop’s local brand presence and streamlined menu browsing for hungry patrons.",
 			keyFeatures: [
 				"High-contrast street-aesthetic layout with prominent calls to action",
 				"Categorized signature burgers, sides, and beverage sections",
@@ -5894,11 +5752,1112 @@ var profile = {
 		}
 	]
 };
+// components/sections/HeroSection.vue?vue&type=script&setup=true&lang.ts
+var HeroSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "HeroSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	emits: ["toast"],
+	setup(__props, { emit: __emit }) {
+		const mouseX = ref(400);
+		const mouseY = ref(200);
+		const tiltX = ref(0);
+		const tiltY = ref(0);
+		profile.roles;
+		ref(0);
+		const displayedRole = ref("");
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				ref: "heroRef",
+				class: "relative pt-24 sm:pt-32 pb-16 md:pb-24 overflow-hidden"
+			}, _attrs))}><div class="pointer-events-none absolute -inset-px opacity-35 dark:opacity-25 transition-opacity duration-300 hidden sm:block" style="${ssrRenderStyle({ background: `radial-gradient(650px circle at ${unref(mouseX)}px ${unref(mouseY)}px, rgba(245, 158, 11, 0.12), transparent 80%)` })}"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"><div class="flex items-center gap-3 mb-6"><span class="font-mono text-xs font-semibold tracking-wider text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">${ssrInterpolate(__props.sectionNumber)} — ${ssrInterpolate(__props.sectionLabel)}</span><div class="h-px flex-1 bg-gradient-to-r from-amber-500/30 to-transparent max-w-xs"></div></div><div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"><div class="lg:col-span-7 space-y-6"><div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-[#111c1f] border border-slate-200 dark:border-emerald-950 text-xs text-slate-600 dark:text-slate-300 shadow-sm backdrop-blur-md"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span><span class="font-medium text-slate-700 dark:text-slate-200">${ssrInterpolate(unref(profile).status.label)}</span><span class="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span><span class="text-slate-500 dark:text-slate-400 text-[11px] hidden sm:inline">${ssrInterpolate(unref(profile).status.subtext)}</span></div><div><h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-(--text-primary) leading-[1.1]"> Hi, I&#39;m <span class="text-amber-500 dark:text-emerald-400 inline-block drop-shadow-sm">${ssrInterpolate(unref(profile).name)}</span></h1><div class="h-10 sm:h-12 flex items-center mt-3 text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-700 dark:text-slate-300"><span class="text-slate-500 dark:text-slate-400 mr-2 font-mono text-sm sm:text-base">&gt;</span><span class="text-amber-600 dark:text-emerald-400 font-mono">${ssrInterpolate(unref(displayedRole))}</span><span class="w-2.5 h-6 bg-amber-500 dark:bg-emerald-400 ml-1 inline-block animate-pulse"></span></div></div><p class="text-base sm:text-lg text-(--text-secondary) leading-relaxed max-w-2xl">${ssrInterpolate(unref(profile).bio.valueStatement)}</p><div class="flex flex-wrap items-center gap-3 pt-2"><a href="#projects" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 dark:bg-emerald-400 dark:hover:bg-emerald-300 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-amber-500/20 dark:shadow-emerald-500/15 hover:shadow-amber-500/35 transition-all duration-200 flex items-center gap-2 cursor-pointer"><span>View Projects</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:arrow-down",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</a><a${ssrRenderAttr("href", unref(profile).resumeUrl)} target="_blank" class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-[#111c1f] dark:hover:bg-[#192629] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-medium text-sm border border-slate-200 dark:border-emerald-950 shadow-sm transition-all flex items-center gap-2">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:arrow-down-tray",
+				class: "w-4 h-4 text-amber-500 dark:text-emerald-400"
+			}, null, _parent));
+			_push(`<span>Download Résumé</span></a><a href="#contact" class="px-5 py-3 rounded-xl bg-transparent hover:bg-white dark:hover:bg-[#142326] text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-emerald-300 font-medium text-sm border border-slate-300 dark:border-emerald-900/70 transition-all flex items-center gap-2"><span>Get in Touch</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:paper-airplane",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</a></div><div class="flex items-center gap-4 pt-4 text-slate-600 dark:text-slate-400"><span class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">Connect:</span><div class="flex items-center gap-3"><a${ssrRenderAttr("href", unref(profile).socials.github)} target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-emerald-300 transition-colors border border-slate-200 dark:border-emerald-900/70 shadow-sm" aria-label="GitHub">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:github-icon",
+				class: "w-4 h-4 dark:brightness-0 dark:invert"
+			}, null, _parent));
+			_push(`</a><a${ssrRenderAttr("href", unref(profile).socials.linkedin)} target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-emerald-300 transition-colors border border-slate-200 dark:border-emerald-900/70 shadow-sm" aria-label="LinkedIn">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:linkedin-icon",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</a><button type="button" class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-emerald-300 transition-colors border border-slate-200 dark:border-emerald-900/70 shadow-sm flex items-center gap-1.5 text-xs font-mono text-slate-700 dark:text-slate-300 cursor-pointer">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:clipboard-document",
+				class: "w-4 h-4 text-amber-500 dark:text-emerald-400"
+			}, null, _parent));
+			_push(`<span>${ssrInterpolate(unref(profile).socials.email)}</span></button></div></div></div><div class="lg:col-span-5 flex flex-col items-center justify-center"><div class="relative group cursor-pointer perspective-1000"><div class="absolute -inset-2 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 dark:from-emerald-800 dark:via-emerald-500 dark:to-emerald-700 rounded-3xl blur-2xl opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-subtle"></div><div class="relative rounded-3xl p-2 bg-gradient-to-b from-white/95 to-slate-100/95 dark:from-[#172629] dark:to-[#0b1214] border border-amber-500/30 dark:border-emerald-800/70 shadow-2xl transition-transform duration-200 ease-out" style="${ssrRenderStyle({ transform: `rotateX(${unref(tiltX)}deg) rotateY(${unref(tiltY)}deg)` })}"><div class="overflow-hidden rounded-2xl w-64 sm:w-72 md:w-80 h-72 sm:h-80 md:h-96 relative bg-slate-200 dark:bg-[#111c1f]"><img${ssrRenderAttr("src", _virtual_public__2Fimages_2Fportrait_default)} alt="Ashly Omanada Portrait" class="w-full h-full object-cover object-top filter contrast-105 group-hover:scale-105 transition-transform duration-500"><div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div><div class="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-xl glass-panel bg-slate-950/80 border border-slate-700/60 text-xs"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="font-mono text-slate-200">systems_online</span></div><span class="font-mono text-amber-400 font-semibold">lat: ~18ms</span></div></div></div></div></div></div><div class="mt-16 md:mt-24"><div class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-4"> // 01.1 — Context Matrix &amp; Personal Notes </div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><!--[-->`);
+			ssrRenderList$2(unref(profile).bento, (card) => {
+				_push(`<div class="p-5 rounded-2xl glass-panel bg-white/80 dark:bg-[#111c1f]/80 border border-slate-200 dark:border-emerald-950 hover:border-amber-500/40 dark:hover:border-emerald-500/50 transition-all duration-300 group hover:-translate-y-1 shadow-sm"><div class="flex items-center justify-between mb-3"><span class="text-xs font-mono text-amber-500 font-semibold">${ssrInterpolate(card.title)}</span>`);
+				_push(ssrRenderComponent(_component_Icon, {
+					name: card.icon || "heroicons:sparkles",
+					class: "w-4 h-4 text-slate-500 dark:text-slate-500 group-hover:text-amber-600 dark:group-hover:text-emerald-400 transition-colors"
+				}, null, _parent));
+				_push(`</div><div class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white transition-colors">${ssrInterpolate(card.content)}</div>`);
+				if (card.detail) _push(`<p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">${ssrInterpolate(card.detail)}</p>`);
+				else _push(`<!---->`);
+				_push(`</div>`);
+			});
+			_push(`<!--]--></div></div></div></section>`);
+		};
+	}
+});
+// components/sections/HeroSection.vue
+var _sfc_setup$19 = HeroSection_vue_vue_type_script_setup_true_lang_default.setup;
+HeroSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/HeroSection.vue");
+	return _sfc_setup$19 ? _sfc_setup$19(props, ctx) : void 0;
+};
+var HeroSection_default = Object.assign(HeroSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsHeroSection" });
+// components/ui/SectionHeader.vue?vue&type=script&setup=true&lang.ts
+var SectionHeader_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "SectionHeader",
+	__ssrInlineRender: true,
+	props: {
+		number: {},
+		label: {},
+		title: {},
+		description: {}
+	},
+	setup(__props) {
+		return (_ctx, _push, _parent, _attrs) => {
+			_push(`<div${ssrRenderAttrs(mergeProps({ class: "mb-12 md:mb-16" }, _attrs))}><div class="flex items-center gap-3 mb-3"><span class="font-mono text-xs md:text-sm font-semibold tracking-wider text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">${ssrInterpolate(__props.number)} — ${ssrInterpolate(__props.label)}</span><div class="h-px flex-1 bg-gradient-to-r from-amber-500/30 to-transparent"></div></div><h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-(--text-primary)">${ssrInterpolate(__props.title)}</h2>`);
+			if (__props.description) _push(`<p class="mt-3 text-base md:text-lg text-(--text-secondary) max-w-2xl leading-relaxed">${ssrInterpolate(__props.description)}</p>`);
+			else _push(`<!---->`);
+			_push(`</div>`);
+		};
+	}
+});
+// components/ui/SectionHeader.vue
+var _sfc_setup$18 = SectionHeader_vue_vue_type_script_setup_true_lang_default.setup;
+SectionHeader_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/ui/SectionHeader.vue");
+	return _sfc_setup$18 ? _sfc_setup$18(props, ctx) : void 0;
+};
+var SectionHeader_default = Object.assign(SectionHeader_vue_vue_type_script_setup_true_lang_default, { __name: "UiSectionHeader" });
+// components/sections/FeaturedProjectsSection.vue?vue&type=script&setup=true&lang.ts
+var FeaturedProjectsSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "FeaturedProjectsSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		const flagshipProject = computed(() => {
+			return profile.projects.find((p) => p.featured) || profile.projects[0];
+		});
+		const otherProjects = computed(() => {
+			return profile.projects.filter((p) => p.slug !== flagshipProject.value?.slug);
+		});
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_NuxtLink = NuxtLink;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 border-t border-slate-800/60 bg-slate-950/30 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Featured Projects",
+				description: "Selected production applications and systems built for operational utility, performance, and memorable user experiences."
+			}, null, _parent));
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/projects",
+				class: "inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 group flex-shrink-0"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(`<span${_scopeId}>View All Projects Archive</span>`);
+						_push(ssrRenderComponent(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+						}, null, _parent, _scopeId));
+					} else return [createVNode("span", null, "View All Projects Archive"), createVNode(_component_Icon, {
+						name: "heroicons:arrow-right",
+						class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+					})];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div>`);
+			if (unref(flagshipProject)) {
+				_push(`<div class="mb-14 rounded-3xl glass-panel bg-slate-900/70 border border-slate-800 hover:border-amber-500/50 transition-all duration-300 overflow-hidden shadow-xl group"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 lg:p-10"><div class="lg:col-span-7 relative overflow-hidden rounded-2xl bg-slate-950 border border-slate-800 aspect-[16/10]"><img${ssrRenderAttr("src", unref(flagshipProject).coverImage)}${ssrRenderAttr("alt", unref(flagshipProject).title)} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"><div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div><div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-amber-500/90 text-slate-950 text-xs font-mono font-bold shadow-md"> ★ Flagship System </div></div><div class="lg:col-span-5 space-y-5"><div class="flex items-center gap-2"><span class="text-xs font-mono text-amber-500 font-semibold uppercase tracking-wider">${ssrInterpolate(unref(flagshipProject).category)}</span><span class="text-slate-600">•</span><span class="text-xs font-mono text-slate-400">Institutional Platform</span></div><h3 class="text-2xl sm:text-3xl font-extrabold text-slate-100 group-hover:text-amber-400 transition-colors">${ssrInterpolate(unref(flagshipProject).title)}</h3><p class="text-sm sm:text-base text-slate-300 leading-relaxed">${ssrInterpolate(unref(flagshipProject).summary)}</p><dl class="space-y-2 text-xs sm:text-sm text-slate-400 leading-relaxed"><div><dt class="inline font-semibold text-slate-200">Problem: </dt><dd class="inline">${ssrInterpolate(unref(flagshipProject).problem)}</dd></div><div><dt class="inline font-semibold text-slate-200">My role: </dt><dd class="inline">${ssrInterpolate(unref(flagshipProject).myRole)}</dd></div><div><dt class="font-semibold text-slate-200">Key decisions</dt><!--[-->`);
+				ssrRenderList$2(unref(flagshipProject).keyDecisions, (decision) => {
+					_push(`<dd>${ssrInterpolate(decision)}</dd>`);
+				});
+				_push(`<!--]--></div><div><dt class="inline font-semibold text-slate-200">Result: </dt><dd class="inline">${ssrInterpolate(unref(flagshipProject).result)}</dd></div></dl><div class="flex flex-wrap gap-2 pt-1"><span class="w-full text-xs font-semibold text-slate-200">Stack</span><!--[-->`);
+				ssrRenderList$2(unref(flagshipProject).stack, (tech) => {
+					_push(`<span class="px-2.5 py-1 text-xs font-mono rounded-lg bg-slate-950 text-slate-300 border border-slate-800">${ssrInterpolate(tech)}</span>`);
+				});
+				_push(`<!--]--></div><div class="flex flex-wrap items-center gap-3 pt-3">`);
+				_push(ssrRenderComponent(_component_NuxtLink, {
+					to: `/projects/${unref(flagshipProject).slug}`,
+					class: "px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs tracking-wider uppercase transition-colors flex items-center gap-2 shadow-md shadow-amber-500/20"
+				}, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) {
+							_push(`<span${_scopeId}>Read Case Study</span>`);
+							_push(ssrRenderComponent(_component_Icon, {
+								name: "heroicons:arrow-right",
+								class: "w-4 h-4"
+							}, null, _parent, _scopeId));
+						} else return [createVNode("span", null, "Read Case Study"), createVNode(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-4 h-4"
+						})];
+					}),
+					_: 1
+				}, _parent));
+				if (unref(flagshipProject).liveUrl) {
+					_push(`<a${ssrRenderAttr("href", unref(flagshipProject).liveUrl)} target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors" title="Open Live Deployment">`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "heroicons:arrow-top-right-on-square",
+						class: "w-4 h-4"
+					}, null, _parent));
+					_push(`</a>`);
+				} else _push(`<!---->`);
+				if (unref(flagshipProject).repoUrl) {
+					_push(`<a${ssrRenderAttr("href", unref(flagshipProject).repoUrl)} target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors" title="View Source Repository">`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "logos:github-icon",
+						class: "w-4 h-4 dark:brightness-0 dark:invert"
+					}, null, _parent));
+					_push(`</a>`);
+				} else _push(`<!---->`);
+				_push(`</div></div></div></div>`);
+			} else _push(`<!---->`);
+			_push(`<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"><!--[-->`);
+			ssrRenderList$2(unref(otherProjects), (project) => {
+				_push(`<div class="rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-1.5 shadow-sm"><div class="relative overflow-hidden aspect-[16/10] bg-slate-950 border-b border-slate-800/80"><img${ssrRenderAttr("src", project.coverImage)}${ssrRenderAttr("alt", project.title)} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"><div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div><div class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-slate-900/90 text-amber-400 text-[11px] font-mono border border-slate-700">${ssrInterpolate(project.category)}</div></div><div class="p-6 flex-1 flex flex-col justify-between space-y-4"><div><h4 class="text-xl font-bold text-slate-100 group-hover:text-amber-400 transition-colors">${ssrInterpolate(project.title)}</h4><p class="mt-2 text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed">${ssrInterpolate(project.summary)}</p><dl class="mt-3 space-y-2 text-xs text-slate-400 leading-relaxed"><div><dt class="inline font-semibold text-slate-200">Problem: </dt><dd class="inline">${ssrInterpolate(project.problem)}</dd></div><div><dt class="inline font-semibold text-slate-200">My role: </dt><dd class="inline">${ssrInterpolate(project.myRole)}</dd></div><div><dt class="font-semibold text-slate-200">Key decisions</dt><!--[-->`);
+				ssrRenderList$2(project.keyDecisions, (decision) => {
+					_push(`<dd>${ssrInterpolate(decision)}</dd>`);
+				});
+				_push(`<!--]--></div><div><dt class="inline font-semibold text-slate-200">Result: </dt><dd class="inline">${ssrInterpolate(project.result)}</dd></div></dl></div><div class="flex flex-wrap gap-1.5 pt-2"><span class="w-full text-xs font-semibold text-slate-200">Stack</span><!--[-->`);
+				ssrRenderList$2(project.stack, (tech) => {
+					_push(`<span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-950 text-slate-300 border border-slate-800/80">${ssrInterpolate(tech)}</span>`);
+				});
+				_push(`<!--]--></div><div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">`);
+				_push(ssrRenderComponent(_component_NuxtLink, {
+					to: `/projects/${project.slug}`,
+					class: "text-xs font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1.5 group/link"
+				}, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) {
+							_push(`<span${_scopeId}>Case study</span>`);
+							_push(ssrRenderComponent(_component_Icon, {
+								name: "heroicons:arrow-right",
+								class: "w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform"
+							}, null, _parent, _scopeId));
+						} else return [createVNode("span", null, "Case study"), createVNode(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform"
+						})];
+					}),
+					_: 2
+				}, _parent));
+				_push(`<div class="flex items-center gap-2">`);
+				if (project.liveUrl) {
+					_push(`<a${ssrRenderAttr("href", project.liveUrl)} target="_blank" rel="noopener noreferrer" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Live Demo">`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "heroicons:arrow-top-right-on-square",
+						class: "w-4 h-4"
+					}, null, _parent));
+					_push(`</a>`);
+				} else _push(`<!---->`);
+				if (project.repoUrl) {
+					_push(`<a${ssrRenderAttr("href", project.repoUrl)} target="_blank" rel="noopener noreferrer" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Source Code">`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "logos:github-icon",
+						class: "w-4 h-4 dark:brightness-0 dark:invert"
+					}, null, _parent));
+					_push(`</a>`);
+				} else _push(`<!---->`);
+				_push(`</div></div></div></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/FeaturedProjectsSection.vue
+var _sfc_setup$17 = FeaturedProjectsSection_vue_vue_type_script_setup_true_lang_default.setup;
+FeaturedProjectsSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/FeaturedProjectsSection.vue");
+	return _sfc_setup$17 ? _sfc_setup$17(props, ctx) : void 0;
+};
+var FeaturedProjectsSection_default = Object.assign(FeaturedProjectsSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsFeaturedProjectsSection" });
+// components/sections/ExperienceSection.vue?vue&type=script&setup=true&lang.ts
+var ExperienceSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "ExperienceSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Experience & Leadership",
+				description: "A timeline of institutional engineering projects, architectural leadership, and production-grade delivery."
+			}, null, _parent));
+			_push(`<div class="relative border-l-2 border-slate-800 ml-4 md:ml-32 pl-6 md:pl-10 space-y-12"><!--[-->`);
+			ssrRenderList$2(unref(profile).experiences, (item) => {
+				_push(`<div class="relative group"><div class="absolute -left-[31px] md:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-amber-500 group-hover:scale-125 transition-transform duration-200">`);
+				if (item.current) _push(`<span class="absolute -inset-1 rounded-full bg-amber-400 animate-ping opacity-60"></span>`);
+				else _push(`<!---->`);
+				_push(`</div><div class="md:absolute md:-left-40 md:top-1 text-xs font-mono font-bold text-amber-500 mb-2 md:mb-0">${ssrInterpolate(item.period)}</div><div class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-sm"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80"><div><h3 class="text-xl md:text-2xl font-bold text-slate-100 group-hover:text-amber-400 transition-colors">${ssrInterpolate(item.role)}</h3><div class="text-sm font-semibold text-slate-400 flex items-center gap-2 mt-1"><span>${ssrInterpolate(item.company)}</span><span>•</span><span class="text-xs font-mono text-slate-500">${ssrInterpolate(item.location)}</span></div></div>`);
+				if (item.metrics) _push(`<div class="self-start sm:self-auto px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs font-mono text-amber-400"><span class="text-slate-400">${ssrInterpolate(item.metrics.label)}:</span><span class="font-bold ml-1 text-amber-300">${ssrInterpolate(item.metrics.value)}</span></div>`);
+				else _push(`<!---->`);
+				_push(`</div><p class="mt-4 text-sm md:text-base text-slate-300 leading-relaxed">${ssrInterpolate(item.description)}</p><ul class="mt-4 space-y-2 text-xs md:text-sm text-slate-400"><!--[-->`);
+				ssrRenderList$2(item.impactBullets, (bullet, bIdx) => {
+					_push(`<li class="flex items-start gap-2.5"><span class="text-amber-400 mt-1 flex-shrink-0 font-bold">›</span><span class="leading-relaxed">${ssrInterpolate(bullet)}</span></li>`);
+				});
+				_push(`<!--]--></ul><div class="mt-6 flex flex-wrap gap-2 pt-4 border-t border-slate-800/60"><!--[-->`);
+				ssrRenderList$2(item.technologies, (tech) => {
+					_push(`<span class="px-2.5 py-1 text-xs font-mono rounded-lg bg-slate-950 text-slate-300 border border-slate-800">${ssrInterpolate(tech)}</span>`);
+				});
+				_push(`<!--]--></div></div></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/ExperienceSection.vue
+var _sfc_setup$16 = ExperienceSection_vue_vue_type_script_setup_true_lang_default.setup;
+ExperienceSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/ExperienceSection.vue");
+	return _sfc_setup$16 ? _sfc_setup$16(props, ctx) : void 0;
+};
+var ExperienceSection_default = Object.assign(ExperienceSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsExperienceSection" });
+// components/sections/StatsStrip.vue?vue&type=script&setup=true&lang.ts
+var StatsStrip_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "StatsStrip",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		const statsSectionRef = ref(null);
+		const displayValues = ref(profile.stats.map(() => 0));
+		return (_ctx, _push, _parent, _attrs) => {
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				ref_key: "statsSectionRef",
+				ref: statsSectionRef,
+				class: "py-12 md:py-16 border-y border-slate-800/80 bg-slate-950/40 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center gap-3 mb-8"><span class="font-mono text-xs font-semibold tracking-wider text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">${ssrInterpolate(__props.sectionNumber)} — ${ssrInterpolate(__props.sectionLabel)}</span><div class="h-px flex-1 bg-gradient-to-r from-amber-500/30 to-transparent max-w-xs"></div></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"><!--[-->`);
+			ssrRenderList$2(unref(profile).stats, (item, idx) => {
+				_push(`<div class="relative p-6 rounded-2xl glass-panel bg-slate-900/70 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm"><div class="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-slate-700 group-hover:bg-amber-400 transition-colors"></div><div class="flex items-baseline gap-1 font-mono"><span class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-(--text-primary) tracking-tight group-hover:text-amber-400 transition-colors">${ssrInterpolate(unref(displayValues)[idx])}</span><span class="text-2xl md:text-3xl font-bold text-amber-500">${ssrInterpolate(item.suffix || "")}</span></div><div class="mt-3 text-sm md:text-base font-bold text-slate-200">${ssrInterpolate(item.label)}</div><div class="mt-1 text-xs text-slate-400 leading-relaxed">${ssrInterpolate(item.description)}</div><div class="mt-2 text-[11px] text-slate-500 leading-relaxed">${ssrInterpolate(item.measurement)}</div></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/StatsStrip.vue
+var _sfc_setup$15 = StatsStrip_vue_vue_type_script_setup_true_lang_default.setup;
+StatsStrip_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/StatsStrip.vue");
+	return _sfc_setup$15 ? _sfc_setup$15(props, ctx) : void 0;
+};
+var StatsStrip_default = Object.assign(StatsStrip_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsStatsStrip" });
+// components/sections/TechStackSection.vue?vue&type=script&setup=true&lang.ts
+var TechStackSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "TechStackSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		const categories = [
+			"All",
+			"Languages",
+			"Frontend",
+			"Backend",
+			"Database",
+			"DevOps/Cloud",
+			"Tools"
+		];
+		const selectedCategory = ref("All");
+		const filteredStack = computed(() => {
+			if (selectedCategory.value === "All") return profile.techStack;
+			return profile.techStack.filter((item) => item.category === selectedCategory.value);
+		});
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_NuxtLink = NuxtLink;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Tech Stack & Tooling",
+				description: "Languages, frameworks, databases, and DevOps infrastructure powering end-to-end engineering."
+			}, null, _parent));
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/tech-stack",
+				class: "inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 group flex-shrink-0"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(`<span${_scopeId}>Deep-Dive Matrix</span>`);
+						_push(ssrRenderComponent(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+						}, null, _parent, _scopeId));
+					} else return [createVNode("span", null, "Deep-Dive Matrix"), createVNode(_component_Icon, {
+						name: "heroicons:arrow-right",
+						class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+					})];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div><div class="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-slate-800/80"><!--[-->`);
+			ssrRenderList$2(categories, (cat) => {
+				_push(`<button type="button" class="${ssrRenderClass([unref(selectedCategory) === cat ? "bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20" : "bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800", "px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer"])}">${ssrInterpolate(cat)}</button>`);
+			});
+			_push(`<!--]--></div><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"><!--[-->`);
+			ssrRenderList$2(unref(filteredStack), (tech) => {
+				_push(`<div class="p-4 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1 shadow-sm"><div class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center p-2 mb-3 group-hover:border-amber-500/50 transition-colors">`);
+				_push(ssrRenderComponent(_component_Icon, {
+					name: tech.icon,
+					class: "w-7 h-7"
+				}, null, _parent));
+				_push(`</div><div class="text-xs sm:text-sm font-bold text-slate-200 group-hover:text-amber-400 transition-colors line-clamp-1">${ssrInterpolate(tech.name)}</div><span class="mt-1 text-[10px] font-mono text-slate-400">${ssrInterpolate(tech.category)}</span><span class="${ssrRenderClass([tech.proficiency === "Expert" ? "bg-amber-500/15 text-amber-300 border border-amber-500/30" : "bg-slate-950 text-slate-400 border border-slate-800", "mt-2 text-[10px] font-mono px-2 py-0.5 rounded-full"])}">${ssrInterpolate(tech.proficiency)}</span></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/TechStackSection.vue
+var _sfc_setup$14 = TechStackSection_vue_vue_type_script_setup_true_lang_default.setup;
+TechStackSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/TechStackSection.vue");
+	return _sfc_setup$14 ? _sfc_setup$14(props, ctx) : void 0;
+};
+var TechStackSection_default = Object.assign(TechStackSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsTechStackSection" });
+// components/sections/CertificationsSection.vue?vue&type=script&setup=true&lang.ts
+var CertificationsSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "CertificationsSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_NuxtLink = NuxtLink;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 border-t border-slate-800/60 bg-slate-950/30 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Certifications & Honors",
+				description: "Recognized proficiencies in web engineering, systems architecture, and database performance."
+			}, null, _parent));
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/certifications",
+				class: "inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 group flex-shrink-0"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(`<span${_scopeId}>All Credentials</span>`);
+						_push(ssrRenderComponent(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+						}, null, _parent, _scopeId));
+					} else return [createVNode("span", null, "All Credentials"), createVNode(_component_Icon, {
+						name: "heroicons:arrow-right",
+						class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+					})];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"><!--[-->`);
+			ssrRenderList$2(unref(profile).certifications, (cert) => {
+				_push(`<div class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 shadow-sm"><div><div class="flex items-center justify-between mb-4"><div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">`);
+				_push(ssrRenderComponent(_component_Icon, {
+					name: cert.badgeIcon,
+					class: "w-5 h-5"
+				}, null, _parent));
+				_push(`</div><span class="text-xs font-mono text-slate-400">${ssrInterpolate(cert.issueDate)}</span></div><h3 class="text-lg md:text-xl font-bold text-slate-100 group-hover:text-amber-400 transition-colors">${ssrInterpolate(cert.title)}</h3><div class="mt-1 text-xs font-semibold text-slate-400">${ssrInterpolate(cert.issuer)}</div><div class="mt-4 flex flex-wrap gap-1.5"><!--[-->`);
+				ssrRenderList$2(cert.skillsCovered, (skill) => {
+					_push(`<span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-950 text-slate-300 border border-slate-800">${ssrInterpolate(skill)}</span>`);
+				});
+				_push(`<!--]--></div></div><div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between"><span class="text-[11px] font-mono text-amber-500 dark:text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 hover:bg-amber-400 dark:bg-emerald-400 dark:hover:bg-emerald-300"></span> Verified Status </span>`);
+				if (cert.credentialUrl) {
+					_push(`<a${ssrRenderAttr("href", cert.credentialUrl)} target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-400 hover:text-amber-400 flex items-center gap-1"><span>Verify</span>`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "heroicons:arrow-top-right-on-square",
+						class: "w-3.5 h-3.5"
+					}, null, _parent));
+					_push(`</a>`);
+				} else _push(`<!---->`);
+				_push(`</div></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/CertificationsSection.vue
+var _sfc_setup$13 = CertificationsSection_vue_vue_type_script_setup_true_lang_default.setup;
+CertificationsSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/CertificationsSection.vue");
+	return _sfc_setup$13 ? _sfc_setup$13(props, ctx) : void 0;
+};
+var CertificationsSection_default = Object.assign(CertificationsSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsCertificationsSection" });
+// components/sections/EducationSection.vue?vue&type=script&setup=true&lang.ts
+var EducationSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "EducationSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-16 md:py-24"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Education & Honors",
+				description: "Formal computer science and software development foundations, capstone distinctions, and specialized coursework."
+			}, null, _parent));
+			_push(`<div class="grid grid-cols-1 lg:grid-cols-12 gap-8"><!--[-->`);
+			ssrRenderList$2(unref(profile).education, (edu) => {
+				_push(`<div class="lg:col-span-12 p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800"><div><div class="flex items-center gap-2 mb-1"><span class="font-mono text-xs text-amber-500 font-semibold">${ssrInterpolate(edu.period)}</span><span class="text-slate-600">•</span><span class="text-xs text-slate-400 font-mono">${ssrInterpolate(edu.location)}</span></div><h3 class="text-2xl font-bold text-slate-100">${ssrInterpolate(edu.degree)}</h3><div class="text-base font-semibold text-slate-400 mt-1">${ssrInterpolate(edu.institution)}</div></div>`);
+				if (edu.honors) {
+					_push(`<div class="self-start sm:self-auto px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center gap-2 text-amber-300 text-xs font-mono font-bold">`);
+					_push(ssrRenderComponent(_component_Icon, {
+						name: "heroicons:trophy",
+						class: "w-4 h-4 text-amber-400"
+					}, null, _parent));
+					_push(`<span>${ssrInterpolate(edu.honors)}</span></div>`);
+				} else _push(`<!---->`);
+				_push(`</div><p class="mt-4 text-sm md:text-base text-slate-300 leading-relaxed">${ssrInterpolate(edu.description)}</p><div class="mt-6"><h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Key Academic Highlights &amp; Leadership</h4><div class="grid grid-cols-1 sm:grid-cols-3 gap-3"><!--[-->`);
+				ssrRenderList$2(edu.highlights, (item, i) => {
+					_push(`<div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs text-slate-300 flex items-start gap-2.5"><span class="text-amber-400 font-bold">›</span><span>${ssrInterpolate(item)}</span></div>`);
+				});
+				_push(`<!--]--></div></div></div>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/EducationSection.vue
+var _sfc_setup$12 = EducationSection_vue_vue_type_script_setup_true_lang_default.setup;
+EducationSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/EducationSection.vue");
+	return _sfc_setup$12 ? _sfc_setup$12(props, ctx) : void 0;
+};
+var EducationSection_default = Object.assign(EducationSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsEducationSection" });
+// components/sections/GithubSection.vue?vue&type=script&setup=true&lang.ts
+var GithubSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "GithubSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	async setup(__props) {
+		let __temp, __restore;
+		const { data: stats, pending } = ([__temp, __restore] = withAsyncContext(() => useFetch("/api/github-stats", {
+			lazy: true,
+			server: false
+		}, "$jWOb9UGj--")), __temp = await __temp, __restore(), __temp);
+		const { data: gitlabStats, pending: gitlabPending, refresh: refreshGitlabStats } = ([__temp, __restore] = withAsyncContext(() => useFetch("/api/gitlab-stats?v=2", {
+			lazy: false,
+			server: true
+		}, "$ubmlX0gzM9")), __temp = await __temp, __restore(), __temp);
+		const getColorClass = (level) => {
+			switch (level) {
+				case 1: return "contribution-cell contribution-level-1 bg-amber-100 border border-amber-200";
+				case 2: return "contribution-cell contribution-level-2 bg-amber-300";
+				case 3: return "contribution-cell contribution-level-3 bg-amber-500";
+				case 4: return "contribution-cell contribution-level-4 bg-amber-700 dark:bg-emerald-400 shadow-[0_0_6px_rgba(251,191,36,0.6)]";
+				default: return "contribution-cell contribution-empty bg-[#e2e8f0] dark:bg-[#192629]";
+			}
+		};
+		const getGitlabColorClass = (level) => {
+			switch (level) {
+				case 1: return "contribution-cell contribution-level-1 bg-amber-100 border border-amber-200";
+				case 2: return "contribution-cell contribution-level-2 bg-amber-300";
+				case 3: return "contribution-cell contribution-level-3 bg-amber-500";
+				case 4: return "contribution-cell contribution-level-4 bg-amber-700 dark:bg-emerald-400";
+				default: return "contribution-cell contribution-empty bg-[#e2e8f0] dark:bg-[#192629]";
+			}
+		};
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 border-t border-slate-800/80 bg-slate-950/30 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "GitHub & GitLab Activity",
+				description: "Contribution activity and highlighted repositories across both code platforms."
+			}, null, _parent));
+			_push(`<div class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 shadow-xl"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80"><div class="flex items-center gap-3"><div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-amber-400">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:github-icon",
+				class: "w-6 h-6 dark:brightness-0 dark:invert"
+			}, null, _parent));
+			_push(`</div><div><div class="flex items-center gap-2"><span class="font-bold text-slate-100 text-lg">@${ssrInterpolate(unref(stats)?.username || "ashlyomanada")}</span>`);
+			if (unref(stats)?.fallback) _push(`<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400">cached</span>`);
+			else _push(`<!---->`);
+			_push(`</div><div class="text-xs text-slate-400">Public commit timeline &amp; repositories</div></div></div><div class="flex flex-wrap items-center gap-3"><div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800/80 text-xs font-mono"><span class="text-slate-400">Contributions:</span><span class="contribution-total text-amber-500 dark:text-emerald-400 font-bold ml-1.5">${ssrInterpolate(unref(stats)?.totalContributions || 648)}</span></div><div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800/80 text-xs font-mono"><span class="text-slate-400">Current Streak:</span><span class="text-amber-500 dark:text-emerald-400 font-bold ml-1.5">${ssrInterpolate(unref(stats)?.currentStreak || 18)}d</span></div><a${ssrRenderAttr("href", `https://github.com/${unref(stats)?.username || "ashlyomanada"}`)} target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 dark:bg-emerald-400 dark:hover:bg-emerald-300 text-slate-950 font-bold text-xs font-mono flex items-center gap-1.5 transition-colors"><span>Follow</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:arrow-top-right-on-square",
+				class: "w-3.5 h-3.5"
+			}, null, _parent));
+			_push(`</a></div></div><div class="mt-6"><div class="text-xs font-mono text-slate-400 mb-3 flex items-center justify-between"><span>Annual Activity Heatmap</span><div class="flex items-center gap-1.5 text-[11px]"><span>Less</span><span class="w-2.5 h-2.5 rounded-sm contribution-empty"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-1"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-2"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-3"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-4"></span><span>More</span></div></div>`);
+			if (unref(pending)) _push(`<div class="h-28 rounded-xl bg-slate-950 animate-pulse flex items-center justify-center text-xs text-slate-500 font-mono"> Loading GitHub telemetry... </div>`);
+			else {
+				_push(`<div class="overflow-x-auto pb-2"><div class="inline-flex gap-1 min-w-[700px]"><!--[-->`);
+				ssrRenderList$2(unref(stats)?.weeks, (week, wIdx) => {
+					_push(`<div class="flex flex-col gap-1"><!--[-->`);
+					ssrRenderList$2(week.days, (day, dIdx) => {
+						_push(`<div class="${ssrRenderClass([getColorClass(day.level), "w-2.5 h-2.5 rounded-xs transition-transform hover:scale-125"])}"${ssrRenderAttr("title", `${day.date}: ${day.count} contributions`)}></div>`);
+					});
+					_push(`<!--]--></div>`);
+				});
+				_push(`<!--]--></div></div>`);
+			}
+			_push(`</div><div class="mt-8 pt-6 border-t border-slate-800/80"><h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-4">Highlighted Repositories</h4><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><!--[-->`);
+			ssrRenderList$2(unref(stats)?.topRepos, (repo) => {
+				_push(`<div class="p-4 rounded-xl bg-slate-950 border border-slate-800/80 hover:border-amber-500/40 transition-colors flex flex-col justify-between group"><div><div class="flex items-center justify-between mb-2"><a${ssrRenderAttr("href", repo.url)} target="_blank" rel="noopener noreferrer" class="font-mono text-sm font-bold text-slate-200 group-hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>${ssrInterpolate(repo.name)}</span>`);
+				_push(ssrRenderComponent(_component_Icon, {
+					name: "heroicons:arrow-up-right",
+					class: "w-3.5 h-3.5 opacity-60"
+				}, null, _parent));
+				_push(`</a></div><p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${ssrInterpolate(repo.description)}</p></div><div class="mt-4 pt-3 border-t border-slate-900 flex items-center justify-between text-[11px] font-mono text-slate-400"><span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> ${ssrInterpolate(repo.language)}</span><span class="flex items-center gap-2"><span class="flex items-center gap-1">★ ${ssrInterpolate(repo.stars)}</span><span class="flex items-center gap-1">⑂ ${ssrInterpolate(repo.forks)}</span></span></div></div>`);
+			});
+			_push(`<!--]--></div></div></div><div class="mt-6 p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 shadow-xl"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80"><div class="flex items-center gap-3"><div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:gitlab",
+				class: "w-6 h-6"
+			}, null, _parent));
+			_push(`</div><div><div class="font-bold text-slate-100 text-lg">GitLab Activity</div><div class="text-xs text-slate-400">${ssrInterpolate(unref(gitlabStats)?.username)} · Past 12 months</div></div></div><div class="flex items-center gap-3"><div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800/80 text-xs font-mono"><span class="text-slate-400">Contributions:</span><span class="contribution-total text-amber-500 dark:text-emerald-400 font-bold ml-1.5">${ssrInterpolate(unref(gitlabStats)?.totalContributions ?? 0)}</span></div><a${ssrRenderAttr("href", unref(gitlabStats)?.profileUrl || "https://git.centralizedinc.com/Ashly")} target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 dark:bg-emerald-400 dark:hover:bg-emerald-300 text-slate-950 font-bold text-xs font-mono flex items-center gap-1.5 transition-colors"><span>View Profile</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:arrow-top-right-on-square",
+				class: "w-3.5 h-3.5"
+			}, null, _parent));
+			_push(`</a></div></div><div class="mt-6"><div class="text-xs font-mono text-slate-400 mb-3 flex items-center justify-between"><span>Annual Activity Heatmap</span><div class="flex items-center gap-1.5 text-[11px]"><span>Less</span><span class="w-2.5 h-2.5 rounded-sm contribution-empty"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-1"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-2"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-3"></span><span class="w-2.5 h-2.5 rounded-sm contribution-legend-level-4"></span><span>More</span></div></div>`);
+			if (unref(gitlabPending)) _push(`<div class="h-28 rounded-xl bg-slate-950 animate-pulse flex items-center justify-center text-xs text-slate-500 font-mono"> Loading GitLab activity… </div>`);
+			else if (!unref(gitlabStats)?.available) _push(`<div class="rounded-xl border border-slate-800/80 bg-slate-950/50 px-4 py-6 text-center"><p class="text-sm text-slate-300">GitLab’s contribution calendar isn’t publicly available right now.</p><div class="mt-3 flex items-center justify-center gap-4"><a${ssrRenderAttr("href", unref(gitlabStats)?.profileUrl || "https://git.centralizedinc.com/Ashly")} target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-amber-500 dark:text-emerald-400 hover:underline"> Open GitLab profile </a><button type="button" class="text-xs font-mono text-slate-400 hover:text-amber-500 dark:hover:text-emerald-400 disabled:opacity-50"${ssrIncludeBooleanAttr(unref(gitlabPending)) ? " disabled" : ""}> Retry </button></div></div>`);
+			else {
+				_push(`<div class="overflow-x-auto pb-2"><div class="inline-flex gap-1 min-w-[700px]"><!--[-->`);
+				ssrRenderList$2(unref(gitlabStats).weeks, (week, weekIndex) => {
+					_push(`<div class="flex flex-col gap-1"><!--[-->`);
+					ssrRenderList$2(week, (day) => {
+						_push(`<div class="${ssrRenderClass([getGitlabColorClass(day.level), "w-2.5 h-2.5 rounded-xs transition-transform hover:scale-125"])}"${ssrRenderAttr("title", `${day.date}: ${day.count} GitLab contributions`)}></div>`);
+					});
+					_push(`<!--]--></div>`);
+				});
+				_push(`<!--]--></div></div>`);
+			}
+			_push(`</div></div></div></section>`);
+		};
+	}
+});
+// components/sections/GithubSection.vue
+var _sfc_setup$11 = GithubSection_vue_vue_type_script_setup_true_lang_default.setup;
+GithubSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/GithubSection.vue");
+	return _sfc_setup$11 ? _sfc_setup$11(props, ctx) : void 0;
+};
+var GithubSection_default = Object.assign(GithubSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsGithubSection" });
+// components/sections/BlogSection.vue?vue&type=script&setup=true&lang.ts
+var BlogSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "BlogSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	setup(__props) {
+		const posts = [{
+			slug: "architecting-resilient-realtime-systems",
+			title: "Architecting Resilient Real-Time Systems with Vue 3 & WebRTC",
+			description: "A deep dive into managing peer connections, low-latency signaling, and resilient state synchronization in distributed frontend applications.",
+			date: "Feb 18, 2025",
+			tags: [
+				"Vue.js",
+				"WebRTC",
+				"TypeScript"
+			],
+			readingTime: "5 min read"
+		}, {
+			slug: "zero-cost-optimizations-nuxt4-tailwind4",
+			title: "Zero-Cost Performance Optimizations with Nuxt 4 & Tailwind CSS v4",
+			description: "How Vite-native CSS processing, fluid typography clamps, and island hydration patterns drive 99+ mobile Lighthouse scores.",
+			date: "Jan 24, 2025",
+			tags: [
+				"Nuxt 4",
+				"Tailwind v4",
+				"Web Vitals"
+			],
+			readingTime: "4 min read"
+		}];
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_NuxtLink = NuxtLink;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Engineering Blog",
+				description: "Reflections on architecture, modern Vue 3 / Nuxt 4 patterns, zero-latency WebRTC streams, and performance ergonomics."
+			}, null, _parent));
+			_push(`<div class="flex items-center gap-4 flex-shrink-0">`);
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/blog",
+				class: "inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 group"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) {
+						_push(`<span${_scopeId}>All Articles</span>`);
+						_push(ssrRenderComponent(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+						}, null, _parent, _scopeId));
+					} else return [createVNode("span", null, "All Articles"), createVNode(_component_Icon, {
+						name: "heroicons:arrow-right",
+						class: "w-4 h-4 group-hover:translate-x-1 transition-transform"
+					})];
+				}),
+				_: 1
+			}, _parent));
+			_push(`</div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><!--[-->`);
+			ssrRenderList$2(posts, (post) => {
+				_push(`<article class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 shadow-sm"><div><div class="flex items-center justify-between gap-2 mb-4 text-xs font-mono"><div class="flex flex-wrap gap-1.5"><!--[-->`);
+				ssrRenderList$2(post.tags, (tag) => {
+					_push(`<span class="px-2 py-0.5 rounded bg-slate-950 text-amber-400 border border-slate-800"> #${ssrInterpolate(tag)}</span>`);
+				});
+				_push(`<!--]--></div><span class="text-slate-400 flex-shrink-0">${ssrInterpolate(post.readingTime)}</span></div><h3 class="text-xl md:text-2xl font-bold text-slate-100 group-hover:text-amber-400 transition-colors leading-snug">`);
+				_push(ssrRenderComponent(_component_NuxtLink, { to: `/blog/${post.slug}` }, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) _push(`${ssrInterpolate(post.title)}`);
+						else return [createTextVNode(toDisplayString(post.title), 1)];
+					}),
+					_: 2
+				}, _parent));
+				_push(`</h3><p class="mt-3 text-sm text-slate-400 leading-relaxed line-clamp-3">${ssrInterpolate(post.description)}</p></div><div class="mt-6 pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono text-slate-400"><span>${ssrInterpolate(post.date)}</span>`);
+				_push(ssrRenderComponent(_component_NuxtLink, {
+					to: `/blog/${post.slug}`,
+					class: "text-amber-500 hover:text-amber-400 font-bold flex items-center gap-1 group/btn"
+				}, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) {
+							_push(`<span${_scopeId}>Read article</span>`);
+							_push(ssrRenderComponent(_component_Icon, {
+								name: "heroicons:arrow-right",
+								class: "w-3.5 h-3.5 group-btn:translate-x-1 transition-transform"
+							}, null, _parent, _scopeId));
+						} else return [createVNode("span", null, "Read article"), createVNode(_component_Icon, {
+							name: "heroicons:arrow-right",
+							class: "w-3.5 h-3.5 group-btn:translate-x-1 transition-transform"
+						})];
+					}),
+					_: 2
+				}, _parent));
+				_push(`</div></article>`);
+			});
+			_push(`<!--]--></div></div></section>`);
+		};
+	}
+});
+// components/sections/BlogSection.vue
+var _sfc_setup$10 = BlogSection_vue_vue_type_script_setup_true_lang_default.setup;
+BlogSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/BlogSection.vue");
+	return _sfc_setup$10 ? _sfc_setup$10(props, ctx) : void 0;
+};
+var BlogSection_default = Object.assign(BlogSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsBlogSection" });
+// components/sections/ContactSection.vue?vue&type=script&setup=true&lang.ts
+var ContactSection_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "ContactSection",
+	__ssrInlineRender: true,
+	props: {
+		sectionId: {},
+		sectionNumber: {},
+		sectionLabel: {}
+	},
+	emits: ["toast"],
+	setup(__props, { emit: __emit }) {
+		const form = reactive({
+			name: "",
+			email: "",
+			message: "",
+			honeypot: ""
+		});
+		const errors = reactive({
+			name: "",
+			email: "",
+			message: ""
+		});
+		const isSubmitting = ref(false);
+		z.object({
+			name: z.string().min(2, "Name must be at least 2 characters"),
+			email: z.string().email("Please enter a valid email address"),
+			message: z.string().min(10, "Message must be at least 10 characters"),
+			honeypot: z.string().max(0).optional()
+		});
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_UiSectionHeader = SectionHeader_default;
+			const _component_Icon = components_default$1;
+			_push(`<section${ssrRenderAttrs(mergeProps({
+				id: __props.sectionId,
+				class: "py-20 md:py-28 border-t border-slate-800/80 bg-slate-950/40 relative"
+			}, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">`);
+			_push(ssrRenderComponent(_component_UiSectionHeader, {
+				number: __props.sectionNumber,
+				label: __props.sectionLabel,
+				title: "Get in Touch",
+				description: "Whether you have an upcoming project, engineering role, or technical challenge, my inbox is always open."
+			}, null, _parent));
+			_push(`<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"><div class="lg:col-span-5 space-y-6"><div class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 space-y-6"><h3 class="text-xl font-bold text-slate-100"> Let&#39;s build something remarkable together. </h3><p class="text-sm text-slate-400 leading-relaxed"> Available for full-time frontend &amp; full-stack roles, contract architecture, and high-impact advisory work. </p><div class="p-4 rounded-xl bg-slate-950 border border-slate-800/80 space-y-2"><div class="flex items-center gap-2 text-xs font-mono text-amber-500 font-semibold">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:map-pin",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`<span>Location &amp; Timezone</span></div><div class="text-sm font-bold text-slate-200">${ssrInterpolate(unref(profile).location)}</div><div class="text-xs text-slate-400 font-mono">${ssrInterpolate(unref(profile).timezone)} • Remote collaboration ready </div></div><div class="space-y-2"><span class="text-xs font-mono uppercase tracking-wider text-slate-400">Primary Contact:</span><button type="button" class="w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 hover:border-amber-500/40 text-slate-200 transition-all cursor-pointer group"><div class="flex items-center gap-2.5">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:envelope",
+				class: "w-5 h-5 text-amber-400"
+			}, null, _parent));
+			_push(`<span class="text-xs sm:text-sm font-mono font-medium">${ssrInterpolate(unref(profile).socials.email)}</span></div><span class="text-xs font-mono text-amber-400 group-hover:underline flex items-center gap-1"><span>Copy</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:clipboard-document",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</span></button></div><div class="pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400"><span>Find me online:</span><div class="flex items-center gap-2"><a${ssrRenderAttr("href", unref(profile).socials.github)} target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-slate-950 hover:text-amber-400 border border-slate-800 transition-colors">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:github-icon",
+				class: "w-4 h-4 dark:brightness-0 dark:invert"
+			}, null, _parent));
+			_push(`</a><a${ssrRenderAttr("href", unref(profile).socials.linkedin)} target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-slate-950 hover:text-amber-400 border border-slate-800 transition-colors">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "logos:linkedin-icon",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</a></div></div></div></div><div class="lg:col-span-7"><form class="p-6 md:p-8 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800 space-y-5"><div class="hidden" aria-hidden="true"><label for="honeypot">Leave blank</label><input id="honeypot"${ssrRenderAttr("value", unref(form).honeypot)} type="text" tabindex="-1" autocomplete="off"></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-5"><div><label for="name" class="block text-xs font-mono text-slate-300 font-semibold mb-1.5"> Your Name <span class="text-amber-500">*</span></label><input id="name"${ssrRenderAttr("value", unref(form).name)} type="text" placeholder="Alex Rivera" class="${ssrRenderClass([unref(errors).name ? "border-rose-500 focus:border-rose-400" : "border-slate-800 focus:border-amber-500/50", "w-full px-4 py-2.5 rounded-xl bg-slate-950 border text-slate-100 placeholder-slate-500 text-sm focus:outline-none transition-colors"])}"${ssrIncludeBooleanAttr(unref(isSubmitting)) ? " disabled" : ""}>`);
+			if (unref(errors).name) _push(`<span class="text-xs text-rose-400 mt-1 block font-mono">${ssrInterpolate(unref(errors).name)}</span>`);
+			else _push(`<!---->`);
+			_push(`</div><div><label for="email" class="block text-xs font-mono text-slate-300 font-semibold mb-1.5"> Email Address <span class="text-amber-500">*</span></label><input id="email"${ssrRenderAttr("value", unref(form).email)} type="email" placeholder="alex@company.com" class="${ssrRenderClass([unref(errors).email ? "border-rose-500 focus:border-rose-400" : "border-slate-800 focus:border-amber-500/50", "w-full px-4 py-2.5 rounded-xl bg-slate-950 border text-slate-100 placeholder-slate-500 text-sm focus:outline-none transition-colors"])}"${ssrIncludeBooleanAttr(unref(isSubmitting)) ? " disabled" : ""}>`);
+			if (unref(errors).email) _push(`<span class="text-xs text-rose-400 mt-1 block font-mono">${ssrInterpolate(unref(errors).email)}</span>`);
+			else _push(`<!---->`);
+			_push(`</div></div><div><label for="message" class="block text-xs font-mono text-slate-300 font-semibold mb-1.5"> Message / Project Overview <span class="text-amber-500">*</span></label><textarea id="message" rows="5" placeholder="Hi Ashly, I&#39;d like to discuss an opportunity or project..." class="${ssrRenderClass([unref(errors).message ? "border-rose-500 focus:border-rose-400" : "border-slate-800 focus:border-amber-500/50", "w-full px-4 py-2.5 rounded-xl bg-slate-950 border text-slate-100 placeholder-slate-500 text-sm focus:outline-none transition-colors resize-none"])}"${ssrIncludeBooleanAttr(unref(isSubmitting)) ? " disabled" : ""}>${ssrInterpolate(unref(form).message)}</textarea>`);
+			if (unref(errors).message) _push(`<span class="text-xs text-rose-400 mt-1 block font-mono">${ssrInterpolate(unref(errors).message)}</span>`);
+			else _push(`<!---->`);
+			_push(`</div><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2"><div class="text-xs text-slate-400 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span><span>Typically replies within 24 hours</span></div><button type="submit" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 disabled:opacity-50 cursor-pointer"${ssrIncludeBooleanAttr(unref(isSubmitting)) ? " disabled" : ""}>`);
+			if (unref(isSubmitting)) _push(`<span>Transmitting...</span>`);
+			else _push(`<span>Send Message</span>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:paper-airplane",
+				class: "w-4 h-4"
+			}, null, _parent));
+			_push(`</button></div></form></div></div></div></section>`);
+		};
+	}
+});
+// components/sections/ContactSection.vue
+var _sfc_setup$9 = ContactSection_vue_vue_type_script_setup_true_lang_default.setup;
+ContactSection_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/sections/ContactSection.vue");
+	return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+};
+var ContactSection_default = Object.assign(ContactSection_vue_vue_type_script_setup_true_lang_default, { __name: "SectionsContactSection" });
+// content/sections.ts
+var sectionNumber = (index) => String(index + 1).padStart(2, "0");
+var sections = [
+	{
+		id: "hero",
+		number: sectionNumber,
+		label: "Profile & Overview",
+		component: HeroSection_default
+	},
+	{
+		id: "projects",
+		number: sectionNumber,
+		label: "Engineered Systems",
+		component: FeaturedProjectsSection_default
+	},
+	{
+		id: "experience",
+		number: sectionNumber,
+		label: "Career History",
+		component: ExperienceSection_default
+	},
+	{
+		id: "stats",
+		number: sectionNumber,
+		label: "Key Metrics",
+		component: StatsStrip_default
+	},
+	{
+		id: "tech-stack",
+		number: sectionNumber,
+		label: "Core Competencies",
+		component: TechStackSection_default
+	},
+	{
+		id: "certifications",
+		number: sectionNumber,
+		label: "Verified Credentials",
+		component: CertificationsSection_default
+	},
+	{
+		id: "education",
+		number: sectionNumber,
+		label: "Academic Foundation",
+		component: EducationSection_default
+	},
+	{
+		id: "github",
+		number: sectionNumber,
+		label: "Open Source & Commits",
+		component: GithubSection_default
+	},
+	{
+		id: "blog",
+		number: sectionNumber,
+		label: "Articles & Engineering Notes",
+		component: BlogSection_default
+	},
+	{
+		id: "contact",
+		number: sectionNumber,
+		label: "Direct Inquiry",
+		component: ContactSection_default
+	}
+];
+// components/layout/AppHeader.vue?vue&type=script&setup=true&lang.ts
+var AppHeader_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
+	__name: "AppHeader",
+	__ssrInlineRender: true,
+	emits: ["openPalette", "toggleMobileMenu"],
+	setup(__props) {
+		const colorMode = useColorMode();
+		const isScrolled = ref(false);
+		const activeSection = ref("hero");
+		const navItems = sections.map((section, index) => ({
+			num: section.number(index),
+			name: section.label,
+			href: `/#${section.id}`,
+			id: section.id
+		}));
+		return (_ctx, _push, _parent, _attrs) => {
+			const _component_NuxtLink = NuxtLink;
+			const _component_Icon = components_default$1;
+			_push(`<header${ssrRenderAttrs(mergeProps({ class: ["fixed top-0 left-0 right-0 z-40 transition-all duration-300", unref(isScrolled) ? "glass-nav shadow-lg" : "bg-transparent py-2"] }, _attrs))}><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">`);
+			_push(ssrRenderComponent(_component_NuxtLink, {
+				to: "/",
+				class: "group flex items-center gap-3"
+			}, {
+				default: withCtx((_, _push, _parent, _scopeId) => {
+					if (_push) _push(`<div class="w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-amber-400 group-hover:border-amber-400 transition-colors shadow-md"${_scopeId}> AO<span class="text-amber-500 text-xs animate-pulse"${_scopeId}>•</span></div><div class="flex flex-col"${_scopeId}><span class="font-extrabold tracking-tight text-sm sm:text-base text-(--text-primary) group-hover:text-amber-400 transition-colors"${_scopeId}> Ashly Omanada </span><span class="text-[11px] font-mono text-slate-400 hidden sm:inline"${_scopeId}> Full-Stack Developer </span></div>`);
+					else return [createVNode("div", { class: "w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-amber-400 group-hover:border-amber-400 transition-colors shadow-md" }, [createTextVNode(" AO"), createVNode("span", { class: "text-amber-500 text-xs animate-pulse" }, "•")]), createVNode("div", { class: "flex flex-col" }, [createVNode("span", { class: "font-extrabold tracking-tight text-sm sm:text-base text-(--text-primary) group-hover:text-amber-400 transition-colors" }, " Ashly Omanada "), createVNode("span", { class: "text-[11px] font-mono text-slate-400 hidden sm:inline" }, " Full-Stack Developer ")])];
+				}),
+				_: 1
+			}, _parent));
+			_push(`<nav class="hidden lg:flex max-w-[52vw] items-center gap-1 overflow-x-auto px-3 py-1.5 rounded-full bg-slate-900/60 dark:bg-slate-900/80 border border-slate-800 text-xs font-medium backdrop-blur-md"><!--[-->`);
+			ssrRenderList$2(unref(navItems), (item) => {
+				_push(`<a${ssrRenderAttr("href", item.href)} class="${ssrRenderClass([unref(activeSection) === item.id ? "bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30" : "", "px-2.5 py-1.5 rounded-full transition-colors text-slate-300 hover:text-white hover:bg-slate-800 whitespace-nowrap flex-shrink-0"])}"><span class="font-mono text-[10px] text-amber-500 mr-1">${ssrInterpolate(item.num)}</span> ${ssrInterpolate(item.name)}</a>`);
+			});
+			_push(`<!--]--></nav><div class="flex items-center gap-2 sm:gap-3"><a href="/#contact" class="px-3 sm:px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-colors whitespace-nowrap"> Contact </a><button type="button" class="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all cursor-pointer" aria-label="Open Command Palette">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:magnifying-glass",
+				class: "w-3.5 h-3.5 text-amber-400"
+			}, null, _parent));
+			_push(`<span class="hidden md:inline">Commands</span><kbd class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-400">⌘K</kbd></button><button type="button" class="p-2 text-slate-300 hover:text-amber-400 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all cursor-pointer"${ssrRenderAttr("aria-label", `Switch to ${unref(colorMode).value === "dark" ? "light" : "dark"} mode`)}>`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: unref(colorMode).value === "dark" ? "heroicons:sun" : "heroicons:moon",
+				class: "w-4 h-4 transition-transform duration-300 hover:rotate-45"
+			}, null, _parent));
+			_push(`</button><button type="button" class="lg:hidden p-2 text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl transition-all" aria-label="Toggle mobile menu">`);
+			_push(ssrRenderComponent(_component_Icon, {
+				name: "heroicons:bars-3",
+				class: "w-5 h-5"
+			}, null, _parent));
+			_push(`</button></div></div></header>`);
+		};
+	}
+});
+// components/layout/AppHeader.vue
+var _sfc_setup$8 = AppHeader_vue_vue_type_script_setup_true_lang_default.setup;
+AppHeader_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/layout/AppHeader.vue");
+	return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
+};
+var AppHeader_default = Object.assign(AppHeader_vue_vue_type_script_setup_true_lang_default, { __name: "LayoutAppHeader" });
+// node_modules/nuxt/dist/app/components/route-provider.js
+var defineRouteProvider = (name = "RouteProvider") => defineComponent({
+	name,
+	props: {
+		route: {
+			type: Object,
+			required: true
+		},
+		vnode: Object,
+		vnodeRef: Object,
+		renderKey: String,
+		trackRootNodes: Boolean,
+		routeRecord: Object
+	},
+	setup(props) {
+		const previousKey = props.renderKey;
+		const previousRoute = props.route;
+		const route = {};
+		for (const key in props.route) Object.defineProperty(route, key, {
+			get: () => previousKey === props.renderKey ? props.route[key] : previousRoute[key],
+			enumerable: true
+		});
+		provide(PageRouteSymbol, shallowReactive(route));
+		return () => {
+			if (!props.vnode) return props.vnode;
+			return h(props.vnode, { ref: props.vnodeRef });
+		};
+	}
+});
+var RouteProvider = defineRouteProvider();
+// node_modules/nuxt/dist/pages/runtime/page.js
+var page_default = defineComponent({
+	name: "NuxtPage",
+	inheritAttrs: false,
+	props: {
+		name: { type: String },
+		transition: {
+			type: [Boolean, Object],
+			default: void 0
+		},
+		keepalive: {
+			type: [Boolean, Object],
+			default: void 0
+		},
+		route: { type: Object },
+		pageKey: {
+			type: [Function, String],
+			default: null
+		}
+	},
+	setup(props, { attrs, slots, expose }) {
+		const nuxtApp = useNuxtApp();
+		const pageRef = ref();
+		inject(PageRouteSymbol, null);
+		expose({ pageRef });
+		inject(LayoutMetaSymbol, null);
+		nuxtApp.deferHydration();
+		return () => {
+			return h(RouterView, {
+				name: props.name,
+				route: props.route,
+				...attrs
+			}, { default: markStableSlot((routeProps) => {
+				return h(Suspense, { suspensible: true }, { default() {
+					return h(RouteProvider, {
+						vnode: slots.default ? normalizeSlot(slots.default, routeProps) : routeProps.Component,
+						route: routeProps.route,
+						vnodeRef: pageRef
+					});
+				} });
+			}) });
+		};
+	}
+});
+function markStableSlot(fn) {
+	const wrapped = ((routeProps) => {
+		const result = fn(routeProps);
+		if (Array.isArray(result)) return result;
+		if (result == null || !isVNode(result)) return [createCommentVNode()];
+		return [result];
+	});
+	wrapped._n = true;
+	return wrapped;
+}
+function normalizeSlot(slot, data) {
+	const slotContent = slot(data);
+	return slotContent.length === 1 ? h(slotContent[0]) : h(Fragment, void 0, slotContent);
+}
 // components/layout/AppFooter.vue?vue&type=script&setup=true&lang.ts
 var AppFooter_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
 	__name: "AppFooter",
 	__ssrInlineRender: true,
 	setup(__props) {
+		const navItems = sections.map((section, index) => ({
+			id: section.id,
+			number: section.number(index),
+			label: section.label
+		}));
 		ref("");
 		return (_ctx, _push, _parent, _attrs) => {
 			const _component_ClientOnly = ClientOnly;
@@ -5909,73 +6868,22 @@ var AppFooter_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ define
 				if (_push) _push(`<span${_scopeId}>Calapan City, PH (UTC+8)</span>`);
 				else return [createVNode("span", null, "Calapan City, PH (UTC+8)")];
 			}) }, _parent));
-			_push(`</div></div><div><h4 class="font-mono text-xs uppercase tracking-wider text-amber-500 font-semibold mb-3">Navigation</h4><ul class="space-y-2 text-xs"><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#hero",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`01 — Profile`);
-					else return [createTextVNode("01 — Profile")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#experience",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`03 — Experience`);
-					else return [createTextVNode("03 — Experience")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#projects",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`05 — Projects`);
-					else return [createTextVNode("05 — Projects")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#tech-stack",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`06 — Tech Stack`);
-					else return [createTextVNode("06 — Tech Stack")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#blog",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`08 — Blog`);
-					else return [createTextVNode("08 — Blog")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li><li>`);
-			_push(ssrRenderComponent(_component_NuxtLink, {
-				to: "/#contact",
-				class: "hover:text-amber-400 transition-colors"
-			}, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`10 — Contact`);
-					else return [createTextVNode("10 — Contact")];
-				}),
-				_: 1
-			}, _parent));
-			_push(`</li></ul></div><div><h4 class="font-mono text-xs uppercase tracking-wider text-amber-500 font-semibold mb-3">Deep Dives</h4><ul class="space-y-2 text-xs mb-4"><li>`);
+			_push(`</div></div><div><h4 class="font-mono text-xs uppercase tracking-wider text-amber-500 font-semibold mb-3">Navigation</h4><ul class="space-y-2 text-xs"><!--[-->`);
+			ssrRenderList$2(unref(navItems), (item) => {
+				_push(`<li>`);
+				_push(ssrRenderComponent(_component_NuxtLink, {
+					to: `/#${item.id}`,
+					class: "hover:text-amber-400 transition-colors"
+				}, {
+					default: withCtx((_, _push, _parent, _scopeId) => {
+						if (_push) _push(`${ssrInterpolate(item.number)} — ${ssrInterpolate(item.label)}`);
+						else return [createTextVNode(toDisplayString(item.number) + " — " + toDisplayString(item.label), 1)];
+					}),
+					_: 2
+				}, _parent));
+				_push(`</li>`);
+			});
+			_push(`<!--]--></ul></div><div><h4 class="font-mono text-xs uppercase tracking-wider text-amber-500 font-semibold mb-3">Deep Dives</h4><ul class="space-y-2 text-xs mb-4"><li>`);
 			_push(ssrRenderComponent(_component_NuxtLink, {
 				to: "/projects",
 				class: "hover:text-amber-400 transition-colors"
@@ -6062,8 +6970,6 @@ AppFooter_vue_vue_type_script_setup_true_lang_default.setup = (props, ctx) => {
 	return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
 };
 var AppFooter_default = Object.assign(AppFooter_vue_vue_type_script_setup_true_lang_default, { __name: "LayoutAppFooter" });
-// \0virtual:public?%2Fimages%2Fportrait.png
-var _virtual_public__2Fimages_2Fportrait_default = publicAssetsURL("/images/portrait.png");
 // components/interactive/AskAshlyChat.vue?vue&type=script&setup=true&lang.ts
 var AskAshlyChat_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defineComponent({
 	__name: "AskAshlyChat",
@@ -6147,77 +7053,26 @@ var CommandPalette_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ d
 		const activeIndex = ref(0);
 		const inputRef = ref(null);
 		const emit = __emit;
+		const sectionIcons = {
+			hero: "heroicons:home",
+			projects: "heroicons:folder-open",
+			experience: "heroicons:briefcase",
+			stats: "heroicons:chart-bar",
+			"tech-stack": "heroicons:cpu-chip",
+			certifications: "heroicons:shield-check",
+			education: "heroicons:academic-cap",
+			github: "heroicons:code-bracket",
+			blog: "heroicons:document-text",
+			contact: "heroicons:envelope"
+		};
 		const commands = [
-			{
-				id: "sec-hero",
-				title: "01 — Hero / Overview",
+			...sections.map((section, index) => ({
+				id: `sec-${section.id}`,
+				title: `${section.number(index)} — ${section.label}`,
 				category: "Section Jump",
-				icon: "heroicons:home",
-				action: () => jumpTo("#hero")
-			},
-			{
-				id: "sec-stats",
-				title: "02 — Stats & Experience Count",
-				category: "Section Jump",
-				icon: "heroicons:chart-bar",
-				action: () => jumpTo("#stats")
-			},
-			{
-				id: "sec-exp",
-				title: "03 — Career & Experience Timeline",
-				category: "Section Jump",
-				icon: "heroicons:briefcase",
-				action: () => jumpTo("#experience")
-			},
-			{
-				id: "sec-edu",
-				title: "04 — Education & Degree",
-				category: "Section Jump",
-				icon: "heroicons:academic-cap",
-				action: () => jumpTo("#education")
-			},
-			{
-				id: "sec-projects",
-				title: "05 — Featured Projects Showcase",
-				category: "Section Jump",
-				icon: "heroicons:folder-open",
-				action: () => jumpTo("#projects")
-			},
-			{
-				id: "sec-tech",
-				title: "06 — Tech Stack & Tooling Matrix",
-				category: "Section Jump",
-				icon: "heroicons:cpu-chip",
-				action: () => jumpTo("#tech-stack")
-			},
-			{
-				id: "sec-certs",
-				title: "07 — Certifications & Achievements",
-				category: "Section Jump",
-				icon: "heroicons:shield-check",
-				action: () => jumpTo("#certifications")
-			},
-			{
-				id: "sec-blog",
-				title: "08 — Engineering Blog & Articles",
-				category: "Section Jump",
-				icon: "heroicons:document-text",
-				action: () => jumpTo("#blog")
-			},
-			{
-				id: "sec-github",
-				title: "09 — GitHub Activity & Commit Graph",
-				category: "Section Jump",
-				icon: "heroicons:code-bracket",
-				action: () => jumpTo("#github")
-			},
-			{
-				id: "sec-contact",
-				title: "10 — Contact & Inquiry Form",
-				category: "Section Jump",
-				icon: "heroicons:envelope",
-				action: () => jumpTo("#contact")
-			},
+				icon: sectionIcons[section.id] || "heroicons:arrow-down",
+				action: () => jumpTo(`#${section.id}`)
+			})),
 			{
 				id: "page-projects",
 				title: "All Projects Archive (/projects)",
@@ -6379,58 +7234,11 @@ var MobileMenu_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defin
 		const close = () => {
 			emit("close");
 		};
-		const navLinks = [
-			{
-				num: "01",
-				name: "Profile Overview",
-				href: "/#hero"
-			},
-			{
-				num: "02",
-				name: "Key Metrics & Stats",
-				href: "/#stats"
-			},
-			{
-				num: "03",
-				name: "Experience Timeline",
-				href: "/#experience"
-			},
-			{
-				num: "04",
-				name: "Education & Honors",
-				href: "/#education"
-			},
-			{
-				num: "05",
-				name: "Featured Projects",
-				href: "/#projects"
-			},
-			{
-				num: "06",
-				name: "Tech Stack Matrix",
-				href: "/#tech-stack"
-			},
-			{
-				num: "07",
-				name: "Certifications",
-				href: "/#certifications"
-			},
-			{
-				num: "08",
-				name: "Engineering Blog",
-				href: "/#blog"
-			},
-			{
-				num: "09",
-				name: "GitHub Activity",
-				href: "/#github"
-			},
-			{
-				num: "10",
-				name: "Get In Touch",
-				href: "/#contact"
-			}
-		];
+		const navLinks = sections.map((section, index) => ({
+			num: section.number(index),
+			name: section.label,
+			href: `/#${section.id}`
+		}));
 		const subPages = [
 			{
 				name: "Projects Archive",
@@ -6468,7 +7276,7 @@ var MobileMenu_vue_vue_type_script_setup_true_lang_default = /*@__PURE__*/ defin
 						class: "w-6 h-6"
 					}, null, _parent));
 					_push(`</button></div><div class="py-6 space-y-2 overflow-y-auto"><!--[-->`);
-					ssrRenderList$2(navLinks, (item) => {
+					ssrRenderList$2(unref(navLinks), (item) => {
 						_push(`<a${ssrRenderAttr("href", item.href)} class="flex items-center justify-between p-3.5 rounded-xl text-base font-semibold text-slate-200 hover:text-amber-400 hover:bg-slate-900/80 transition-colors"><span class="flex items-center gap-3"><span class="font-mono text-xs text-amber-500">${ssrInterpolate(item.num)}</span><span>${ssrInterpolate(item.name)}</span></span>`);
 						_push(ssrRenderComponent(_component_Icon, {
 							name: "heroicons:chevron-right",
@@ -6718,5 +7526,5 @@ const entry = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 	default: entry_default
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { NuxtLink as N, _virtual_public__2Fimages_2Fportrait_default as _, useHead as a, useSeoMeta as b, components_default$1 as c, useSchemaOrg as d, definePerson as e, defineWebSite as f, useFetch as g, useRuntimeConfig as h, useNuxtApp as i, createError$2 as j, entry as k, profile as p, ssrRenderList$2 as s, useRoute as u };
+export { NuxtLink as N, _virtual_public__2Fimages_2Fportrait_default as _, useHead as a, useSeoMeta as b, components_default$1 as c, useSchemaOrg as d, definePerson as e, defineWebSite as f, sections as g, useRuntimeConfig as h, useNuxtApp as i, createError$2 as j, entry as k, profile as p, ssrRenderList$2 as s, useRoute as u };
 //# sourceMappingURL=entry.mjs.map

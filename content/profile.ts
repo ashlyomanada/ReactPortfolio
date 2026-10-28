@@ -1,10 +1,10 @@
 import type { ProfileData } from '~/types/profile'
 
 export const profile: ProfileData = {
-  name: 'Ashly Omanada',
+  name: 'Ashly Omañada',
   title: 'Full-Stack Developer',
   // TODO: Replace with your actual City & Country (e.g., "Manila, Philippines")
-  location: 'Calapan City, Philippines',
+  location: 'Makati City, Philippines',
   timezone: 'Asia/Manila (UTC+8)',
   status: {
     available: true,
@@ -13,6 +13,10 @@ export const profile: ProfileData = {
     subtext: 'Available for full-time engineering roles & high-impact contracts',
   },
   roles: [
+    'Software Developer',
+    'Web Developer',
+    'AI Engineer',
+    'Software Engineer',
     'Full-Stack Developer',
     'Vue & Nuxt Specialist',
     'TypeScript & Node.js Engineer',

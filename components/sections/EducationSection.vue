@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Section Header -->
       <UiSectionHeader
-        number="04"
+        number="07"
         label="Academic Foundation"
         title="Education & Honors"
         description="Formal computer science and software development foundations, capstone distinctions, and specialized coursework."

@@ -43,7 +43,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: '%s %separator Ashly Omanada',
+      titleTemplate: '%s %separator Ashly Omañada',
       templateParams: {
         separator: '—',
       },
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 
   site: {
     url: 'https://ashlyomanada.dev',
-    name: 'Ashly Omanada — Full-Stack Developer',
+    name: 'Ashly Omañada — Full-Stack Developer',
     description: 'High-impact full-stack developer portfolio showcasing production web applications, real-time systems, and distributed architectures.',
     defaultLocale: 'en',
   },

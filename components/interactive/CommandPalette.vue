@@ -116,13 +116,13 @@ const commands: CommandItem[] = [
   // Navigation sections
   { id: 'sec-hero', title: '01 — Hero / Overview', category: 'Section Jump', icon: 'heroicons:home', action: () => jumpTo('#hero') },
   { id: 'sec-stats', title: '02 — Stats & Experience Count', category: 'Section Jump', icon: 'heroicons:chart-bar', action: () => jumpTo('#stats') },
-  { id: 'sec-exp', title: '03 — Career & Experience Timeline', category: 'Section Jump', icon: 'heroicons:briefcase', action: () => jumpTo('#experience') },
-  { id: 'sec-edu', title: '04 — Education & Degree', category: 'Section Jump', icon: 'heroicons:academic-cap', action: () => jumpTo('#education') },
-  { id: 'sec-projects', title: '05 — Featured Projects Showcase', category: 'Section Jump', icon: 'heroicons:folder-open', action: () => jumpTo('#projects') },
-  { id: 'sec-tech', title: '06 — Tech Stack & Tooling Matrix', category: 'Section Jump', icon: 'heroicons:cpu-chip', action: () => jumpTo('#tech-stack') },
-  { id: 'sec-certs', title: '07 — Certifications & Achievements', category: 'Section Jump', icon: 'heroicons:shield-check', action: () => jumpTo('#certifications') },
-  { id: 'sec-blog', title: '08 — Engineering Blog & Articles', category: 'Section Jump', icon: 'heroicons:document-text', action: () => jumpTo('#blog') },
-  { id: 'sec-github', title: '09 — GitHub Activity & Commit Graph', category: 'Section Jump', icon: 'heroicons:code-bracket', action: () => jumpTo('#github') },
+  { id: 'sec-projects', title: '03 — Featured Projects Showcase', category: 'Section Jump', icon: 'heroicons:folder-open', action: () => jumpTo('#projects') },
+  { id: 'sec-exp', title: '04 — Career & Experience Timeline', category: 'Section Jump', icon: 'heroicons:briefcase', action: () => jumpTo('#experience') },
+  { id: 'sec-tech', title: '05 — Tech Stack & Tooling Matrix', category: 'Section Jump', icon: 'heroicons:cpu-chip', action: () => jumpTo('#tech-stack') },
+  { id: 'sec-certs', title: '06 — Certifications & Achievements', category: 'Section Jump', icon: 'heroicons:shield-check', action: () => jumpTo('#certifications') },
+  { id: 'sec-edu', title: '07 — Education & Degree', category: 'Section Jump', icon: 'heroicons:academic-cap', action: () => jumpTo('#education') },
+  { id: 'sec-github', title: '08 — GitHub Activity & Commit Graph', category: 'Section Jump', icon: 'heroicons:code-bracket', action: () => jumpTo('#github') },
+  { id: 'sec-blog', title: '09 — Engineering Blog & Articles', category: 'Section Jump', icon: 'heroicons:document-text', action: () => jumpTo('#blog') },
   { id: 'sec-contact', title: '10 — Contact & Inquiry Form', category: 'Section Jump', icon: 'heroicons:envelope', action: () => jumpTo('#contact') },
 
   // Pages

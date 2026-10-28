@@ -4,7 +4,7 @@
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <UiSectionHeader
-          number="06"
+          number="05"
           label="Core Competencies"
           title="Tech Stack & Tooling"
           description="Languages, frameworks, databases, and DevOps infrastructure powering end-to-end engineering."

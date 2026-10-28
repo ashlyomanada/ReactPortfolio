@@ -4,7 +4,7 @@
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <UiSectionHeader
-          number="07"
+        number="06"
           label="Verified Credentials"
           title="Certifications & Honors"
           description="Recognized proficiencies in web engineering, systems architecture, and database performance."

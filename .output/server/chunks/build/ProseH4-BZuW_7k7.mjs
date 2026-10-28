@@ -32,6 +32,7 @@ import '@iconify/utils/lib/css/icon';
 import 'fnv1a-64';
 import 'object-identity';
 import '@vue/shared';
+import 'zod';
 
 // node_modules/@nuxtjs/mdc/dist/runtime/components/prose/ProseH4.vue
 var _sfc_main = {

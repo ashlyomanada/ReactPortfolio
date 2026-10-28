@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-col">
           <span class="font-extrabold tracking-tight text-sm sm:text-base text-(--text-primary) group-hover:text-amber-400 transition-colors">
-            Ashly Omanada
+            Ashly Omañada
           </span>
           <span class="text-[11px] font-mono text-slate-400 hidden sm:inline">
             Full-Stack Developer
@@ -87,11 +87,11 @@ const activeSection = ref('hero')
 
 const navItems = [
   { num: '01', name: 'Profile', href: '/#hero', id: 'hero' },
-  { num: '03', name: 'Experience', href: '/#experience', id: 'experience' },
-  { num: '05', name: 'Projects', href: '/#projects', id: 'projects' },
-  { num: '06', name: 'Stack', href: '/#tech-stack', id: 'tech-stack' },
-  { num: '08', name: 'Writing', href: '/#blog', id: 'blog' },
-  { num: '09', name: 'Activity', href: '/#github', id: 'github' },
+  { num: '03', name: 'Projects', href: '/#projects', id: 'projects' },
+  { num: '04', name: 'Experience', href: '/#experience', id: 'experience' },
+  { num: '05', name: 'Stack', href: '/#tech-stack', id: 'tech-stack' },
+  { num: '08', name: 'Activity', href: '/#github', id: 'github' },
+  { num: '09', name: 'Writing', href: '/#blog', id: 'blog' },
   { num: '10', name: 'Contact', href: '/#contact', id: 'contact' },
 ]
 
@@ -104,7 +104,7 @@ const onScroll = () => {
   isScrolled.value = window.scrollY > 30
 
   // Active section tracker
-  const sectionIds = ['hero', 'experience', 'projects', 'tech-stack', 'blog', 'github', 'contact']
+  const sectionIds = ['hero', 'projects', 'experience', 'tech-stack', 'github', 'blog', 'contact']
   const scrollPosition = window.scrollY + 200
 
   for (const id of sectionIds) {

@@ -4,7 +4,7 @@
       <!-- Section Header with View All Archive Link -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <UiSectionHeader
-          number="08"
+          number="09"
           label="Articles & Engineering Notes"
           title="Engineering Blog"
           description="Reflections on architecture, modern Vue 3 / Nuxt 4 patterns, zero-latency WebRTC streams, and performance ergonomics."

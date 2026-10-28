@@ -116,13 +116,13 @@ const close = () => {
 const navLinks = [
   { num: '01', name: 'Profile Overview', href: '/#hero' },
   { num: '02', name: 'Key Metrics & Stats', href: '/#stats' },
-  { num: '03', name: 'Experience Timeline', href: '/#experience' },
-  { num: '04', name: 'Education & Honors', href: '/#education' },
-  { num: '05', name: 'Featured Projects', href: '/#projects' },
-  { num: '06', name: 'Tech Stack Matrix', href: '/#tech-stack' },
-  { num: '07', name: 'Certifications', href: '/#certifications' },
-  { num: '08', name: 'Engineering Blog', href: '/#blog' },
-  { num: '09', name: 'GitHub Activity', href: '/#github' },
+  { num: '03', name: 'Featured Projects', href: '/#projects' },
+  { num: '04', name: 'Experience Timeline', href: '/#experience' },
+  { num: '05', name: 'Tech Stack Matrix', href: '/#tech-stack' },
+  { num: '06', name: 'Certifications', href: '/#certifications' },
+  { num: '07', name: 'Education & Honors', href: '/#education' },
+  { num: '08', name: 'GitHub Activity', href: '/#github' },
+  { num: '09', name: 'Engineering Blog', href: '/#blog' },
   { num: '10', name: 'Get In Touch', href: '/#contact' },
 ]
 

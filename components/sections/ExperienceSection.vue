@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Section Header -->
       <UiSectionHeader
-        number="03"
+        number="04"
         label="Career History"
         title="Experience & Leadership"
         description="A timeline of institutional engineering projects, architectural leadership, and production-grade delivery."

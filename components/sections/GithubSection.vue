@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Section Header -->
       <UiSectionHeader
-        number="09"
+        number="08"
         label="Open Source & Commits"
         title="GitHub & GitLab Activity"
         description="Contribution activity and highlighted repositories across both code platforms."
@@ -134,7 +134,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
           <div class="flex items-center gap-3">
             <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-              <Icon name="logos:gitlab" class="w-6 h-6" />
+              <Icon name="logos:gitlab" class="w-6 h-6 dark:brightness-0 dark:invert" />
             </div>
             <div>
               <div class="font-bold text-slate-100 text-lg">GitLab Activity</div>

@@ -4,7 +4,7 @@
       <!-- Section Header with View All Archive Link -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <UiSectionHeader
-          number="05"
+          number="03"
           label="Engineered Systems"
           title="Featured Projects"
           description="Selected production applications and systems built for operational utility, performance, and memorable user experiences."

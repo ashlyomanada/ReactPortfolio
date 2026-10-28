@@ -12,6 +12,7 @@ import '@iconify/utils/lib/css/icon';
 import 'fnv1a-64';
 import 'object-identity';
 import '@vue/shared';
+import 'zod';
 import 'unhead/server';
 import 'unhead/legacy';
 import 'mdream';
