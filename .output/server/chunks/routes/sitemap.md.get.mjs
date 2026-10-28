@@ -1,4 +1,4 @@
-import { at as eventHandler, l as useRuntimeConfig, s as setHeader, av as publicCacheControl, au as defineCachedFunction, ak as queryPages, af as logger, az as buildSitemapMd, a1 as getSiteConfig, ao as toDeployedRoute, aq as toMarkdownPath } from '../nitro/nitro.mjs';
+import { aw as eventHandler, a as assertMethod, l as useRuntimeConfig, s as setHeader, ax as publicCacheControl, ay as defineCachedFunction, an as queryPages, ag as logger, a1 as getSiteConfig, aH as buildSitemapMd, aI as absoluteSiteUrl, ap as toDeployedRoute, as as toMarkdownPath } from '../nitro/nitro.mjs';
 import 'unhead/server';
 import 'vue';
 import 'unhead/legacy';
@@ -32,11 +32,12 @@ async function buildSitemapMarkdown(event) {
     );
   }
   const baseURL = useRuntimeConfig(event).app.baseURL;
+  const siteConfig = getSiteConfig(event);
   return buildSitemapMd(
     pages.map((page) => ({ route: page.route, title: page.title, updatedAt: page.updatedAt })),
     {
-      siteName: getSiteConfig(event).name,
-      resolveHref: (route) => toDeployedRoute(toMarkdownPath(route), baseURL)
+      siteName: siteConfig.name,
+      resolveHref: (route) => absoluteSiteUrl(toDeployedRoute(toMarkdownPath(route), baseURL), siteConfig.url)
     }
   );
 }
@@ -55,6 +56,7 @@ function getBuildSitemapMdCached(maxAge) {
   return cached;
 }
 const sitemap_md_get = eventHandler(async (event) => {
+  assertMethod(event, "GET", true);
   const fullRuntimeConfig = useRuntimeConfig(event);
   const runtimeConfig = fullRuntimeConfig["nuxt-ai-ready"];
   const cacheSeconds = runtimeConfig.llmsTxtCacheSeconds ?? 600;

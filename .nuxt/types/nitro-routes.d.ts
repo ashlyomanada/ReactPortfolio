@@ -12,6 +12,9 @@ declare module "nitropack/types" {
     '/api/github-stats': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/github-stats').default>>>>
     }
+    '/api/gitlab-stats': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/gitlab-stats').default>>>>
+    }
     '/__nuxt_error': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/nitro-server/dist/runtime/handlers/renderer').default>>>>
     }

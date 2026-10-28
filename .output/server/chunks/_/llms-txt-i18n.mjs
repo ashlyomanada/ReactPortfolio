@@ -1,4 +1,4 @@
-import { aE as unavailable, aF as resolveLocaleAlternateUrl } from '../nitro/nitro.mjs';
+import { b0 as unavailable, b1 as resolveLocaleAlternateUrl } from '../nitro/nitro.mjs';
 import { f as formatLlmsTxtPageLink } from './llms-txt-format.mjs';
 import 'unhead/server';
 import 'vue';

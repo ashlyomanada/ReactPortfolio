@@ -80,10 +80,10 @@
         "../node_modules/@nuxt/schema"
       ],
       "#content/components": [
-        "./content/components.ts"
+        "./content/components"
       ],
       "#content/manifest": [
-        "./content/manifest.ts"
+        "./content/manifest"
       ],
       "~": [
         ".."
@@ -332,7 +332,7 @@
         "./manifest/meta/dev.json"
       ],
       "#components": [
-        "./components"
+        "./components.d.ts"
       ],
       "@nuxt/nitro-server/request-types": [
         "../node_modules/@nuxt/nitro-server/dist/request-types.d.mts"

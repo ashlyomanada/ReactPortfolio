@@ -53,8 +53,8 @@
           </div>
 
           <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-            <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span class="text-[11px] font-mono text-amber-500 dark:text-emerald-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 hover:bg-amber-400 dark:bg-emerald-400 dark:hover:bg-emerald-300" />
               Verified Status
             </span>
             <a

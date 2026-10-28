@@ -1,4 +1,4 @@
-import { aA as queryCollection, aB as manifest } from '../nitro/nitro.mjs';
+import { aJ as queryCollection, aK as manifest } from '../nitro/nitro.mjs';
 import { stringify } from 'minimark/stringify';
 import 'unhead/server';
 import 'vue';

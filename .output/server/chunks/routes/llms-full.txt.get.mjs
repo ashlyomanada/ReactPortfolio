@@ -1,4 +1,4 @@
-import { C as joinURL, at as eventHandler, l as useRuntimeConfig, a1 as getSiteConfig, an as withSiteUrl, ao as toDeployedRoute, aw as countPages, s as setHeader, H as setResponseHeader, ax as sendIterable, ay as streamPages, av as publicCacheControl } from '../nitro/nitro.mjs';
+import { az as escapeMarkdownHtml, C as joinURL, aA as parseDocument, aB as isMap, aC as isScalar, aD as stringify, aw as eventHandler, a as assertMethod, l as useRuntimeConfig, a1 as getSiteConfig, ar as withSiteUrl, ap as toDeployedRoute, aE as countPages, s as setHeader, H as setResponseHeader, aF as sendIterable, aG as streamPages, ax as publicCacheControl } from '../nitro/nitro.mjs';
 import { n as normalizeLlmsTxtConfig } from '../_/llms-txt-format.mjs';
 import 'unhead/server';
 import 'vue';
@@ -23,16 +23,40 @@ import '@iconify/utils';
 import 'fast-xml-parser';
 import 'ipx';
 
-const RE_FRONTMATTER = /^---\r?\n[\s\S]*?\r?\n---\r?\n*/;
+const RE_FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n*/;
 const RE_INLINE_WHITESPACE = /\s+/g;
+function imageMetadataFence(frontmatter) {
+  const document = parseDocument(frontmatter);
+  const meta = document.get("meta", true);
+  if (document.errors.length || !isMap(meta))
+    return;
+  const images = {};
+  for (const { key, value } of meta.items) {
+    if (!isScalar(key) || typeof key.value !== "string" || !isScalar(value))
+      continue;
+    if (key.value !== "og:image" && !key.value.startsWith("og:image:") && key.value !== "twitter:image" && !key.value.startsWith("twitter:image:"))
+      continue;
+    if (typeof value.value === "string" || typeof value.value === "number" && Number.isFinite(value.value))
+      images[key.value] = value.value;
+  }
+  if (!Object.keys(images).length)
+    return;
+  return `\`\`\`yaml
+${stringify({ meta: images }, { lineWidth: 0 }).trimEnd()}
+\`\`\``;
+}
 function formatPageForLlmsFullTxt(route, title, description, markdown, siteUrl) {
   const canonicalUrl = siteUrl ? joinURL(siteUrl, route) : route;
-  const pageTitle = (title && title !== route ? title : route).trim().replace(RE_INLINE_WHITESPACE, " ");
-  const pageDescription = description.trim().replace(RE_INLINE_WHITESPACE, " ");
+  const pageTitle = escapeMarkdownHtml((title && title !== route ? title : route).trim().replace(RE_INLINE_WHITESPACE, " "));
+  const pageDescription = escapeMarkdownHtml(description.trim().replace(RE_INLINE_WHITESPACE, " "));
   const content = markdown.replace(RE_FRONTMATTER, "").trim();
   const parts = ["---", "", `- **Page:** ${pageTitle}`, `- **Source:** ${canonicalUrl}`];
   if (pageDescription)
     parts.push(`- **Description:** ${pageDescription}`);
+  const frontmatter = markdown.match(RE_FRONTMATTER)?.[1];
+  const images = frontmatter && imageMetadataFence(frontmatter);
+  if (images)
+    parts.push("", images);
   parts.push("");
   if (content) {
     parts.push(content);
@@ -42,9 +66,9 @@ function formatPageForLlmsFullTxt(route, title, description, markdown, siteUrl) 
 `;
 }
 function buildLlmsFullTxtHeader(siteInfo, llmsTxtConfig) {
-  const parts = [`# ${siteInfo?.name || siteInfo?.url || "Site"}`];
+  const parts = [`# ${escapeMarkdownHtml(siteInfo?.name || siteInfo?.url || "Site")}`];
   if (siteInfo?.description)
-    parts.push("", `> ${siteInfo.description}`);
+    parts.push("", `> ${escapeMarkdownHtml(siteInfo.description)}`);
   if (siteInfo?.url)
     parts.push("", `Canonical Origin: ${siteInfo.url}`);
   if (llmsTxtConfig) {
@@ -58,6 +82,7 @@ function buildLlmsFullTxtHeader(siteInfo, llmsTxtConfig) {
 }
 
 const llmsFull_txt_get = eventHandler(async (event) => {
+  assertMethod(event, "GET", true);
   const runtimeConfig = useRuntimeConfig(event);
   const config = runtimeConfig["nuxt-ai-ready"];
   const siteConfig = getSiteConfig(event);

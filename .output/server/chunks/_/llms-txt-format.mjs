@@ -1,3 +1,5 @@
+import { az as escapeMarkdownHtml } from '../nitro/nitro.mjs';
+
 const RE_INLINE_WHITESPACE = /\s+/g;
 const RE_LINK_TITLE_BRACKET = /[[\]]/g;
 const RE_LINK_HREF_UNSAFE = /[\s()]/g;
@@ -6,7 +8,7 @@ function normalizeInlineText(value) {
   return value.trim().replace(RE_INLINE_WHITESPACE, " ");
 }
 function normalizeLinkTitle(value) {
-  return normalizeInlineText(value).replace(RE_LINK_TITLE_BRACKET, (bracket) => bracket === "[" ? "&#91;" : "&#93;");
+  return escapeMarkdownHtml(normalizeInlineText(value)).replace(RE_LINK_TITLE_BRACKET, (bracket) => bracket === "[" ? "&#91;" : "&#93;");
 }
 function normalizeLinkHref(value) {
   return value.trim().replace(RE_LINK_HREF_UNSAFE, (character) => {
@@ -29,7 +31,7 @@ function normalizeLink(link, descriptionPrefixes = []) {
   return `- [${normalizeLinkTitle(link.title)}](${normalizeLinkHref(link.href)})${description ? `: ${description}` : ""}`;
 }
 function normalizeSection(section) {
-  const parts = [`## ${normalizeInlineText(section.title)}`];
+  const parts = [`## ${escapeMarkdownHtml(normalizeInlineText(section.title))}`];
   if (section.links?.length)
     parts.push("", ...section.links.map((link) => normalizeLink(link)));
   return parts.join("\n");
@@ -46,7 +48,7 @@ function normalizePreamble(config) {
       continue;
     const descriptions = normalizePreambleBlocks(section.description);
     if (descriptions.length)
-      parts.push([`**${normalizeInlineText(section.title)}:**`, ...descriptions].join("\n\n"));
+      parts.push([`**${escapeMarkdownHtml(normalizeInlineText(section.title))}:**`, ...descriptions].join("\n\n"));
   }
   return parts;
 }
@@ -67,7 +69,7 @@ function formatLlmsTxtPageLink(page) {
   const title = normalizedTitle && normalizedTitle !== page.pathname ? normalizedTitle : page.pathname;
   const href = (page.href || page.pathname).trim();
   const truncatedDescription = description ? `${description.substring(0, 160)}${description.length > 160 ? "..." : ""}` : void 0;
-  return normalizeLink({ title, href, description: truncatedDescription });
+  return normalizeLink({ title, href, description: truncatedDescription ? escapeMarkdownHtml(truncatedDescription) : void 0 });
 }
 function normalizeLlmsTxtConfig(config) {
   const required = config.sections?.filter((section) => !section.optional) ?? [];

@@ -1,6 +1,6 @@
 import { escapeHtml } from '@vue/shared';
 
-//#region src/runtime/server/renderer/error-template.ts
+// src/runtime/server/renderer/error-template.ts
 const _messages = {
 	"appName": "Nuxt",
 	"status": 500,

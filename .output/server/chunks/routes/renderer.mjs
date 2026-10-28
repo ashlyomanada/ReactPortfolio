@@ -26,7 +26,7 @@ import '@iconify/utils';
 import 'fast-xml-parser';
 import 'ipx';
 
-//#region src/runtime/utils/response.ts
+// src/runtime/utils/response.ts
 /**
 * The response the renderer builds, keeping its body as the renderer produced it.
 *
@@ -46,8 +46,58 @@ var NodeRenderResponse = class {
 		this.headers = init?.headers instanceof Headers ? init.headers : new Headers(init?.headers);
 	}
 };
+/**
+* The headers of a node response as the record nitro's `render:response` hook passes,
+* read from and written to the node response itself. `set-cookie` is omitted, as it
+* cannot be represented as one string. The proxy target is kept as a snapshot for
+* `util.inspect`, which bypasses the traps.
+*/
+function createResponseHeaderRecord(res) {
+	const read = (name) => {
+		if (typeof name !== "string" || name.toLowerCase() === "set-cookie") return;
+		const value = res.getHeader(name);
+		if (value === void 0) return;
+		return Array.isArray(value) ? value.join(", ") : String(value);
+	};
+	const snapshot = {};
+	const sync = (name) => {
+		const value = read(name);
+		if (value === void 0) delete snapshot[name.toLowerCase()];
+		else snapshot[name.toLowerCase()] = value;
+	};
+	for (const name of res.getHeaderNames()) sync(name);
+	return new Proxy(snapshot, {
+		get: (_, name) => read(name),
+		has: (_, name) => read(name) !== void 0,
+		set(_, name, value) {
+			if (typeof name === "string") {
+				if (value === void 0 || value === null) res.removeHeader(name);
+				else res.setHeader(name, value);
+				sync(name);
+			}
+			return true;
+		},
+		deleteProperty(_, name) {
+			if (typeof name === "string") {
+				res.removeHeader(name);
+				sync(name);
+			}
+			return true;
+		},
+		ownKeys: () => res.getHeaderNames().filter((name) => name !== "set-cookie"),
+		getOwnPropertyDescriptor(_, name) {
+			const value = read(name);
+			return value === void 0 ? void 0 : {
+				value,
+				writable: true,
+				enumerable: true,
+				configurable: true
+			};
+		}
+	});
+}
 
-//#region src/runtime/server/renderer/cache.ts
+// src/runtime/server/renderer/cache.ts
 function lazyCachedFunction(fn) {
 	let res = null;
 	return () => {
@@ -100,10 +150,10 @@ const rendererDiagnostics = /* #__PURE__ */ defineDiagnostics({
 	}
 });
 
-//#region src/runtime/server/renderer/build-files.ts
+// src/runtime/server/renderer/build-files.ts
 const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
 const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
-const getServerEntry = () => import('../virtual/entry.mjs').then(function (n) { return n.t; }).then((r) => r.default || r);
+const getServerEntry = () => import('../virtual/entry.mjs').then(function (n) { return n.k; }).then((r) => r.default || r);
 const getPrecomputedDependencies = () => import('../virtual/precomputed.mjs').then((r) => "default" in r ? r.default : r).then((r) => typeof r === "function" ? r() : r);
 /** Load the build artifacts for a set of renderer options, caching each of them on the returned object. */
 function createBuildFiles(options) {
@@ -164,7 +214,7 @@ function renderSPATemplate() {
 const getSSRStyles = lazyCachedFunction(() => import('../virtual/styles.mjs').then((r) => r.default || r));
 const getInlinedCSS = lazyCachedFunction(() => import('../virtual/styles.mjs').then((r) => r.inlinedCSS || {}));
 
-//#region src/runtime/server/renderer/instance.ts
+// src/runtime/server/renderer/instance.ts
 /**
 * Create the renderer state for a set of options.
 *
@@ -179,7 +229,7 @@ function createRendererInstance(options) {
 	};
 }
 
-//#region src/runtime/server/renderer/runtime.ts
+// src/runtime/server/renderer/runtime.ts
 /** The event to pass to application code and to the render hooks. */
 function appEvent(event) {
 	return event["~app"] ?? event;
@@ -188,7 +238,7 @@ function getRequestState(event) {
 	return event.context.nuxt;
 }
 
-//#region src/runtime/utils/renderer/options.ts
+// src/runtime/utils/renderer/options.ts
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
 /** The capabilities a nitropack v2 host provides to the Nuxt renderer. */
@@ -215,7 +265,7 @@ const rendererOptions = {
 */
 const rendererInstance = createRendererInstance(rendererOptions);
 
-//#region src/runtime/server/renderer/url.ts
+// src/runtime/server/renderer/url.ts
 /**
 * The fragment of a request URL, avoiding the lazy URL parse that reading `hash` triggers when
 * there is none. A fragment is never sent over the wire, so it can only appear on a URL the
@@ -225,7 +275,7 @@ function urlHash(url) {
 	return url.href.includes("#") ? url.hash : "";
 }
 
-//#region src/runtime/server/renderer/app.ts
+// src/runtime/server/renderer/app.ts
 new Set(NUXT_PRERENDER_NO_SSR_ROUTES);
 function createServerHead() {
 	return createHead(unheadOptions);
@@ -287,7 +337,7 @@ function encodeForwardSlashes(str) {
 	return str.replaceAll("/", "\\u002F");
 }
 
-//#region src/runtime/server/renderer/inline-styles.ts
+// src/runtime/server/renderer/inline-styles.ts
 async function renderInlineStyles(usedModules) {
 	const styleMap = await getSSRStyles();
 	const inlinedStyles = /* @__PURE__ */ new Set();
@@ -297,7 +347,7 @@ async function renderInlineStyles(usedModules) {
 	return Array.from(inlinedStyles).map((style) => ({ innerHTML: style }));
 }
 
-//#region src/runtime/server/renderer/inlined-css.ts
+// src/runtime/server/renderer/inlined-css.ts
 /**
 * Build a predicate telling whether the contents of an emitted CSS file were
 * inlined as `<style>` tags for this request, meaning its `<link>` can be
@@ -330,9 +380,9 @@ async function createInlinedCSSFilter(modules) {
 
 const entryIds = [];
 
-const entryFileName = "qSlJIH5_.js";
+const entryFileName = "CSrRnlhf.js";
 
-//#region src/runtime/server/renderer/index.ts
+// src/runtime/server/renderer/index.ts
 const HAS_APP_TELEPORTS = !!(appTeleportAttrs.id);
 const APP_TELEPORT_OPEN_TAG = HAS_APP_TELEPORTS ? `<${appTeleportTag}${propsToString(appTeleportAttrs)}>` : "";
 const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
@@ -558,7 +608,8 @@ const handler = defineRenderHandler(async (event) => {
 	return {
 		body: response.body,
 		statusCode: response.status,
-		statusMessage: response.statusText || void 0
+		statusMessage: response.statusText || void 0,
+		headers: createResponseHeaderRecord(event.node.res)
 	};
 });
 

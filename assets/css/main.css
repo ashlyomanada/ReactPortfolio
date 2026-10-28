@@ -35,12 +35,12 @@
   --bg-card: rgba(17, 28, 31, 0.78);
   --bg-card-hover: rgba(25, 38, 41, 0.9);
   --border-subtle: rgba(164, 205, 199, 0.12);
-  --border-highlight: rgba(102, 214, 192, 0.42);
+  --border-highlight: rgba(52, 211, 153, 0.42);
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --brand-accent: #66d6c0;
-  --brand-accent-glow: rgba(102, 214, 192, 0.18);
+  --brand-accent: #34d399;
+  --brand-accent-glow: rgba(52, 211, 153, 0.18);
 }
 
 /* Base Body Styles */
@@ -123,15 +123,38 @@ html:not(.dark) [class~="text-amber-300"] {
 .dark [class~="text-amber-300"],
 .dark [class~="dark:text-amber-500"],
 .dark [class~="dark:text-amber-400"],
-.dark [class~="dark:text-amber-300"] { color: #66d6c0 !important; }
+.dark [class~="dark:text-amber-300"] { color: #34d399 !important; }
 .dark [class~="bg-amber-500"],
-.dark [class~="dark:bg-amber-500"] { background-color: #66d6c0 !important; }
+.dark [class~="dark:bg-amber-500"] { background-color: #34d399 !important; }
 .dark [class~="border-amber-500"],
 .dark [class~="border-amber-500/30"],
 .dark [class~="border-amber-500/40"],
 .dark [class~="border-amber-500/20"],
 .dark [class~="dark:border-amber-500/30"],
-.dark [class~="dark:border-amber-500/40"] { border-color: rgba(102, 214, 192, 0.38) !important; }
+.dark [class~="dark:border-amber-500/40"] { border-color: rgba(52, 211, 153, 0.38) !important; }
+
+/* Contribution calendars keep a warm light palette and use emerald at night. */
+#github .contribution-total { color: #d97706 !important; }
+#github .contribution-empty { background-color: #e2e8f0; }
+#github .contribution-legend-level-1,
+#github .contribution-level-1 { background-color: #fef3c7; border-color: #fde68a; }
+#github .contribution-legend-level-2,
+#github .contribution-level-2 { background-color: #fcd34d; }
+#github .contribution-legend-level-3,
+#github .contribution-level-3 { background-color: #f59e0b; }
+#github .contribution-legend-level-4,
+#github .contribution-level-4 { background-color: #b45309; }
+
+.dark #github .contribution-total { color: #34d399 !important; }
+.dark #github .contribution-empty { background-color: #192629 !important; }
+.dark #github .contribution-legend-level-1,
+.dark #github .contribution-level-1 { background-color: #064e3b !important; border-color: #065f46 !important; }
+.dark #github .contribution-legend-level-2,
+.dark #github .contribution-level-2 { background-color: #047857 !important; }
+.dark #github .contribution-legend-level-3,
+.dark #github .contribution-level-3 { background-color: #10b981 !important; }
+.dark #github .contribution-legend-level-4,
+.dark #github .contribution-level-4 { background-color: #34d399 !important; }
 
 /* View Transition & Page Animations */
 .page-enter-active,

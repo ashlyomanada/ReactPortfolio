@@ -24,7 +24,7 @@
     <!-- 08 Engineering Blog -->
     <SectionsBlogSection />
 
-    <!-- 09 GitHub Activity Heatmap -->
+    <!-- 09 GitHub and GitLab Contribution Heatmaps -->
     <SectionsGithubSection />
 
     <!-- 10 Contact Form -->

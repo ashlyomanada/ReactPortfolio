@@ -1,4 +1,4 @@
-import { aC as fetchRawWithEvent$1 } from '../nitro/nitro.mjs';
+import { aL as fetchRawWithEvent$1 } from '../nitro/nitro.mjs';
 import 'unhead/server';
 import 'vue';
 import 'unhead/legacy';

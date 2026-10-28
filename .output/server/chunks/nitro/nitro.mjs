@@ -5,8 +5,8 @@ import { PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead
 import { htmlToMarkdown } from 'mdream';
 import * as process$1 from 'process';
 import * as require$$0$1$1 from 'buffer';
-import Bt, { Server as Server$1 } from 'node:http';
-import zs, { Server } from 'node:https';
+import http, { Server as Server$1 } from 'node:http';
+import https, { Server } from 'node:https';
 import { EventEmitter } from 'node:events';
 import { Buffer as Buffer$1 } from 'node:buffer';
 import { promises, existsSync, mkdirSync } from 'node:fs';
@@ -113,6 +113,9 @@ function encodeQueryKey(text) {
 function encodePath(text) {
   return encode(text).replace(HASH_RE$1, "%23").replace(IM_RE, "%3F").replace(ENC_ENC_SLASH_RE$1, "%2F").replace(AMPERSAND_RE, "%26").replace(PLUS_RE, "%2B");
 }
+function encodeParam(text) {
+  return encodePath(text).replace(SLASH_RE, "%2F");
+}
 function decode(text = "") {
   try {
     return decodeURIComponent("" + text);
@@ -176,6 +179,8 @@ function stringifyQuery(query) {
 const PROTOCOL_STRICT_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{1,2})/;
 const PROTOCOL_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{2})?/;
 const PROTOCOL_RELATIVE_REGEX = /^([/\\]\s*){2,}[^/\\]/;
+const PROTOCOL_SCRIPT_RE = /^[\s\0]*(blob|data|javascript|vbscript):$/i;
+const TRAILING_SLASH_RE$1 = /\/$|\/\?|\/#/;
 const JOIN_LEADING_SLASH_RE = /^\.?\//;
 function hasProtocol(inputString, opts = {}) {
   if (typeof opts === "boolean") {
@@ -186,20 +191,52 @@ function hasProtocol(inputString, opts = {}) {
   }
   return PROTOCOL_REGEX.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX.test(inputString) : false);
 }
+function isScriptProtocol(protocol) {
+  return !!protocol && PROTOCOL_SCRIPT_RE.test(protocol);
+}
 function hasTrailingSlash(input = "", respectQueryAndFragment) {
-  {
+  if (!respectQueryAndFragment) {
     return input.endsWith("/");
   }
+  return TRAILING_SLASH_RE$1.test(input);
 }
 function withoutTrailingSlash(input = "", respectQueryAndFragment) {
-  {
+  if (!respectQueryAndFragment) {
     return (hasTrailingSlash(input) ? input.slice(0, -1) : input) || "/";
   }
+  if (!hasTrailingSlash(input, true)) {
+    return input || "/";
+  }
+  let path = input;
+  let fragment = "";
+  const fragmentIndex = input.indexOf("#");
+  if (fragmentIndex !== -1) {
+    path = input.slice(0, fragmentIndex);
+    fragment = input.slice(fragmentIndex);
+  }
+  const [s0, ...s] = path.split("?");
+  const cleanPath = s0.endsWith("/") ? s0.slice(0, -1) : s0;
+  return (cleanPath || "/") + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
 function withTrailingSlash(input = "", respectQueryAndFragment) {
-  {
+  if (!respectQueryAndFragment) {
     return input.endsWith("/") ? input : input + "/";
   }
+  if (hasTrailingSlash(input, true)) {
+    return input || "/";
+  }
+  let path = input;
+  let fragment = "";
+  const fragmentIndex = input.indexOf("#");
+  if (fragmentIndex !== -1) {
+    path = input.slice(0, fragmentIndex);
+    fragment = input.slice(fragmentIndex);
+    if (!path) {
+      return fragment;
+    }
+  }
+  const [s0, ...s] = path.split("?");
+  return s0 + "/" + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
 function hasLeadingSlash(input = "") {
   return input.startsWith("/");
@@ -801,6 +838,9 @@ function getRouterParam(event, name, opts = {}) {
   return params[name];
 }
 function isMethod(event, expected, allowHead) {
+  if (allowHead && event.method === "HEAD") {
+    return true;
+  }
   if (typeof expected === "string") {
     if (event.method === expected) {
       return true;
@@ -811,7 +851,7 @@ function isMethod(event, expected, allowHead) {
   return false;
 }
 function assertMethod(event, expected, allowHead) {
-  if (!isMethod(event, expected)) {
+  if (!isMethod(event, expected, allowHead)) {
     throw createError$2({
       statusCode: 405,
       statusMessage: "HTTP method is not allowed."
@@ -833,7 +873,7 @@ function getRequestHeader$1(event, name) {
   return value;
 }
 const getHeader = getRequestHeader$1;
-function getRequestHost$2(event, opts = {}) {
+function getRequestHost(event, opts = {}) {
   if (opts.xForwardedHost) {
     const _header = event.node.req.headers["x-forwarded-host"];
     const xForwardedHost = (_header || "").split(",").shift()?.trim();
@@ -843,15 +883,15 @@ function getRequestHost$2(event, opts = {}) {
   }
   return event.node.req.headers.host || "localhost";
 }
-function getRequestProtocol$2(event, opts = {}) {
+function getRequestProtocol(event, opts = {}) {
   if (opts.xForwardedProto !== false && event.node.req.headers["x-forwarded-proto"] === "https") {
     return "https";
   }
   return event.node.req.connection?.encrypted ? "https" : "http";
 }
 function getRequestURL(event, opts = {}) {
-  const host = getRequestHost$2(event, opts);
-  const protocol = getRequestProtocol$2(event, opts);
+  const host = getRequestHost(event, opts);
+  const protocol = getRequestProtocol(event, opts);
   const path = (event.node.req.originalUrl || event.path).replace(
     /^[/\\]+/g,
     "/"
@@ -2177,12 +2217,12 @@ function callNodeListener(handler, req, res) {
   });
 }
 
-function flatHooks(configHooks, hooks = {}, parentName) {
+function flatHooks$1(configHooks, hooks = {}, parentName) {
   for (const key in configHooks) {
     const subHook = configHooks[key];
     const name = parentName ? `${parentName}:${key}` : key;
     if (typeof subHook === "object" && subHook !== null) {
-      flatHooks(subHook, hooks, name);
+      flatHooks$1(subHook, hooks, name);
     } else if (typeof subHook === "function") {
       hooks[name] = subHook;
     }
@@ -2191,27 +2231,27 @@ function flatHooks(configHooks, hooks = {}, parentName) {
 }
 const defaultTask = { run: (function_) => function_() };
 const _createTask = () => defaultTask;
-const createTask = typeof console.createTask !== "undefined" ? console.createTask : _createTask;
-function serialTaskCaller(hooks, args) {
+const createTask$1 = typeof console.createTask !== "undefined" ? console.createTask : _createTask;
+function serialTaskCaller$1(hooks, args) {
   const name = args.shift();
-  const task = createTask(name);
+  const task = createTask$1(name);
   return hooks.reduce(
     (promise, hookFunction) => promise.then(() => task.run(() => hookFunction(...args))),
     Promise.resolve()
   );
 }
-function parallelTaskCaller(hooks, args) {
+function parallelTaskCaller$1(hooks, args) {
   const name = args.shift();
-  const task = createTask(name);
+  const task = createTask$1(name);
   return Promise.all(hooks.map((hook) => task.run(() => hook(...args))));
 }
-function callEachWith(callbacks, arg0) {
+function callEachWith$1(callbacks, arg0) {
   for (const callback of [...callbacks]) {
     callback(arg0);
   }
 }
 
-class Hookable {
+let Hookable$1 = class Hookable {
   constructor() {
     this._hooks = {};
     this._before = void 0;
@@ -2303,7 +2343,7 @@ class Hookable {
     }
   }
   addHooks(configHooks) {
-    const hooks = flatHooks(configHooks);
+    const hooks = flatHooks$1(configHooks);
     const removeFns = Object.keys(hooks).map(
       (key) => this.hook(key, hooks[key])
     );
@@ -2314,7 +2354,7 @@ class Hookable {
     };
   }
   removeHooks(configHooks) {
-    const hooks = flatHooks(configHooks);
+    const hooks = flatHooks$1(configHooks);
     for (const key in hooks) {
       this.removeHook(key, hooks[key]);
     }
@@ -2326,16 +2366,16 @@ class Hookable {
   }
   callHook(name, ...arguments_) {
     arguments_.unshift(name);
-    return this.callHookWith(serialTaskCaller, name, ...arguments_);
+    return this.callHookWith(serialTaskCaller$1, name, ...arguments_);
   }
   callHookParallel(name, ...arguments_) {
     arguments_.unshift(name);
-    return this.callHookWith(parallelTaskCaller, name, ...arguments_);
+    return this.callHookWith(parallelTaskCaller$1, name, ...arguments_);
   }
   callHookWith(caller, name, ...arguments_) {
     const event = this._before || this._after ? { name, args: arguments_, context: {} } : void 0;
     if (this._before) {
-      callEachWith(this._before, event);
+      callEachWith$1(this._before, event);
     }
     const result = caller(
       name in this._hooks ? [...this._hooks[name]] : [],
@@ -2344,12 +2384,12 @@ class Hookable {
     if (result instanceof Promise) {
       return result.finally(() => {
         if (this._after && event) {
-          callEachWith(this._after, event);
+          callEachWith$1(this._after, event);
         }
       });
     }
     if (this._after && event) {
-      callEachWith(this._after, event);
+      callEachWith$1(this._after, event);
     }
     return result;
   }
@@ -2377,9 +2417,9 @@ class Hookable {
       }
     };
   }
-}
-function createHooks() {
-  return new Hookable();
+};
+function createHooks$1() {
+  return new Hookable$1();
 }
 
 const s=globalThis.Headers,i=globalThis.AbortController,l=globalThis.fetch||(()=>{throw new Error("[node-fetch-native] Failed to fetch: `globalThis.fetch` is not available!")});
@@ -2513,7 +2553,7 @@ function mergeHeaders(input, defaults, Headers) {
   }
   return headers;
 }
-async function callHooks(context, hooks) {
+async function callHooks$1(context, hooks) {
   if (hooks) {
     if (Array.isArray(hooks)) {
       for (const hook of hooks) {
@@ -2593,7 +2633,7 @@ function createFetch(globalOptions = {}) {
       context.options.method = context.options.method.toUpperCase();
     }
     if (context.options.onRequest) {
-      await callHooks(context, context.options.onRequest);
+      await callHooks$1(context, context.options.onRequest);
       if (!(context.options.headers instanceof Headers)) {
         context.options.headers = new Headers(
           context.options.headers || {}
@@ -2661,7 +2701,7 @@ function createFetch(globalOptions = {}) {
     } catch (error) {
       context.error = error;
       if (context.options.onRequestError) {
-        await callHooks(
+        await callHooks$1(
           context,
           context.options.onRequestError
         );
@@ -2695,14 +2735,14 @@ function createFetch(globalOptions = {}) {
       }
     }
     if (context.options.onResponse) {
-      await callHooks(
+      await callHooks$1(
         context,
         context.options.onResponse
       );
     }
     if (!context.options.ignoreResponseError && context.response.status >= 400 && context.response.status < 600) {
       if (context.options.onResponseError) {
-        await callHooks(
+        await callHooks$1(
           context,
           context.options.onResponseError
         );
@@ -2735,8 +2775,8 @@ function createNodeFetch() {
     return l;
   }
   const agentOptions = { keepAlive: true };
-  const httpAgent = new Bt.Agent(agentOptions);
-  const httpsAgent = new zs.Agent(agentOptions);
+  const httpAgent = new http.Agent(agentOptions);
+  const httpsAgent = new https.Agent(agentOptions);
   const nodeFetchOptions = {
     agent(parsedURL) {
       return parsedURL.protocol === "http:" ? httpAgent : httpsAgent;
@@ -2773,7 +2813,7 @@ function isPureObject(value) {
   const proto = Object.getPrototypeOf(value);
   return !proto || proto.isPrototypeOf(Object);
 }
-function stringify$8(value) {
+function stringify$9(value) {
   if (isPrimitive$1(value)) {
     return String(value);
   }
@@ -2781,7 +2821,7 @@ function stringify$8(value) {
     return JSON.stringify(value);
   }
   if (typeof value.toJSON === "function") {
-    return stringify$8(value.toJSON());
+    return stringify$9(value.toJSON());
   }
   throw new Error("[unstorage] Cannot stringify value!");
 }
@@ -2837,23 +2877,41 @@ const storageKeyProperties = [
   "mount",
   "unmount"
 ];
+const nonItemKeyProperties = /* @__PURE__ */ new Set([
+  "getKeys",
+  "clear",
+  "mount",
+  "unmount"
+]);
 function prefixStorage(storage, base) {
+  if (base?.includes("?")) {
+    throw new Error(`[unstorage] Invalid base: ${JSON.stringify(base)}`);
+  }
   base = normalizeBaseKey(base);
   if (!base) {
     return storage;
   }
+  const itemKey = (key) => {
+    if (!normalizeKey$1(key)) {
+      throw new Error(`[unstorage] Invalid key: ${JSON.stringify(key)}`);
+    }
+    return base + key;
+  };
   const nsStorage = { ...storage };
   for (const property of storageKeyProperties) {
-    nsStorage[property] = (key = "", ...args) => (
+    nsStorage[property] = nonItemKeyProperties.has(property) ? (key = "", ...args) => (
       // @ts-ignore
       storage[property](base + key, ...args)
+    ) : async (key = "", ...args) => (
+      // @ts-ignore
+      storage[property](itemKey(key), ...args)
     );
   }
   nsStorage.getKeys = (key = "", ...arguments_) => storage.getKeys(base + key, ...arguments_).then((keys) => keys.map((key2) => key2.slice(base.length)));
   nsStorage.keys = nsStorage.getKeys;
   nsStorage.getItems = async (items, commonOptions) => {
     const prefixedItems = items.map(
-      (item) => typeof item === "string" ? base + item : { ...item, key: base + item.key }
+      (item) => typeof item === "string" ? itemKey(item) : { ...item, key: itemKey(item.key) }
     );
     const results = await storage.getItems(prefixedItems, commonOptions);
     return results.map((entry) => ({
@@ -2863,7 +2921,7 @@ function prefixStorage(storage, base) {
   };
   nsStorage.setItems = async (items, commonOptions) => {
     const prefixedItems = items.map((item) => ({
-      key: base + item.key,
+      key: itemKey(item.key),
       value: item.value,
       options: item.options
     }));
@@ -2876,6 +2934,9 @@ function normalizeKey$1(key) {
     return "";
   }
   return key.split("?")[0]?.replace(/[/\\]/g, ":").replace(/:+/g, ":").replace(/^:|:$/g, "") || "";
+}
+function hasDotSegment(key) {
+  return key.split(":").some((segment) => segment === "." || segment === "..");
 }
 function joinKeys(...keys) {
   return normalizeKey$1(keys.join(":"));
@@ -2951,6 +3012,20 @@ function createStorage(options = {}) {
     watchListeners: [],
     unwatch: {}
   };
+  const normalizeItemKey = (key) => {
+    const normalizedKey = normalizeKey$1(key);
+    if (!normalizedKey || hasDotSegment(normalizedKey)) {
+      throw new Error(`[unstorage] Invalid key: ${JSON.stringify(key)}`);
+    }
+    return normalizedKey;
+  };
+  const normalizeBase = (base) => {
+    const normalizedBase = normalizeBaseKey(base);
+    if (hasDotSegment(normalizedBase)) {
+      throw new Error(`[unstorage] Invalid base: ${JSON.stringify(base)}`);
+    }
+    return normalizedBase;
+  };
   const getMount = (key) => {
     for (const base of context.mountpoints) {
       if (key.startsWith(base)) {
@@ -3024,7 +3099,7 @@ function createStorage(options = {}) {
     };
     for (const item of items) {
       const isStringItem = typeof item === "string";
-      const key = normalizeKey$1(isStringItem ? item : item.key);
+      const key = normalizeItemKey(isStringItem ? item : item.key);
       const value = isStringItem ? void 0 : item.value;
       const options2 = isStringItem || !item.options ? commonOptions : { ...commonOptions, ...item.options };
       const mount = getMount(key);
@@ -3041,19 +3116,19 @@ function createStorage(options = {}) {
   };
   const storage = {
     // Item
-    hasItem(key, opts = {}) {
-      key = normalizeKey$1(key);
+    async hasItem(key, opts = {}) {
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       return asyncCall(driver.hasItem, relativeKey, opts);
     },
-    getItem(key, opts = {}) {
-      key = normalizeKey$1(key);
+    async getItem(key, opts = {}) {
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       return asyncCall(driver.getItem, relativeKey, opts).then(
         (value) => destr(value)
       );
     },
-    getItems(items, commonOptions = {}) {
+    async getItems(items, commonOptions = {}) {
       return runBatch(items, commonOptions, (batch) => {
         if (batch.driver.getItems) {
           return asyncCall(
@@ -3084,8 +3159,8 @@ function createStorage(options = {}) {
         );
       });
     },
-    getItemRaw(key, opts = {}) {
-      key = normalizeKey$1(key);
+    async getItemRaw(key, opts = {}) {
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       if (driver.getItemRaw) {
         return asyncCall(driver.getItemRaw, relativeKey, opts);
@@ -3098,12 +3173,12 @@ function createStorage(options = {}) {
       if (value === void 0) {
         return storage.removeItem(key);
       }
-      key = normalizeKey$1(key);
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       if (!driver.setItem) {
         return;
       }
-      await asyncCall(driver.setItem, relativeKey, stringify$8(value), opts);
+      await asyncCall(driver.setItem, relativeKey, stringify$9(value), opts);
       if (!driver.watch) {
         onChange("update", key);
       }
@@ -3115,7 +3190,7 @@ function createStorage(options = {}) {
             batch.driver.setItems,
             batch.items.map((item) => ({
               key: item.relativeKey,
-              value: stringify$8(item.value),
+              value: stringify$9(item.value),
               options: item.options
             })),
             commonOptions
@@ -3129,7 +3204,7 @@ function createStorage(options = {}) {
             return asyncCall(
               batch.driver.setItem,
               item.relativeKey,
-              stringify$8(item.value),
+              stringify$9(item.value),
               item.options
             );
           })
@@ -3140,7 +3215,7 @@ function createStorage(options = {}) {
       if (value === void 0) {
         return storage.removeItem(key, opts);
       }
-      key = normalizeKey$1(key);
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       if (driver.setItemRaw) {
         await asyncCall(driver.setItemRaw, relativeKey, value, opts);
@@ -3157,7 +3232,7 @@ function createStorage(options = {}) {
       if (typeof opts === "boolean") {
         opts = { removeMeta: opts };
       }
-      key = normalizeKey$1(key);
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       if (!driver.removeItem) {
         return;
@@ -3175,7 +3250,7 @@ function createStorage(options = {}) {
       if (typeof opts === "boolean") {
         opts = { nativeOnly: opts };
       }
-      key = normalizeKey$1(key);
+      key = normalizeItemKey(key);
       const { relativeKey, driver } = getMount(key);
       const meta = /* @__PURE__ */ Object.create(null);
       if (driver.getMeta) {
@@ -3199,15 +3274,15 @@ function createStorage(options = {}) {
       }
       return meta;
     },
-    setMeta(key, value, opts = {}) {
-      return this.setItem(key + "$", value, opts);
+    async setMeta(key, value, opts = {}) {
+      return this.setItem(normalizeItemKey(key) + "$", value, opts);
     },
-    removeMeta(key, opts = {}) {
-      return this.removeItem(key + "$", opts);
+    async removeMeta(key, opts = {}) {
+      return this.removeItem(normalizeItemKey(key) + "$", opts);
     },
     // Keys
     async getKeys(base, opts = {}) {
-      base = normalizeBaseKey(base);
+      base = normalizeBase(base);
       const mounts = getMounts(base, true);
       let maskedMounts = [];
       const allKeys = [];
@@ -3239,7 +3314,7 @@ function createStorage(options = {}) {
     },
     // Utils
     async clear(base, opts = {}) {
-      base = normalizeBaseKey(base);
+      base = normalizeBase(base);
       await Promise.all(
         getMounts(base, false).map(async (m) => {
           if (m.driver.clear) {
@@ -3277,7 +3352,7 @@ function createStorage(options = {}) {
     },
     // Mount
     mount(base, driver) {
-      base = normalizeBaseKey(base);
+      base = normalizeBase(base);
       if (base && context.mounts[base]) {
         throw new Error(`already mounted at ${base}`);
       }
@@ -3404,7 +3479,7 @@ async function writeFile(path, data, encoding) {
   return promises.writeFile(path, data, encoding);
 }
 function readFile(path, encoding) {
-  return promises.readFile(path, encoding).catch(ignoreNotfound);
+  return promises.readFile(path, encoding ?? null).catch(ignoreNotfound);
 }
 function unlink(path) {
   return promises.unlink(path).catch(ignoreNotfound);
@@ -4172,6 +4247,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
         }
       });
       const event = createEvent(reqProxy, resProxy);
+      event._path = incomingEvent._path;
       event.fetch = (url, fetchOptions) => fetchWithEvent$2(event, url, fetchOptions, {
         fetch: useNitroApp().localFetch
       });
@@ -4408,11 +4484,20 @@ function splitByCase(str, separators) {
   parts.push(buff);
   return parts;
 }
+function upperFirst(str) {
+  return str ? str[0].toUpperCase() + str.slice(1) : "";
+}
 function kebabCase(str, joiner) {
   return str ? (Array.isArray(str) ? str : splitByCase(str)).map((p) => p.toLowerCase()).join(joiner) : "";
 }
 function snakeCase(str) {
   return kebabCase(str || "", "_");
+}
+const titleCaseExceptions = /^(a|an|and|as|at|but|by|for|if|in|is|nor|of|on|or|the|to|with)$/i;
+function titleCase(str, opts) {
+  return (Array.isArray(str) ? str : splitByCase(str)).filter(Boolean).map(
+    (p) => titleCaseExceptions.test(p) ? p.toLowerCase() : upperFirst(p)
+  ).join(" ");
 }
 
 function getEnv(key, opts) {
@@ -4456,7 +4541,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "af42fc6b-e730-445c-b622-0134aba0b12d",
+    "buildId": "e12c4d35-318c-4128-8c84-fa964d1aee9f",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -4483,7 +4568,7 @@ const _inlineRuntimeConfig = {
         "headers": {
           "Content-Type": "text/xml; charset=UTF-8",
           "Cache-Control": "public, max-age=600, must-revalidate",
-          "X-Sitemap-Prerendered": "2026-10-13T08:06:49.011Z"
+          "X-Sitemap-Prerendered": "2026-10-28T07:16:10.043Z"
         }
       },
       "/_og/d/**": {
@@ -4502,6 +4587,11 @@ const _inlineRuntimeConfig = {
         }
       },
       "/llms.txt": {
+        "headers": {
+          "Content-Type": "text/plain; charset=utf-8"
+        }
+      },
+      "/llms/**": {
         "headers": {
           "Content-Type": "text/plain; charset=utf-8"
         }
@@ -4553,6 +4643,9 @@ const _inlineRuntimeConfig = {
   },
   "appSecret": "",
   "public": {
+    "colorMode": {
+      "cookieAttrs": ""
+    },
     "mdc": {
       "components": {
         "prose": true,
@@ -4593,7 +4686,7 @@ const _inlineRuntimeConfig = {
         ]
       }
     },
-    "nuxt-seo-utils-version": "9.0.0",
+    "nuxt-seo-utils-version": "9.0.1",
     "seo-utils": {
       "canonicalQueryWhitelist": [
         "page",
@@ -4622,7 +4715,7 @@ const _inlineRuntimeConfig = {
       "ipTracking": "",
       "reloadStrategy": "prompt",
       "multiTab": true,
-      "version": "2.0.2"
+      "version": "2.0.3"
     },
     "content": {
       "wsUrl": ""
@@ -4640,9 +4733,11 @@ const _inlineRuntimeConfig = {
             ""
           ],
           "allow": [],
+          "contentSignal": [
+            "search=yes, ai-input=yes"
+          ],
           "comment": [],
           "contentUsage": [],
-          "contentSignal": [],
           "_indexable": true,
           "_rules": [],
           "_normalized": true
@@ -4696,7 +4791,7 @@ const _inlineRuntimeConfig = {
     }
   ],
   "nuxt-ai-ready": {
-    "version": "3.0.3",
+    "version": "3.4.0",
     "debug": false,
     "debugCron": false,
     "contentNegotiation": "auto",
@@ -4712,7 +4807,11 @@ const _inlineRuntimeConfig = {
       "swr": true
     },
     "llmsTxt": {
-      "markdownLinks": false,
+      "markdownLinks": true,
+      "directive": {
+        "markdown": true,
+        "html": false
+      },
       "sections": [
         {
           "title": "LLM Resources",
@@ -4727,8 +4826,9 @@ const _inlineRuntimeConfig = {
       ],
       "notes": ""
     },
+    "llmsFullTxt": true,
     "llmsTxtCacheSeconds": 600,
-    "prerenderCacheDir": "/Users/ccci/Project/ReactPortfolio/node_modules/.cache/nuxt-seo/ai-ready/routes",
+    "prerenderCacheDir": "/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/.cache/nuxt-seo/ai-ready/routes",
     "database": {
       "_tag": "Disabled"
     },
@@ -4753,7 +4853,7 @@ const _inlineRuntimeConfig = {
     },
     "localDatabase": {
       "type": "sqlite",
-      "filename": "/Users/ccci/Project/ReactPortfolio/.data/content/contents.sqlite"
+      "filename": "/Users/ccci/Desktop/Projects/ReactPortfolio/.data/content/contents.sqlite"
     },
     "integrityCheck": true
   },
@@ -4770,9 +4870,11 @@ const _inlineRuntimeConfig = {
           ""
         ],
         "allow": [],
+        "contentSignal": [
+          "search=yes, ai-input=yes"
+        ],
         "comment": [],
         "contentUsage": [],
-        "contentSignal": [],
         "_indexable": true,
         "_rules": [],
         "_normalized": true
@@ -4788,7 +4890,7 @@ const _inlineRuntimeConfig = {
     "botDetection": true
   },
   "nuxt-og-image": {
-    "version": "7.0.3",
+    "version": "7.0.7",
     "satoriOptions": {},
     "resvgOptions": {},
     "sharpOptions": {},
@@ -4802,7 +4904,7 @@ const _inlineRuntimeConfig = {
     },
     "debug": false,
     "includeTwitter": true,
-    "baseCacheKey": "/cache/nuxt-og-image/7.0.3",
+    "baseCacheKey": "/cache/nuxt-og-image/7.0.7",
     "buildCacheDir": "",
     "publish": "",
     "hasNuxtIcon": true,
@@ -4837,7 +4939,7 @@ const _inlineRuntimeConfig = {
         "defaultLocale": "en"
       }
     ],
-    "version": "5.0.2",
+    "version": "5.0.3",
     "debug": false,
     "multiTenancy": []
   },
@@ -5024,7 +5126,7 @@ const _routeRulesMatcher = toRouteMatcher(
 );
 function createRouteRulesHandler(ctx) {
   return eventHandler((event) => {
-    const routeRules = getRouteRules$1(event);
+    const routeRules = getRouteRules$2(event);
     if (routeRules.headers) {
       setHeaders(event, routeRules.headers);
     }
@@ -5073,7 +5175,7 @@ function createRouteRulesHandler(ctx) {
     }
   });
 }
-function getRouteRules$1(event) {
+function getRouteRules$2(event) {
   event.context._nitro = event.context._nitro || {};
   if (!event.context._nitro.routeRules) {
     event.context._nitro.routeRules = getRouteRulesForPath(
@@ -5130,13 +5232,14 @@ function normalizeCookieHeaders(headers) {
   return outgoingHeaders;
 }
 
-//#region src/runtime/utils/event.ts
+// src/runtime/utils/event.ts
 const ENC_PIPE_RE = /%7C/g;
 const ENC_BRACKET_OPEN_RE = /%5B/g;
 const ENC_BRACKET_CLOSE_RE = /%5D/g;
 const ENC_ENC_SLASH_RE = /%252F/gi;
 const HASH_RE = /#/g;
 const QUESTION_MARK_RE = /\?/g;
+const DOT_SEGMENT_RE = /(?:^|\/)\.{1,2}(?:\/|$)/;
 function encodeEventPath(path) {
 	const queryIndex = path.indexOf("?");
 	if (queryIndex === -1) return encodeVueRouterPath(path);
@@ -5240,12 +5343,14 @@ function toWebRequest$1(event) {
 	const method = event.method;
 	if (!PAYLOAD_METHODS.has(method)) return new Request(getRequestURL(event), {
 		method,
-		headers: event.headers
+		headers: event.headers,
+		signal: toRequestSignal(event)
 	});
 	const request = new Request(getRequestURL(event), {
 		method,
 		headers: event.headers,
 		body: toBufferedBodyStream(event),
+		signal: toRequestSignal(event),
 		duplex: "half"
 	});
 	const read = () => readRawBody(event, false).then((body) => body ? new Uint8Array(body) : /* @__PURE__ */ new Uint8Array());
@@ -5259,6 +5364,18 @@ function toWebRequest$1(event) {
 		return typeof value === "function" ? value.bind(target) : value;
 	} });
 	return buffered;
+}
+/**
+* Aborts when the client disconnects before the response is finished, the same moment an h3 v1
+* handler would catch with `event.node.req.on('close')`.
+*/
+function toRequestSignal(event) {
+	const controller = new AbortController();
+	const res = event.node?.res;
+	if (typeof res?.once === "function") res.once("close", () => {
+		if (!res.writableFinished) controller.abort();
+	});
+	return controller.signal;
 }
 function toBufferedBodyStream(event) {
 	return new ReadableStream({ async pull(controller) {
@@ -5307,12 +5424,23 @@ function toPortableEvent(event, resolveURL) {
 function getFetchedRequestContext(event) {
 	return event.node.req.__unenv__?.nuxt;
 }
-/** The event the SSR renderer reads, which reaches the h3 v1 event itself through `~app`. */
+/**
+* The event the SSR renderer reads, which reaches the h3 v1 event itself through `~app`.
+* Of the Nuxt context a request nitro made to itself was fetched with, only the error render
+* flag carries over.
+*
+* Paths with `.` or `..` segments 404, as `url` would resolve them to a page other than the
+* one `event.path` names.
+*/
 function toRequestEvent(event) {
+	const queryIndex = event.path.indexOf("?");
+	if (DOT_SEGMENT_RE.test(queryIndex === -1 ? event.path : event.path.slice(0, queryIndex))) throw createError$2({
+		statusCode: 404,
+		statusMessage: "Page Not Found"
+	});
 	const requestEvent = toWebView(event);
-	const fetchedWith = getFetchedRequestContext(event);
-	if (fetchedWith) event.context.nuxt = {
-		...fetchedWith,
+	if (getFetchedRequestContext(event)?.["~rendering-error"]) event.context.nuxt = {
+		"~rendering-error": true,
 		...event.context.nuxt
 	};
 	return requestEvent;
@@ -5326,7 +5454,7 @@ function toRequestEvent(event) {
 * than a copy of it, so a header the application sets through h3 and a header the renderer
 * sets are the same header.
 */
-function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path), `${getRequestProtocol$2(event)}://${getRequestHost$2(event)}`)) {
+function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path), `${getRequestProtocol(event)}://${getRequestHost(event)}`)) {
 	const node = event.node;
 	let request;
 	let url;
@@ -5363,7 +5491,7 @@ function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path)
 	return requestEvent;
 }
 
-//#region src/runtime/utils/error.ts
+// src/runtime/utils/error.ts
 /**
 * Nitro internal functions extracted from https://github.com/nitrojs/nitro/blob/v2/src/runtime/internal/utils.ts
 */
@@ -5428,7 +5556,7 @@ const appSpaLoaderTag = "div";
 const appSpaLoaderAttrs = {"id":"__nuxt-loader"};
 const appId = "nuxt-app";
 
-//#region src/runtime/handlers/error.ts
+// src/runtime/handlers/error.ts
 var error_default = async function errorhandler(error, event, { defaultHandler }) {
 	if (event.handled) return;
 	const isRenderingError = !!(event.context.nuxt?.["~rendering-error"] || getFetchedRequestContext(event)?.["~rendering-error"]);
@@ -5602,9 +5730,89 @@ function fetchRawWithEvent(event, request, init) {
   return event.fetch(request, init)
 }
 
-const _s68ot_UDbI7KmEEEeiQ4p6VhjTLrGJjsWmP5KFtgsOQ = defineNitroPlugin((nitroApp) => {
+const _YDLUKTZXdOZR5euLMCN5AnSEG5YQcFhnoCD8gjkk160 = defineNitroPlugin((nitroApp) => {
   return;
 });
+
+const decodeRoutePath = function decodeRoutePath(path) {
+	if (!path.includes("%")) return path;
+	const queryIndex = path.indexOf("?");
+	const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+	try {
+		return queryIndex === -1 ? decodeURI(pathname) : decodeURI(pathname) + path.slice(queryIndex);
+	} catch {
+		return path;
+	}
+};
+const resolveRoutePathDotSegments = function resolveRoutePathDotSegments(path) {
+	const queryIndex = path.indexOf("?");
+	const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+	if (!/(?:^|\/)(?:\.|%2e)/i.test(pathname)) return path;
+	const input = pathname.split("/");
+	const output = [];
+	const root = pathname.startsWith("/") ? 1 : 0;
+	for (const [i, segment] of input.entries()) {
+		const dots = /^(?:\.|%2e)(\.|%2e)?$/i.exec(segment);
+		if (!dots) {
+			output.push(segment);
+			continue;
+		}
+		if (dots[1] && output.length > root) output.pop();
+		if (i === input.length - 1) output.push("");
+	}
+	const resolved = output.join("/");
+	return queryIndex === -1 ? resolved : resolved + path.slice(queryIndex);
+};
+const foldRouteCase = function foldRouteCase(path) {
+	return path.replace(/[A-Z]+|[^\0-\x7F]/g, (char) => {
+		if (char.charCodeAt(0) < 128) return char.toLowerCase();
+		const upper = char.toUpperCase();
+		if (upper.length !== 1 || upper.charCodeAt(0) < 128) return char;
+		const lower = upper.toLowerCase();
+		return lower.length === 1 && lower.toUpperCase() === upper ? lower : upper;
+	});
+};
+const normalizePath$1 = (path, fold) => {
+  if (typeof path !== 'string') { return path }
+  const decoded = decodeRoutePath(resolveRoutePathDotSegments(path));
+  return fold ? foldRouteCase(decoded) : decoded
+};
+const normalizeRouteRulePath = path => normalizePath$1(path, true);
+
+// src/runtime/utils/route-rules.ts
+let matcher;
+function getMatcher() {
+	if (!matcher) {
+		const routes = {};
+		for (const [route, rules] of Object.entries(useRuntimeConfig$1().nitro?.routeRules || {})) routes[normalizeRouteRulePath(route)] = rules;
+		matcher = toRouteMatcher(createRouter$1({ routes }));
+	}
+	return matcher;
+}
+/**
+* Resolve the route rules for a path without the base URL. Keys and path are decoded,
+* and case-folded unless routing is `sensitive`.
+*/
+function matchRouteRules(path) {
+	return defu({}, ...getMatcher().matchAll(normalizeRouteRulePath(path)).reverse());
+}
+/** Resolve the route rules for a request, as {@link matchRouteRules} does for its path. */
+function resolveRequestRouteRules(event) {
+	return matchRouteRules(withoutBase(event.path.split("?")[0], useRuntimeConfig$1().app.baseURL));
+}
+/** The route rules for a request, reusing those already resolved for it. */
+function getRouteRules$1(event) {
+	const context = event.context._nitro ||= {};
+	return context.routeRules ||= resolveRequestRouteRules(event);
+}
+
+// src/runtime/plugins/route-rules.ts
+var route_rules_default = (nitroApp) => {
+	nitroApp.hooks.hook("request", (event) => {
+		event.context._nitro ||= {};
+		event.context._nitro.routeRules = resolveRequestRouteRules(event);
+	});
+};
 
 const PROTOCOL_RE = /^https?:\/\//;
 const TRAILING_SLASH_RE = /\/$/;
@@ -5691,10 +5899,10 @@ function getNitroOrigin$1(ctx = {}) {
   return `${protocol}://${host}${port ? `:${port}` : ""}/`;
 }
 
-//#region ../nuxt/src/app/error.ts
+// ../nuxt/src/app/error.ts
 const NUXT_ERROR_SIGNATURE = "__nuxt_error";
 
-//#region src/runtime/utils/paths.ts
+// src/runtime/utils/paths.ts
 function baseURL() {
 	return useRuntimeConfig$1().app.baseURL;
 }
@@ -5710,7 +5918,7 @@ function publicAssetsURL(...path) {
 	return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
-//#region src/server/fetch.ts
+// src/server/fetch.ts
 const DEFAULT_FORWARDED_HEADERS = ["cookie", "authorization"];
 /** @internal */
 function resolveServerFetchInit(event, init = {}) {
@@ -5727,29 +5935,177 @@ function resolveServerFetchInit(event, init = {}) {
 	};
 }
 
-/**
-* The `Host` of the request, or an empty string.
-*
-* @since 4.6.0
-*/
-function getRequestHost$1(event, options = {}) {
-	if (options.xForwardedHost) {
-		const forwarded = event.req.headers.get("x-forwarded-host")?.split(",")[0].trim();
-		if (forwarded) return forwarded;
+function flatHooks(configHooks, hooks = {}, parentName) {
+	for (const key in configHooks) {
+		const subHook = configHooks[key];
+		const name = parentName ? `${parentName}:${key}` : key;
+		if (typeof subHook === "object" && subHook !== null) flatHooks(subHook, hooks, name);
+		else if (typeof subHook === "function") hooks[name] = subHook;
 	}
-	return event.req.headers.get("host") || "";
+	return hooks;
 }
-/**
-* The protocol of the request, without the trailing colon.
-*
-* @since 4.6.0
-*/
-function getRequestProtocol$1(event, options = {}) {
-	if (options.xForwardedProto) {
-		const forwarded = event.req.headers.get("x-forwarded-proto")?.split(",")[0].trim();
-		if (forwarded === "https" || forwarded === "http") return forwarded;
+const createTask = /* @__PURE__ */ (() => {
+	if (console.createTask) return console.createTask;
+	const defaultTask = { run: (fn) => fn() };
+	return () => defaultTask;
+})();
+function callHooks(hooks, args, startIndex, task) {
+	for (let i = startIndex; i < hooks.length; i += 1) try {
+		const result = task ? task.run(() => hooks[i](...args)) : hooks[i](...args);
+		if (result && typeof result.then === "function") return Promise.resolve(result).then(() => callHooks(hooks, args, i + 1, task));
+	} catch (error) {
+		return Promise.reject(error);
 	}
-	return (event.url ?? new URL(event.req.url)).protocol.slice(0, -1);
+}
+function serialTaskCaller(hooks, args, name) {
+	if (hooks.length > 0) return callHooks(hooks, args, 0, createTask(name));
+}
+function parallelTaskCaller(hooks, args, name) {
+	if (hooks.length > 0) {
+		const task = createTask(name);
+		return Promise.all(hooks.map((hook) => task.run(() => hook(...args))));
+	}
+}
+function callEachWith(callbacks, arg0) {
+	for (const callback of [...callbacks]) callback(arg0);
+}
+var Hookable = class {
+	_hooks;
+	_before;
+	_after;
+	_deprecatedHooks;
+	_deprecatedMessages;
+	constructor() {
+		this._hooks = {};
+		this._before = void 0;
+		this._after = void 0;
+		this._deprecatedMessages = void 0;
+		this._deprecatedHooks = {};
+		this.hook = this.hook.bind(this);
+		this.callHook = this.callHook.bind(this);
+		this.callHookWith = this.callHookWith.bind(this);
+	}
+	hook(name, function_, options = {}) {
+		if (!name || typeof function_ !== "function") return () => {};
+		const originalName = name;
+		let dep;
+		while (this._deprecatedHooks[name]) {
+			dep = this._deprecatedHooks[name];
+			name = dep.to;
+		}
+		if (dep && !options.allowDeprecated) {
+			let message = dep.message;
+			if (!message) message = `${originalName} hook has been deprecated` + (dep.to ? `, please use ${dep.to}` : "");
+			if (!this._deprecatedMessages) this._deprecatedMessages = /* @__PURE__ */ new Set();
+			if (!this._deprecatedMessages.has(message)) {
+				console.warn(message);
+				this._deprecatedMessages.add(message);
+			}
+		}
+		if (!function_.name) try {
+			Object.defineProperty(function_, "name", {
+				get: () => "_" + name.replace(/\W+/g, "_") + "_hook_cb",
+				configurable: true
+			});
+		} catch {}
+		this._hooks[name] = this._hooks[name] || [];
+		this._hooks[name].push(function_);
+		return () => {
+			if (function_) {
+				this.removeHook(name, function_);
+				function_ = void 0;
+			}
+		};
+	}
+	hookOnce(name, function_) {
+		let _unreg;
+		let _function = (...arguments_) => {
+			if (typeof _unreg === "function") _unreg();
+			_unreg = void 0;
+			_function = void 0;
+			return function_(...arguments_);
+		};
+		_unreg = this.hook(name, _function);
+		return _unreg;
+	}
+	removeHook(name, function_) {
+		const hooks = this._hooks[name];
+		if (hooks) {
+			const index = hooks.indexOf(function_);
+			if (index !== -1) hooks.splice(index, 1);
+			if (hooks.length === 0) this._hooks[name] = void 0;
+		}
+	}
+	clearHook(name) {
+		this._hooks[name] = void 0;
+	}
+	deprecateHook(name, deprecated) {
+		this._deprecatedHooks[name] = typeof deprecated === "string" ? { to: deprecated } : deprecated;
+		const _hooks = this._hooks[name] || [];
+		this._hooks[name] = void 0;
+		for (const hook of _hooks) this.hook(name, hook);
+	}
+	deprecateHooks(deprecatedHooks) {
+		for (const name in deprecatedHooks) this.deprecateHook(name, deprecatedHooks[name]);
+	}
+	addHooks(configHooks) {
+		const hooks = flatHooks(configHooks);
+		const removeFns = Object.keys(hooks).map((key) => this.hook(key, hooks[key]));
+		return () => {
+			for (const unreg of removeFns) unreg();
+			removeFns.length = 0;
+		};
+	}
+	removeHooks(configHooks) {
+		const hooks = flatHooks(configHooks);
+		for (const key in hooks) this.removeHook(key, hooks[key]);
+	}
+	removeAllHooks() {
+		this._hooks = {};
+	}
+	callHook(name, ...args) {
+		return this.callHookWith(serialTaskCaller, name, args);
+	}
+	callHookParallel(name, ...args) {
+		return this.callHookWith(parallelTaskCaller, name, args);
+	}
+	callHookWith(caller, name, args) {
+		const event = this._before || this._after ? {
+			name,
+			args,
+			context: {}
+		} : void 0;
+		if (this._before) callEachWith(this._before, event);
+		const result = caller(this._hooks[name] ? [...this._hooks[name]] : [], args, name);
+		if (result instanceof Promise) return result.finally(() => {
+			if (this._after && event) callEachWith(this._after, event);
+		});
+		if (this._after && event) callEachWith(this._after, event);
+		return result;
+	}
+	beforeEach(function_) {
+		this._before = this._before || [];
+		this._before.push(function_);
+		return () => {
+			if (this._before !== void 0) {
+				const index = this._before.indexOf(function_);
+				if (index !== -1) this._before.splice(index, 1);
+			}
+		};
+	}
+	afterEach(function_) {
+		this._after = this._after || [];
+		this._after.push(function_);
+		return () => {
+			if (this._after !== void 0) {
+				const index = this._after.indexOf(function_);
+				if (index !== -1) this._after.splice(index, 1);
+			}
+		};
+	}
+};
+function createHooks() {
+	return new Hookable();
 }
 
 /**
@@ -5807,21 +6163,6 @@ function withPortableStatus(error) {
 		configurable: true
 	});
 	return target;
-}
-/** @see {@link import('nuxt/server').getRequestHost} */
-function getRequestHost(event, options = {}) {
-	return getRequestHost$1({ req: { headers: event.headers } }, options);
-}
-/** @see {@link import('nuxt/server').getRequestProtocol} */
-function getRequestProtocol(event, options = {}) {
-	return getRequestProtocol$1(toForwardedEvent(event, options), options);
-}
-/** The URL h3 resolves for the request, with the headers to read forwarded values from. */
-function toForwardedEvent(event, options) {
-	return {
-		req: { headers: event.headers },
-		url: getRequestURL(event, { xForwardedProto: options.xForwardedProto })
-	};
 }
 /** @see {@link import('nuxt/server').getRequestHeader} */
 function getRequestHeader(event, name) {
@@ -6036,27 +6377,27 @@ async function initRequestSiteConfig(e, origin, routeRules) {
   e.context._initedSiteConfig = true;
 }
 
-const _EMSsgNcvdJvmhcpddJBIIPyxaI98sME5HQtCk5E68 = defineNitroPlugin((nitroApp) => {
+const _BSvNXZPhi69sXr8pvONebGLi23tJoAVTSQ3oHeT380 = defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook("request", (event) => {
     const path = withoutBase(event.path.split("?")[0] || "/", useRuntimeConfig().app.baseURL);
     return initRequestSiteConfig(event, getNitroOrigin$1({
       isDev: false,
       isPrerender: false,
-      requestHost: getRequestHost$2(event, { xForwardedHost: true }),
-      requestProtocol: getRequestProtocol$2(event, { xForwardedProto: true })
-    }), getRouteRulesForPath(path, event.method));
+      requestHost: getRequestHost(event, { xForwardedHost: true }),
+      requestProtocol: getRequestProtocol(event, { xForwardedProto: true })
+    }), matchRouteRules(path, event.method));
   });
 });
 
 const script = "\"use strict\";(()=>{const o=window,e=document.documentElement,c=[\"dark\",\"light\"],s=getStorageValue(\"localStorage\",\"ashly-theme\")||\"dark\";let r=s===\"system\"?f():s;const l=e.getAttribute(\"data-color-mode-forced\");l&&(r=l),i(r),o[\"__NUXT_COLOR_MODE__\"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=\"\"+t+\"\",n=\"\";e.classList?e.classList.add(a):e.className+=\" \"+a,n&&e.setAttribute(\"data-\"+n,t)}function d(t){const a=\"\"+t+\"\",n=\"\";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,\"g\"),\"\"),n&&e.removeAttribute(\"data-\"+n)}function u(t){return o.matchMedia(\"(prefers-color-scheme\"+t+\")\")}function f(){if(o.matchMedia&&u(\"\").media!==\"not all\"){for(const t of c)if(u(\":\"+t).matches)return t}return\"dark\"}})();function getStorageValue(o,e){switch(o){case\"localStorage\":try{return window.localStorage.getItem(e)}catch{return null}case\"sessionStorage\":try{return window.sessionStorage.getItem(e)}catch{return null}case\"cookie\":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=(\"; \"+window.document.cookie).split(\"; \"+o+\"=\");if(c.length===2){const s=c.pop();return s?s.split(\";\").shift():null}}";
 
-const _LFHw4M2S0FUxAGDfDwHAKy0pLSt0KYaT8gXD8Xtthg = (function(nitro) {
+const _91qujzOfWJfyZkbD6zumMOS2zKQMJRq5PcFlMdXLtLc = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
-const css = "@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:italic}@font-face{font-family:Inter Fallback\\: -apple-system;src:local(-apple-system);size-adjust:114.654%;ascent-override:84.4932%;descent-override:21.0381%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: BlinkMacSystemFont;src:local(BlinkMacSystemFont);size-adjust:114.654%;ascent-override:84.4932%;descent-override:21.0381%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Segoe UI;src:local(Segoe UI);size-adjust:107.709%;ascent-override:89.9412%;descent-override:22.3946%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Roboto;src:local(Roboto);size-adjust:107.355%;ascent-override:90.2384%;descent-override:22.4686%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Helvetica Neue;src:local(Helvetica Neue);size-adjust:106.12%;ascent-override:91.2883%;descent-override:22.7301%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Arial;src:local(Arial);size-adjust:107.119%;ascent-override:90.4365%;descent-override:22.518%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Noto Sans;src:local(Noto Sans);size-adjust:100.747%;ascent-override:96.1571%;descent-override:23.9423%;line-gap-override:0%}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono Fallback\\: SFMono-Regular;src:local(SFMono-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Menlo;src:local(Menlo);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Monaco;src:local(Monaco);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Consolas;src:local(Consolas);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Courier New;src:local(Courier New);size-adjust:99.9837%;ascent-override:102.017%;descent-override:30.0049%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Roboto Mono;src:local(Roboto Mono);size-adjust:99.9837%;ascent-override:102.017%;descent-override:30.0049%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Noto Sans Mono;src:local(Noto Sans Mono);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans Fallback\\: -apple-system;src:local(-apple-system);size-adjust:112.364%;ascent-override:92.3784%;descent-override:19.7572%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: BlinkMacSystemFont;src:local(BlinkMacSystemFont);size-adjust:112.364%;ascent-override:92.3784%;descent-override:19.7572%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Segoe UI;src:local(Segoe UI);size-adjust:105.558%;ascent-override:98.3348%;descent-override:21.0311%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Roboto;src:local(Roboto);size-adjust:105.21%;ascent-override:98.6597%;descent-override:21.1006%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Helvetica Neue;src:local(Helvetica Neue);size-adjust:104%;ascent-override:99.8077%;descent-override:21.3462%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Arial;src:local(Arial);size-adjust:104.98%;ascent-override:98.8763%;descent-override:21.147%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Noto Sans;src:local(Noto Sans);size-adjust:98.7342%;ascent-override:105.131%;descent-override:22.4846%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:800;font-style:normal}";
+const css = "@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:italic}@font-face{font-family:Inter Fallback\\: -apple-system;src:local(-apple-system),local(-apple-system Regular),local(-apple-system-Regular),local(System Font),local(\\.SFNS-Regular);size-adjust:114.654%;ascent-override:84.4932%;descent-override:21.0381%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: BlinkMacSystemFont;src:local(BlinkMacSystemFont),local(BlinkMacSystemFont Regular),local(BlinkMacSystemFont-Regular),local(System Font),local(\\.SFNS-Regular);size-adjust:114.654%;ascent-override:84.4932%;descent-override:21.0381%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Segoe UI;src:local(Segoe UI),local(Segoe UI Regular),local(SegoeUI-Regular),local(SegoeUI);size-adjust:107.709%;ascent-override:89.9412%;descent-override:22.3946%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Roboto;src:local(Roboto),local(Roboto Regular),local(Roboto-Regular);size-adjust:107.355%;ascent-override:90.2384%;descent-override:22.4686%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Helvetica Neue;src:local(Helvetica Neue),local(Helvetica Neue Regular),local(HelveticaNeue-Regular),local(HelveticaNeue);size-adjust:106.12%;ascent-override:91.2883%;descent-override:22.7301%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Arial;src:local(Arial),local(Arial Regular),local(Arial-Regular),local(ArialMT);size-adjust:107.119%;ascent-override:90.4365%;descent-override:22.518%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Noto Sans;src:local(Noto Sans),local(Noto Sans Regular),local(NotoSans-Regular);size-adjust:100.747%;ascent-override:96.1571%;descent-override:23.9423%;line-gap-override:0%}@font-face{font-family:Inter Fallback\\: Liberation Sans;src:local(Liberation Sans),local(Liberation Sans Regular),local(LiberationSans-Regular);size-adjust:107.119%;ascent-override:90.4365%;descent-override:22.518%;line-gap-override:0%}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular Italic),local(Inter Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter Medium Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter SemiBold Italic),url(/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Regular),local(Inter),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter Medium),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+1F??;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:Inter;src:local(Inter SemiBold),url(/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono Fallback\\: SFMono-Regular;src:local(SFMono-Regular),local(SFMono-Regular Regular),local(SFMono-Regular-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Menlo;src:local(Menlo),local(Menlo Regular),local(Menlo-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Monaco;src:local(Monaco),local(Monaco Regular),local(Monaco-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Consolas;src:local(Consolas),local(Consolas Regular),local(Consolas-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Courier New;src:local(Courier New),local(Courier New Regular),local(CourierNew-Regular),local(CourierNewPSMT);size-adjust:99.9837%;ascent-override:102.017%;descent-override:30.0049%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Roboto Mono;src:local(Roboto Mono),local(Roboto Mono Regular),local(RobotoMono-Regular);size-adjust:99.9837%;ascent-override:102.017%;descent-override:30.0049%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Noto Sans Mono;src:local(Noto Sans Mono),local(Noto Sans Mono Regular),local(NotoSansMono-Regular);size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}@font-face{font-family:JetBrains Mono Fallback\\: Liberation Mono;src:local(Liberation Mono),local(Liberation Mono Regular),local(LiberationMono-Regular);size-adjust:99.9837%;ascent-override:102.017%;descent-override:30.0049%;line-gap-override:0%}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular Italic),local(JetBrains Mono Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold Italic),url(/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Regular),local(JetBrains Mono),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono Medium),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2)format(\"woff2\");font-display:swap;unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2)format(\"woff2\");font-display:swap;unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:JetBrains Mono;src:local(JetBrains Mono SemiBold),url(/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans Fallback\\: -apple-system;src:local(-apple-system),local(-apple-system Regular),local(-apple-system-Regular),local(System Font),local(\\.SFNS-Regular);size-adjust:112.364%;ascent-override:92.3784%;descent-override:19.7572%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: BlinkMacSystemFont;src:local(BlinkMacSystemFont),local(BlinkMacSystemFont Regular),local(BlinkMacSystemFont-Regular),local(System Font),local(\\.SFNS-Regular);size-adjust:112.364%;ascent-override:92.3784%;descent-override:19.7572%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Segoe UI;src:local(Segoe UI),local(Segoe UI Regular),local(SegoeUI-Regular),local(SegoeUI);size-adjust:105.558%;ascent-override:98.3348%;descent-override:21.0311%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Roboto;src:local(Roboto),local(Roboto Regular),local(Roboto-Regular);size-adjust:105.21%;ascent-override:98.6597%;descent-override:21.1006%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Helvetica Neue;src:local(Helvetica Neue),local(Helvetica Neue Regular),local(HelveticaNeue-Regular),local(HelveticaNeue);size-adjust:104%;ascent-override:99.8077%;descent-override:21.3462%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Arial;src:local(Arial),local(Arial Regular),local(Arial-Regular),local(ArialMT);size-adjust:104.98%;ascent-override:98.8763%;descent-override:21.147%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Noto Sans;src:local(Noto Sans),local(Noto Sans Regular),local(NotoSans-Regular);size-adjust:98.7342%;ascent-override:105.131%;descent-override:22.4846%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans Fallback\\: Liberation Sans;src:local(Liberation Sans),local(Liberation Sans Regular),local(LiberationSans-Regular);size-adjust:104.98%;ascent-override:98.8763%;descent-override:21.147%;line-gap-override:0%}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium Italic),url(/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold Italic),url(/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold Italic),url(/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold Italic),url(/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:800;font-style:italic}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Medium),url(/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans SemiBold),url(/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans Bold),url(/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2)format(\"woff2\");font-display:swap;unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2)format(\"woff2\");font-display:swap;unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:800;font-style:normal}@font-face{font-family:Plus Jakarta Sans;src:local(Plus Jakarta Sans ExtraBold),url(/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2)format(\"woff2\");font-display:swap;unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:800;font-style:normal}";
 
 const STYLE_RE = /<style[^>]*>([\s\S]*?)<\/style>/g;
 const FONT_FACE_RE = /@font-face\s*\{[^}]*\}/g;
@@ -6071,7 +6412,7 @@ function isTopLevel(style, index) {
   }
   return depth === 0;
 }
-const _GiLqy6UzYVo87j9IZ9k3lpDXRYEbM544lV9dgDuFy0w = (nitro) => {
+const _GegqTlU9ToUY3v__ethN1Xq3_9K2u1uaW3kOiCfNsc = (nitro) => {
   nitro.hooks.hook("render:html", (html) => {
     {
       html.head.push(`<style>${css}</style>`);
@@ -6682,7 +7023,7 @@ async function resolveRobotsTxtContext(e, nitro = useNitroApp()) {
   return generateRobotsTxtCtx;
 }
 
-const _WssQ8f05_8JoyooB6BgDnl_7r3xRYs9o2KPC3p_Pwc = defineNitroPlugin(async (nitroApp) => {
+const _P3zm45gMTeq1U1MDjatqw6sNUh8aHq3HIrCVu2ZE8k = defineNitroPlugin(async (nitroApp) => {
   const { robotsDisabledValue, botDetection } = useRuntimeConfigNuxtRobots();
   if (botDetection !== false) {
     nitroApp._robotsPatternMap = createPatternMap();
@@ -6937,7 +7278,7 @@ function getSiteConfig(e, _options) {
   return e.context.siteConfig.get(options);
 }
 
-const _kSFj9pRguOy5XNfAaZ0Y_gp09hiDl3q7HGBqnqwlmwo = defineNitroPlugin(async (nitroApp) => {
+const _HjximyGtxaKzmG6qKpPKryiwZpReNVn9DUQv2_r4t0U = defineNitroPlugin(async (nitroApp) => {
   nitroApp.hooks.hook("render:html", async (ctx, { event }) => {
     const routeOptions = getSiteRouteRules(event);
     const isIsland = process.env.NUXT_COMPONENT_ISLANDS && event.path.startsWith("/__nuxt_island");
@@ -7036,7 +7377,7 @@ function readSetCookies(event, fallback) {
   return fallback === void 0 || fallback === "" ? [] : [String(fallback)];
 }
 
-const _FTRSoggkG9fGNFnt7WIeqGcPB3bPueivxPOibUUO8 = defineNitroPlugin((nitroApp) => {
+const _rTHIzEztihvQQ5LFVqwkVt8qSp55bozwKxsOXmw = defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook("beforeResponse", (event, response) => {
     const nativeResponse = response?.body instanceof Response ? response.body : void 0;
     const cacheControl = sharedCacheControlHeader((name2) => nativeResponse?.headers.get(name2) ?? getResponseHeader(event, name2));
@@ -7083,7 +7424,7 @@ function setStatusAwareLinkHeader(event, safeHeader, successHeader) {
   };
   setHeader(event, "link", safeHeader);
 }
-const _qaJ1K13JINohXOmulKnxT3X6vcm5R1f2_kJJbJl4h5w = defineNitroPlugin((nitro) => {
+const _M4cJJb6bKazSTnV8NDV7__xmtafAyJYeWzc9AR6UU28 = defineNitroPlugin((nitro) => {
   nitro.hooks.hook("error", (_error, { event }) => {
     if (!event)
       return;
@@ -7569,10 +7910,7 @@ function getRequestRenderInfo(request, mode = { _tag: "runtime", contentNegotiat
   const isExplicit = originalPath.endsWith(".md");
   if (isPrerender && !isExplicit)
     return null;
-  const lastSegment = originalPath.split("/").pop() || "";
-  const hasExtension = lastSegment.includes(".");
-  const extension = hasExtension ? lastSegment.substring(lastSegment.lastIndexOf(".")) : "";
-  if (hasExtension && extension !== ".md")
+  if (!isExplicit && !hasMarkdownTwin(originalPath))
     return null;
   const negotiation = isPrerender ? "markdown" : mode.contentNegotiation ? negotiateRequestRepresentation(request, mode.botNegotiation) : "html";
   if (isExplicit) {
@@ -7687,6 +8025,9 @@ function setUncacheableHeaders(event) {
 }
 function setMarkdownHeaders(event, ctx, sourceHeaders) {
   setHeader(event, "content-type", "text/markdown; charset=utf-8");
+  const sourcePolicy = sourceHeaders?.get("content-signal");
+  if (sourcePolicy !== null && sourcePolicy !== void 0 && getResponseHeader(event, "content-signal") === void 0)
+    setHeader(event, "content-signal", sourcePolicy);
   const vary = [getResponseHeader(event, "vary"), sourceHeaders?.get("vary")].filter(Boolean).join(", ");
   setHeader(event, "vary", mergeVaryHeader(vary, "Accept"));
   setLinkHeader(event, ctx, "markdown");
@@ -7724,7 +8065,7 @@ function buildNegotiationContext(event, path) {
     path,
     resolvePath,
     resolveUrl: (target) => withSiteUrl(event, resolvePath(target), { withBase: true }),
-    routeContext: { host: getRequestHost$2(event, { xForwardedHost: true }) }
+    routeContext: { host: getRequestHost(event, { xForwardedHost: true }) }
   };
 }
 const REQUEST_DECISION = Symbol("nuxt-ai-ready:negotiation");
@@ -7815,7 +8156,7 @@ const negotiationHandler = defineEventHandler$1(async (event) => {
     return response;
   return serveCloudflarePrerenderedPage(event);
 });
-const _kzej8sbWtSQg7Q_wmkkQUGDmgOh5CcF3OhFrRhl3Gk = defineNitroPlugin((nitro) => {
+const _mt5acty3WRNiBEmclqIy__fo_sNxrHZbnZo21i9BoVI = defineNitroPlugin((nitro) => {
   const runtime = resolveH3Runtime(nitro);
   if (runtime._tag === "unsupported") {
     logger$1.debug("[markdown] No h3 stack found. Accept negotiation stays in the middleware.");
@@ -7838,857 +8179,879 @@ const _kzej8sbWtSQg7Q_wmkkQUGDmgOh5CcF3OhFrRhl3Gk = defineNitroPlugin((nitro) =>
 });
 
 const plugins = [
-  _s68ot_UDbI7KmEEEeiQ4p6VhjTLrGJjsWmP5KFtgsOQ,
-_EMSsgNcvdJvmhcpddJBIIPyxaI98sME5HQtCk5E68,
-_LFHw4M2S0FUxAGDfDwHAKy0pLSt0KYaT8gXD8Xtthg,
-_GiLqy6UzYVo87j9IZ9k3lpDXRYEbM544lV9dgDuFy0w,
-_WssQ8f05_8JoyooB6BgDnl_7r3xRYs9o2KPC3p_Pwc,
-_kSFj9pRguOy5XNfAaZ0Y_gp09hiDl3q7HGBqnqwlmwo,
-_FTRSoggkG9fGNFnt7WIeqGcPB3bPueivxPOibUUO8,
-_qaJ1K13JINohXOmulKnxT3X6vcm5R1f2_kJJbJl4h5w,
-_kzej8sbWtSQg7Q_wmkkQUGDmgOh5CcF3OhFrRhl3Gk
+  _YDLUKTZXdOZR5euLMCN5AnSEG5YQcFhnoCD8gjkk160,
+route_rules_default,
+_BSvNXZPhi69sXr8pvONebGLi23tJoAVTSQ3oHeT380,
+_91qujzOfWJfyZkbD6zumMOS2zKQMJRq5PcFlMdXLtLc,
+_GegqTlU9ToUY3v__ethN1Xq3_9K2u1uaW3kOiCfNsc,
+_P3zm45gMTeq1U1MDjatqw6sNUh8aHq3HIrCVu2ZE8k,
+_HjximyGtxaKzmG6qKpPKryiwZpReNVn9DUQv2_r4t0U,
+_rTHIzEztihvQQ5LFVqwkVt8qSp55bozwKxsOXmw,
+_M4cJJb6bKazSTnV8NDV7__xmtafAyJYeWzc9AR6UU28,
+_mt5acty3WRNiBEmclqIy__fo_sNxrHZbnZo21i9BoVI
 ];
 
 const assets = {
-  "/logo.ico": {
-    "type": "image/vnd.microsoft.icon",
-    "etag": "\"10be-hpSeRSWd1wp/iqnBFwwNeAqZUOg\"",
-    "mtime": "2026-10-13T08:07:22.956Z",
-    "size": 4286,
-    "path": "../public/logo.ico"
-  },
   "/_nuxt-skew-sw.js": {
     "type": "text/javascript; charset=utf-8",
     "etag": "\"697-C/22UetJW43gzS4ZRfWUTGejgNo\"",
-    "mtime": "2026-10-13T08:07:22.706Z",
+    "mtime": "2026-10-28T07:16:45.249Z",
     "size": 1687,
     "path": "../public/_nuxt-skew-sw.js"
   },
-  "/robots.txt": {
-    "type": "text/plain; charset=utf-8",
-    "etag": "\"79-u/ovNdQvHi/qI38OXd3755uFTJY\"",
-    "mtime": "2026-10-13T08:07:20.173Z",
-    "size": 121,
-    "path": "../public/robots.txt"
-  },
-  "/sitemap.xml": {
-    "type": "application/xml",
-    "etag": "\"503-wvY3p6hfXSN1fwVMT7gUo9ORqzA\"",
-    "mtime": "2026-10-13T08:07:22.500Z",
-    "size": 1283,
-    "path": "../public/sitemap.xml"
-  },
-  "/__sitemap__/style.xsl": {
-    "type": "application/xslt+xml",
-    "etag": "\"324b-p6hlenYt5E+1yfmI7eoxoOjydyU\"",
-    "mtime": "2026-10-13T08:07:20.173Z",
-    "size": 12875,
-    "path": "../public/__sitemap__/style.xsl"
-  },
-  "/_nuxt/1ObAWchD.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"10fc-WUaIQF0j/J97Gv47fIZuXlqUBdE\"",
-    "mtime": "2026-10-13T08:07:22.814Z",
-    "size": 4348,
-    "path": "../public/_nuxt/1ObAWchD.js"
-  },
-  "/_nuxt/AAk26E4d.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"c8-KAdjwyO4X2uCidmKVSkM3bXIIrw\"",
-    "mtime": "2026-10-13T08:07:22.814Z",
-    "size": 200,
-    "path": "../public/_nuxt/AAk26E4d.js"
-  },
-  "/_nuxt/B6OEaKjr.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"20c-GsTIp4R3TDHym+sF+lCxcV6rJ6Y\"",
-    "mtime": "2026-10-13T08:07:22.815Z",
-    "size": 524,
-    "path": "../public/_nuxt/B6OEaKjr.js"
-  },
-  "/_nuxt/B9ybJ60w.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1050-AWOSPjCnGKWYijSc3b//59m/iJ0\"",
-    "mtime": "2026-10-13T08:07:22.814Z",
-    "size": 4176,
-    "path": "../public/_nuxt/B9ybJ60w.js"
+  "/logo.ico": {
+    "type": "image/vnd.microsoft.icon",
+    "etag": "\"10be-hpSeRSWd1wp/iqnBFwwNeAqZUOg\"",
+    "mtime": "2026-10-28T07:16:45.546Z",
+    "size": 4286,
+    "path": "../public/logo.ico"
   },
   "/logo.png": {
     "type": "image/png",
     "etag": "\"3a0d9-JmXtJHmFTBCAVXNw9LyML2kJwoQ\"",
-    "mtime": "2026-10-13T08:07:22.956Z",
+    "mtime": "2026-10-28T07:16:45.546Z",
     "size": 237785,
     "path": "../public/logo.png"
+  },
+  "/robots.txt": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"a2-MWT0ZdKOlHfsZ05vPmi7w8batxc\"",
+    "mtime": "2026-10-28T07:16:43.548Z",
+    "size": 162,
+    "path": "../public/robots.txt"
+  },
+  "/__sitemap__/style.xsl": {
+    "type": "application/xslt+xml",
+    "etag": "\"324b-p6hlenYt5E+1yfmI7eoxoOjydyU\"",
+    "mtime": "2026-10-28T07:16:43.548Z",
+    "size": 12875,
+    "path": "../public/__sitemap__/style.xsl"
+  },
+  "/sitemap.xml": {
+    "type": "application/xml",
+    "etag": "\"503-tAHudNzt08CcanvPw6QnUGJSA4k\"",
+    "mtime": "2026-10-28T07:16:44.541Z",
+    "size": 1283,
+    "path": "../public/sitemap.xml"
+  },
+  "/_nuxt/-Coa48hm.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"19a3-k7PE1orIpVD51ePOUZobVb9JQ4c\"",
+    "mtime": "2026-10-28T07:16:45.494Z",
+    "size": 6563,
+    "path": "../public/_nuxt/-Coa48hm.js"
+  },
+  "/_nuxt/B4OPdcKj.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"15c6-y7LjJcPX9xn0j0IEBJRydR1MvjM\"",
+    "mtime": "2026-10-28T07:16:45.465Z",
+    "size": 5574,
+    "path": "../public/_nuxt/B4OPdcKj.js"
+  },
+  "/_nuxt/B6YzumGC.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"162-lZZ+RV59rRKnlCjOWEXpH1c/1Js\"",
+    "mtime": "2026-10-28T07:16:45.464Z",
+    "size": 354,
+    "path": "../public/_nuxt/B6YzumGC.js"
+  },
+  "/_nuxt/BBEwTFqt.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"248fe-HayVUy4H30iAeEcSeKSAhncn1PA\"",
+    "mtime": "2026-10-28T07:16:45.901Z",
+    "size": 149758,
+    "path": "../public/_nuxt/BBEwTFqt.js"
   },
   "/_nuxt/BDNMzG2s.js": {
     "type": "text/javascript; charset=utf-8",
     "etag": "\"54-MasMfSk/A98C3Gn9uIOxtFxkWNw\"",
-    "mtime": "2026-10-13T08:07:22.816Z",
+    "mtime": "2026-10-28T07:16:45.464Z",
     "size": 84,
     "path": "../public/_nuxt/BDNMzG2s.js"
   },
-  "/_nuxt/BFiyiffS.js": {
+  "/_nuxt/BL5W339n.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"60fa-QMiwt8IC3pA4PgRIk/wEZPm2NEM\"",
-    "mtime": "2026-10-13T08:07:22.817Z",
-    "size": 24826,
-    "path": "../public/_nuxt/BFiyiffS.js"
+    "etag": "\"ec-n6D4w+rusuNu0/7spqt0RAEExrI\"",
+    "mtime": "2026-10-28T07:16:45.464Z",
+    "size": 236,
+    "path": "../public/_nuxt/BL5W339n.js"
   },
-  "/_nuxt/B_JpSiZv.js": {
+  "/_nuxt/BN85rSOM.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"fc-ibRL1CavGdMsh3nGOSYSq4oBMnI\"",
-    "mtime": "2026-10-13T08:07:22.817Z",
-    "size": 252,
-    "path": "../public/_nuxt/B_JpSiZv.js"
+    "etag": "\"174f-o9/VcaHK4rEih3D3YhWe8XBbKBY\"",
+    "mtime": "2026-10-28T07:16:45.465Z",
+    "size": 5967,
+    "path": "../public/_nuxt/BN85rSOM.js"
   },
-  "/_nuxt/BhtEdhWw.js": {
+  "/_nuxt/BPyyWHBq.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"ea-IDAO7AUOcHLJ3TlhPQ2BqSNtFa0\"",
-    "mtime": "2026-10-13T08:07:22.822Z",
+    "etag": "\"f2-77SjvIHLwo40NOylImYOLj59B4c\"",
+    "mtime": "2026-10-28T07:16:45.465Z",
+    "size": 242,
+    "path": "../public/_nuxt/BPyyWHBq.js"
+  },
+  "/_nuxt/BU1pUzA4.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-K6MRsX6kq1QUiye9ZqnD1f8jZis\"",
+    "mtime": "2026-10-28T07:16:45.465Z",
+    "size": 236,
+    "path": "../public/_nuxt/BU1pUzA4.js"
+  },
+  "/_nuxt/BXReH8rC.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"f2-MWezS+hs5+K/qbsnmToohHJI2yo\"",
+    "mtime": "2026-10-28T07:16:45.465Z",
+    "size": 242,
+    "path": "../public/_nuxt/BXReH8rC.js"
+  },
+  "/_nuxt/BXorSwNX.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"4dc4-qgfvGYE6ZcUUmtM6zK4kBeJkQnM\"",
+    "mtime": "2026-10-28T07:16:45.481Z",
+    "size": 19908,
+    "path": "../public/_nuxt/BXorSwNX.js"
+  },
+  "/_nuxt/BZn1bc5f.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-kejk7p3YVAeqlBgEtIRVMpCNGWc\"",
+    "mtime": "2026-10-28T07:16:45.467Z",
+    "size": 236,
+    "path": "../public/_nuxt/BZn1bc5f.js"
+  },
+  "/_nuxt/BdKTSsf2.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ea-tZazyeAHK4/JXHFPRYQJEJYSnJs\"",
+    "mtime": "2026-10-28T07:16:45.467Z",
     "size": 234,
-    "path": "../public/_nuxt/BhtEdhWw.js"
+    "path": "../public/_nuxt/BdKTSsf2.js"
   },
-  "/_nuxt/BpenTw2n.js": {
+  "/_nuxt/BoObtNcK.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"16d-OcsiAN3SjNuAUhTIop5X4jzN/xs\"",
-    "mtime": "2026-10-13T08:07:22.817Z",
-    "size": 365,
-    "path": "../public/_nuxt/BpenTw2n.js"
-  },
-  "/_nuxt/BtDnCyek.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"212-OsQxT3I7tugU0HBAV04/fK8PmVY\"",
-    "mtime": "2026-10-13T08:07:22.820Z",
-    "size": 530,
-    "path": "../public/_nuxt/BtDnCyek.js"
-  },
-  "/_nuxt/BtaCCvPO.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"c1a-99l26e6yuGJsPw4mB+hCfB7BlwE\"",
-    "mtime": "2026-10-13T08:07:22.822Z",
-    "size": 3098,
-    "path": "../public/_nuxt/BtaCCvPO.js"
-  },
-  "/_nuxt/C-wC1HS-.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1359a-SoLhzBW1Kt7ayAW4QoNFceJ8BxE\"",
-    "mtime": "2026-10-13T08:07:22.828Z",
-    "size": 79258,
-    "path": "../public/_nuxt/C-wC1HS-.js"
-  },
-  "/_nuxt/C9oMRWz_.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-MqafpQXbWtihrbze2KNDEPqQ5To\"",
-    "mtime": "2026-10-13T08:07:22.822Z",
-    "size": 236,
-    "path": "../public/_nuxt/C9oMRWz_.js"
-  },
-  "/_nuxt/CBCUjoPP.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"212-uoKTiiwa6kZLflrOKip4UDwE6Ws\"",
-    "mtime": "2026-10-13T08:07:22.822Z",
-    "size": 530,
-    "path": "../public/_nuxt/CBCUjoPP.js"
-  },
-  "/_nuxt/CCn8vcro.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"212-h1w7iHl8jdH1AvxqOxew6ujtSfI\"",
-    "mtime": "2026-10-13T08:07:22.822Z",
-    "size": 530,
-    "path": "../public/_nuxt/CCn8vcro.js"
-  },
-  "/_nuxt/CJq8RYra.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1737-p7X9jnETwhg8qxZ3ajE+7RLKitk\"",
-    "mtime": "2026-10-13T08:07:22.823Z",
-    "size": 5943,
-    "path": "../public/_nuxt/CJq8RYra.js"
-  },
-  "/_nuxt/COSS3Uqz.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"acfe-Vo39+y+udvQ6yxqFFxY42AuzK3g\"",
-    "mtime": "2026-10-13T08:07:22.829Z",
-    "size": 44286,
-    "path": "../public/_nuxt/COSS3Uqz.js"
-  },
-  "/_nuxt/CQCodiav.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-+Mg5ur841ik8WMMH8LmUW8jTCZU\"",
-    "mtime": "2026-10-13T08:07:22.827Z",
-    "size": 236,
-    "path": "../public/_nuxt/CQCodiav.js"
-  },
-  "/_nuxt/CXz8Tva_.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"21e6-YlzP5uS/SS5k2HU6rtC2Q7Q2qKU\"",
-    "mtime": "2026-10-13T08:07:22.827Z",
-    "size": 8678,
-    "path": "../public/_nuxt/CXz8Tva_.js"
-  },
-  "/_nuxt/CYVKDPr9.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-7Oj5zSnRjrBfNv5sCCZGMhnqCaY\"",
-    "mtime": "2026-10-13T08:07:22.829Z",
-    "size": 236,
-    "path": "../public/_nuxt/CYVKDPr9.js"
-  },
-  "/_nuxt/Cc5yl-90.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"f2-40ZmBbmTfQbOmoNLdXISeBwiXLo\"",
-    "mtime": "2026-10-13T08:07:22.833Z",
-    "size": 242,
-    "path": "../public/_nuxt/Cc5yl-90.js"
-  },
-  "/_nuxt/CawQAT3a.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1b0b9-19NVe2tA2mMb4iMvZVtu3m+plk4\"",
-    "mtime": "2026-10-13T08:07:22.839Z",
-    "size": 110777,
-    "path": "../public/_nuxt/CawQAT3a.js"
-  },
-  "/_nuxt/Ci4JpASk.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"f2-x+3H7mDSTMDbVFObFudB/omFp80\"",
-    "mtime": "2026-10-13T08:07:22.835Z",
-    "size": 242,
-    "path": "../public/_nuxt/Ci4JpASk.js"
-  },
-  "/_nuxt/Cklr2mJg.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"199f-UOCTQEbf0QqzW6hrQujnkES01dY\"",
-    "mtime": "2026-10-13T08:07:22.839Z",
-    "size": 6559,
-    "path": "../public/_nuxt/Cklr2mJg.js"
-  },
-  "/_nuxt/DEeh6jcT.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1d2-4CIaoVOn5kpxwqYqo48r5OaI+kI\"",
-    "mtime": "2026-10-13T08:07:22.840Z",
-    "size": 466,
-    "path": "../public/_nuxt/DEeh6jcT.js"
-  },
-  "/_nuxt/D6DF4-Ki.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"f4-CVJ5ZWsofRvAVywqA5uu6vOoOvk\"",
-    "mtime": "2026-10-13T08:07:22.839Z",
-    "size": 244,
-    "path": "../public/_nuxt/D6DF4-Ki.js"
-  },
-  "/_nuxt/DFWhIYv4.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-hDMQY7zo9uyMK8OnXvExi36mI8U\"",
-    "mtime": "2026-10-13T08:07:22.840Z",
-    "size": 236,
-    "path": "../public/_nuxt/DFWhIYv4.js"
-  },
-  "/_nuxt/DHkcT0ga.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"f2-euaY5HHu4028f7TZ8Lk7PFsl/YY\"",
-    "mtime": "2026-10-13T08:07:22.840Z",
-    "size": 242,
-    "path": "../public/_nuxt/DHkcT0ga.js"
-  },
-  "/_nuxt/DI-BrKc9.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"15a8-gLVw6TFc5HG3XvEew+nFJqWVQMA\"",
-    "mtime": "2026-10-13T08:07:22.844Z",
-    "size": 5544,
-    "path": "../public/_nuxt/DI-BrKc9.js"
-  },
-  "/_nuxt/DU8nkHTM.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"212-n6Ii5SMaimq6VxDiwWtTrYdUjm8\"",
-    "mtime": "2026-10-13T08:07:22.840Z",
-    "size": 530,
-    "path": "../public/_nuxt/DU8nkHTM.js"
-  },
-  "/_nuxt/DYDCJhEr.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"162-eJPHQCEGeiJ0nE18cXsCA6Y+QBw\"",
-    "mtime": "2026-10-13T08:07:22.844Z",
-    "size": 354,
-    "path": "../public/_nuxt/DYDCJhEr.js"
-  },
-  "/_nuxt/DYqNZIBA.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"1af9-GTfWmGegHUeoCgbHrRYD4PS3Zz4\"",
-    "mtime": "2026-10-13T08:07:22.846Z",
+    "etag": "\"1af9-vtgkMyyr797Arwq9Ya/lsUNxNSk\"",
+    "mtime": "2026-10-28T07:16:45.467Z",
     "size": 6905,
-    "path": "../public/_nuxt/DYqNZIBA.js"
+    "path": "../public/_nuxt/BoObtNcK.js"
   },
-  "/_nuxt/DeJBTiXr.js": {
+  "/_nuxt/BqDrJLDm.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1f24-5Fc1EKKMD8fLqoOpSf3ebYm1r+o\"",
-    "mtime": "2026-10-13T08:07:22.847Z",
-    "size": 7972,
-    "path": "../public/_nuxt/DeJBTiXr.js"
+    "etag": "\"1050-6+YWXRgy/pe54NRT2KrM0I3+JEQ\"",
+    "mtime": "2026-10-28T07:16:45.466Z",
+    "size": 4176,
+    "path": "../public/_nuxt/BqDrJLDm.js"
   },
-  "/_nuxt/DgBf2PEc.js": {
+  "/_nuxt/C6RThDW8.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"37c8-C/wTiNZGHqlq7lQB2Z5ocqxiiGA\"",
-    "mtime": "2026-10-13T08:07:22.846Z",
-    "size": 14280,
-    "path": "../public/_nuxt/DgBf2PEc.js"
+    "etag": "\"c1f-bHTcExcA55gtRvEndjMVUyNBKL0\"",
+    "mtime": "2026-10-28T07:16:45.468Z",
+    "size": 3103,
+    "path": "../public/_nuxt/C6RThDW8.js"
   },
-  "/_nuxt/MWVteWnj.js": {
+  "/_nuxt/CDANwsDc.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-vxBBrndixS3VrMijSLQzdapvEZ0\"",
-    "mtime": "2026-10-13T08:07:22.846Z",
+    "etag": "\"fc-jB1fJAoHwEasAg4FF01Hy/iWMrw\"",
+    "mtime": "2026-10-28T07:16:45.467Z",
+    "size": 252,
+    "path": "../public/_nuxt/CDANwsDc.js"
+  },
+  "/_nuxt/CMT4GqJ7.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"139ed-ORH1gjlpqmTWC3arPG2+hHGzkJQ\"",
+    "mtime": "2026-10-28T07:16:45.477Z",
+    "size": 80365,
+    "path": "../public/_nuxt/CMT4GqJ7.js"
+  },
+  "/_nuxt/CSrRnlhf.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"248fe-HayVUy4H30iAeEcSeKSAhncn1PA\"",
+    "mtime": "2026-10-28T07:16:45.478Z",
+    "size": 149758,
+    "path": "../public/_nuxt/CSrRnlhf.js"
+  },
+  "/_nuxt/CT7KhQ8n.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"212-Lpya5TyUU51fbS6rGj8us+jWOKo\"",
+    "mtime": "2026-10-28T07:16:45.477Z",
+    "size": 530,
+    "path": "../public/_nuxt/CT7KhQ8n.js"
+  },
+  "/_nuxt/Ch5UaaLU.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"d19-t3kSiFIVoETvSXbG04KCpSXskQw\"",
+    "mtime": "2026-10-28T07:16:45.478Z",
+    "size": 3353,
+    "path": "../public/_nuxt/Ch5UaaLU.js"
+  },
+  "/_nuxt/Chfd0I8I.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"212-3rVQQxZBX6yzm/4mu+wP92/DYZE\"",
+    "mtime": "2026-10-28T07:16:45.478Z",
+    "size": 530,
+    "path": "../public/_nuxt/Chfd0I8I.js"
+  },
+  "/_nuxt/CnjwPJA6.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"c8-wzKTLrK7tVAC/ZdgS9oTsJx4+Vw\"",
+    "mtime": "2026-10-28T07:16:45.478Z",
+    "size": 200,
+    "path": "../public/_nuxt/CnjwPJA6.js"
+  },
+  "/_nuxt/D-7k_1ou.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"197-dulM232/5EMJS4dIVMfIeiap9Mc\"",
+    "mtime": "2026-10-28T07:16:45.478Z",
+    "size": 407,
+    "path": "../public/_nuxt/D-7k_1ou.js"
+  },
+  "/_nuxt/D7pXnGyy.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"f0-sGdnUUb71VHsWaNP04hPa27Ybqk\"",
+    "mtime": "2026-10-28T07:16:45.479Z",
+    "size": 240,
+    "path": "../public/_nuxt/D7pXnGyy.js"
+  },
+  "/_nuxt/D97XYBJh.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"212-tmR+M6R2YtxfsQOv4c7wYdIMIlw\"",
+    "mtime": "2026-10-28T07:16:45.479Z",
+    "size": 530,
+    "path": "../public/_nuxt/D97XYBJh.js"
+  },
+  "/_nuxt/DBq-XC1r.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-SDL9g8s92bE9eWJ1bVMn/YBgSeM\"",
+    "mtime": "2026-10-28T07:16:45.480Z",
     "size": 236,
-    "path": "../public/_nuxt/MWVteWnj.js"
+    "path": "../public/_nuxt/DBq-XC1r.js"
+  },
+  "/_nuxt/DDl9NqD1.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-DhpsqhlaHNJzm+ljFrFaxVV4Sxg\"",
+    "mtime": "2026-10-28T07:16:45.479Z",
+    "size": 236,
+    "path": "../public/_nuxt/DDl9NqD1.js"
+  },
+  "/_nuxt/DR62lvOb.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"20c-hfPJj+8rDPF+6Ciy50gcFOrL+KI\"",
+    "mtime": "2026-10-28T07:16:45.480Z",
+    "size": 524,
+    "path": "../public/_nuxt/DR62lvOb.js"
+  },
+  "/_nuxt/DHZ6ee6g.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"aef1-v9zNYEsJVp/JJGgvTiPfrHhuN1E\"",
+    "mtime": "2026-10-28T07:16:45.481Z",
+    "size": 44785,
+    "path": "../public/_nuxt/DHZ6ee6g.js"
+  },
+  "/_nuxt/DUkbp3p1.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"f4-xGTO+nvrk4hedgf3dJuub1bmn3g\"",
+    "mtime": "2026-10-28T07:16:45.480Z",
+    "size": 244,
+    "path": "../public/_nuxt/DUkbp3p1.js"
+  },
+  "/_nuxt/DboiR6x_.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"10fc-6uk/0KNmi9/rP8XVkcQtbQK8svY\"",
+    "mtime": "2026-10-28T07:16:45.480Z",
+    "size": 4348,
+    "path": "../public/_nuxt/DboiR6x_.js"
+  },
+  "/_nuxt/DnYYhGjJ.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"f2-Moid7i3IFmdNLymfeuvF8Nj5kcM\"",
+    "mtime": "2026-10-28T07:16:45.482Z",
+    "size": 242,
+    "path": "../public/_nuxt/DnYYhGjJ.js"
+  },
+  "/_nuxt/Do0JoPfj.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b18-l3MzjvcitmpcyJbLP84+qj5EWe4\"",
+    "mtime": "2026-10-28T07:16:45.482Z",
+    "size": 2840,
+    "path": "../public/_nuxt/Do0JoPfj.js"
+  },
+  "/_nuxt/Dyax-AlB.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1d2-uygbzLYrzwgRCYoEVMfOWq4MXKY\"",
+    "mtime": "2026-10-28T07:16:45.482Z",
+    "size": 466,
+    "path": "../public/_nuxt/Dyax-AlB.js"
+  },
+  "/_nuxt/Jfm-WwbB.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"21f6-hw0xxlZe7D1QQEBJz3b+ghfhUKw\"",
+    "mtime": "2026-10-28T07:16:45.482Z",
+    "size": 8694,
+    "path": "../public/_nuxt/Jfm-WwbB.js"
+  },
+  "/_nuxt/OKS8ZNqD.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-/2cekYLXfEFR5S4cd1qm7nsGPB8\"",
+    "mtime": "2026-10-28T07:16:45.482Z",
+    "size": 236,
+    "path": "../public/_nuxt/OKS8ZNqD.js"
+  },
+  "/_nuxt/PcHk9wvG.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"212-TMdg/W4tvxI89+gigKVdGcFRpDY\"",
+    "mtime": "2026-10-28T07:16:45.483Z",
+    "size": 530,
+    "path": "../public/_nuxt/PcHk9wvG.js"
   },
   "/_nuxt/ProsePre.D5orA6B_.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"1e-jczvRAVUXbzGL6yotozKFbyMO4s\"",
-    "mtime": "2026-10-13T08:07:22.847Z",
+    "mtime": "2026-10-28T07:16:45.484Z",
     "size": 30,
     "path": "../public/_nuxt/ProsePre.D5orA6B_.css"
   },
-  "/_nuxt/NU0oNDmz.js": {
+  "/_nuxt/TI0pEWMU.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"197-ME7beqnmrO/UwCwU/SqQzr1mIhg\"",
-    "mtime": "2026-10-13T08:07:22.847Z",
-    "size": 407,
-    "path": "../public/_nuxt/NU0oNDmz.js"
+    "etag": "\"3a25-6NLPBa7autbE7NbRYvBrhRznAsA\"",
+    "mtime": "2026-10-28T07:16:45.493Z",
+    "size": 14885,
+    "path": "../public/_nuxt/TI0pEWMU.js"
   },
-  "/_nuxt/S8ehGSbE.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"b18-MbnS4d52suv5QhyTg8SAgVuqT4k\"",
-    "mtime": "2026-10-13T08:07:22.848Z",
-    "size": 2840,
-    "path": "../public/_nuxt/S8ehGSbE.js"
-  },
-  "/_nuxt/SXnOP2It.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-OmdZS7c3BtHqItybNS6nhimEr3Y\"",
-    "mtime": "2026-10-13T08:07:22.848Z",
-    "size": 236,
-    "path": "../public/_nuxt/SXnOP2It.js"
-  },
-  "/_nuxt/k-BWRKEL.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"212-CjI8RVKte8ceotom4oBnbY0FLgQ\"",
-    "mtime": "2026-10-13T08:07:22.851Z",
-    "size": 530,
-    "path": "../public/_nuxt/k-BWRKEL.js"
-  },
-  "/_nuxt/YlCap3nb.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"d19-xaudP7H4iu+cxhpLbXSkHGJ+rnU\"",
-    "mtime": "2026-10-13T08:07:22.849Z",
-    "size": 3353,
-    "path": "../public/_nuxt/YlCap3nb.js"
-  },
-  "/_nuxt/klGtRJK6.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ec-01RZstBhVeA48okAH8k/timNzzk\"",
-    "mtime": "2026-10-13T08:07:22.850Z",
-    "size": 236,
-    "path": "../public/_nuxt/klGtRJK6.js"
-  },
-  "/_nuxt/entry.C0tgpzly.css": {
+  "/_nuxt/entry.CGVVIkmh.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"ec34-BvlxBBuH+9SiMVcx5wxCHP/ycX0\"",
-    "mtime": "2026-10-13T08:07:22.851Z",
-    "size": 60468,
-    "path": "../public/_nuxt/entry.C0tgpzly.css"
+    "etag": "\"fb43-z8FuraRxaGRotYLOHTd7UVucAbY\"",
+    "mtime": "2026-10-28T07:16:45.491Z",
+    "size": 64323,
+    "path": "../public/_nuxt/entry.CGVVIkmh.css"
   },
-  "/_nuxt/qSlJIH5_.js": {
+  "/_nuxt/coEOcvM4.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"24306-rBYNYsrcCkB8u5wCmQXNor/ozAc\"",
-    "mtime": "2026-10-13T08:07:22.854Z",
-    "size": 148230,
-    "path": "../public/_nuxt/qSlJIH5_.js"
+    "etag": "\"1c3cf-fpgV5YiHOWfnXx+tEqVFVEefQng\"",
+    "mtime": "2026-10-28T07:16:45.491Z",
+    "size": 115663,
+    "path": "../public/_nuxt/coEOcvM4.js"
   },
-  "/_nuxt/vp-MoSt-.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"f0-idzAD0drZubZkjiHvy95ktGfGyo\"",
-    "mtime": "2026-10-13T08:07:22.852Z",
-    "size": 240,
-    "path": "../public/_nuxt/vp-MoSt-.js"
+  "/_nuxt/entry.ZoTxzY-O.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"ff97-IboXPDz/JTyYwo5PbRZ+M8sfVD8\"",
+    "mtime": "2026-10-28T07:16:45.901Z",
+    "size": 65431,
+    "path": "../public/_nuxt/entry.ZoTxzY-O.css"
   },
-  "/_nuxt/zLMJI2Aa.js": {
+  "/_nuxt/erO4IFet.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"14b6-9lMkVXMfhqovXyJjvoKEHG5B2Ms\"",
-    "mtime": "2026-10-13T08:07:22.854Z",
-    "size": 5302,
-    "path": "../public/_nuxt/zLMJI2Aa.js"
+    "etag": "\"212-Zlwi3Pf2Xf0CH3dEWaTWiYPT7cc\"",
+    "mtime": "2026-10-28T07:16:45.484Z",
+    "size": 530,
+    "path": "../public/_nuxt/erO4IFet.js"
+  },
+  "/_nuxt/gseHJPoG.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ec-KpfWldU35AXHQgMHt4SdZ1w8NTo\"",
+    "mtime": "2026-10-28T07:16:45.492Z",
+    "size": 236,
+    "path": "../public/_nuxt/gseHJPoG.js"
+  },
+  "/_nuxt/m_k5UtL1.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1d90-yQr0TBeDOBgXtVZ+ZW3Cs6ZS5u0\"",
+    "mtime": "2026-10-28T07:16:45.492Z",
+    "size": 7568,
+    "path": "../public/_nuxt/m_k5UtL1.js"
+  },
+  "/_nuxt/nQewa4MH.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"16d-Z0XphI1JOUAmKG4R5h8SaaVfDXM\"",
+    "mtime": "2026-10-28T07:16:45.493Z",
+    "size": 365,
+    "path": "../public/_nuxt/nQewa4MH.js"
+  },
+  "/_nuxt/rfhDd3EJ.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"28c9-CPc2aqPn7IYgo6GquNfa68g+Am0\"",
+    "mtime": "2026-10-28T07:16:45.494Z",
+    "size": 10441,
+    "path": "../public/_nuxt/rfhDd3EJ.js"
   },
   "/_og-static-fonts/inter-400-latin.ttf": {
     "type": "font/ttf",
     "etag": "\"105c8-MW0DM/3E4egS9aHQ0YHlh/qx7ks\"",
-    "mtime": "2026-10-13T08:07:22.997Z",
+    "mtime": "2026-10-28T07:16:45.581Z",
     "size": 67016,
     "path": "../public/_og-static-fonts/inter-400-latin.ttf"
   },
   "/_og-static-fonts/inter-700-latin.ttf": {
     "type": "font/ttf",
     "etag": "\"10690-UVkukwUfo0FVnDkxnK3r8r+NndM\"",
-    "mtime": "2026-10-13T08:07:22.999Z",
+    "mtime": "2026-10-28T07:16:45.582Z",
     "size": 67216,
     "path": "../public/_og-static-fonts/inter-700-latin.ttf"
   },
   "/images/portrait.png": {
     "type": "image/png",
     "etag": "\"2207f-pJmuFYI/o77xHJPiTWCW99PV33Q\"",
-    "mtime": "2026-10-13T08:07:22.918Z",
+    "mtime": "2026-10-28T07:16:45.517Z",
     "size": 139391,
     "path": "../public/images/portrait.png"
   },
   "/projects/capstone1.png": {
     "type": "image/png",
     "etag": "\"22aa3-n0XLb6voj9aolyNA+KhLQxL0h/U\"",
-    "mtime": "2026-10-13T08:07:22.915Z",
+    "mtime": "2026-10-28T07:16:45.531Z",
     "size": 141987,
     "path": "../public/projects/capstone1.png"
-  },
-  "/projects/capstone2.png": {
-    "type": "image/png",
-    "etag": "\"1c27f-GkI49Ckf0TuKO3DR0PnA8AD65Ps\"",
-    "mtime": "2026-10-13T08:07:22.920Z",
-    "size": 115327,
-    "path": "../public/projects/capstone2.png"
   },
   "/projects/bundat.png": {
     "type": "image/png",
     "etag": "\"2afa3-HAqjri1yYRK0HXgqxU1/UJNmLCk\"",
-    "mtime": "2026-10-13T08:07:22.915Z",
+    "mtime": "2026-10-28T07:16:45.529Z",
     "size": 176035,
     "path": "../public/projects/bundat.png"
+  },
+  "/projects/capstone2.png": {
+    "type": "image/png",
+    "etag": "\"1c27f-GkI49Ckf0TuKO3DR0PnA8AD65Ps\"",
+    "mtime": "2026-10-28T07:16:45.532Z",
+    "size": 115327,
+    "path": "../public/projects/capstone2.png"
   },
   "/technologies/bootstrap.png": {
     "type": "image/png",
     "etag": "\"42f1-Proj0H8hplVoQMHdXKNiFdOeFXw\"",
-    "mtime": "2026-10-13T08:07:22.911Z",
+    "mtime": "2026-10-28T07:16:45.517Z",
     "size": 17137,
     "path": "../public/technologies/bootstrap.png"
   },
   "/technologies/ci4.webp": {
     "type": "image/webp",
     "etag": "\"29e6-gXmAAzObB3LzpRLtGjQ17qdymbk\"",
-    "mtime": "2026-10-13T08:07:22.921Z",
+    "mtime": "2026-10-28T07:16:45.530Z",
     "size": 10726,
     "path": "../public/technologies/ci4.webp"
   },
   "/technologies/csharp.png": {
     "type": "image/png",
     "etag": "\"59a0-zfCejnEBn3jYOjhAthDl/PDOgxA\"",
-    "mtime": "2026-10-13T08:07:22.920Z",
+    "mtime": "2026-10-28T07:16:45.532Z",
     "size": 22944,
     "path": "../public/technologies/csharp.png"
   },
   "/technologies/css.png": {
     "type": "image/png",
     "etag": "\"5b33-c+NQ/C4rqEijOwIRHSDtSDuLZSU\"",
-    "mtime": "2026-10-13T08:07:22.922Z",
+    "mtime": "2026-10-28T07:16:45.532Z",
     "size": 23347,
     "path": "../public/technologies/css.png"
   },
   "/technologies/github.png": {
     "type": "image/png",
     "etag": "\"3299-QrzWdhAV1dHJXaM1ZDCeWOd1LKs\"",
-    "mtime": "2026-10-13T08:07:22.923Z",
+    "mtime": "2026-10-28T07:16:45.533Z",
     "size": 12953,
     "path": "../public/technologies/github.png"
   },
   "/technologies/java.png": {
     "type": "image/png",
     "etag": "\"511a-NwdYBSV9sIxNe9CIvSei4aCmllE\"",
-    "mtime": "2026-10-13T08:07:22.924Z",
+    "mtime": "2026-10-28T07:16:45.533Z",
     "size": 20762,
     "path": "../public/technologies/java.png"
   },
   "/technologies/html.png": {
     "type": "image/png",
     "etag": "\"85ab-OOC1F5g3NT2s+h7zcFAkSg8WB54\"",
-    "mtime": "2026-10-13T08:07:22.924Z",
+    "mtime": "2026-10-28T07:16:45.533Z",
     "size": 34219,
     "path": "../public/technologies/html.png"
   },
   "/technologies/javascript.png": {
     "type": "image/png",
     "etag": "\"7c59-AmfscKkf5AEJuKtmXCgsr8hacRI\"",
-    "mtime": "2026-10-13T08:07:22.924Z",
+    "mtime": "2026-10-28T07:16:45.534Z",
     "size": 31833,
     "path": "../public/technologies/javascript.png"
   },
   "/technologies/laragon.png": {
     "type": "image/png",
     "etag": "\"83f8-7pK3EKJJYtKGrqVA+PVYwUcFfFQ\"",
-    "mtime": "2026-10-13T08:07:22.925Z",
+    "mtime": "2026-10-28T07:16:45.534Z",
     "size": 33784,
     "path": "../public/technologies/laragon.png"
-  },
-  "/technologies/laravel.png": {
-    "type": "image/png",
-    "etag": "\"2411d-CJzG8h56nfJYIO8Mhg7086l1fKI\"",
-    "mtime": "2026-10-13T08:07:22.927Z",
-    "size": 147741,
-    "path": "../public/technologies/laravel.png"
-  },
-  "/technologies/npm.png": {
-    "type": "image/png",
-    "etag": "\"59bc-imCTtwWZLLVWLpamUWx6WsYR61g\"",
-    "mtime": "2026-10-13T08:07:22.933Z",
-    "size": 22972,
-    "path": "../public/technologies/npm.png"
   },
   "/technologies/mysql.png": {
     "type": "image/png",
     "etag": "\"12784-tF+YvZPQix++5bPViBu7NunfQ/E\"",
-    "mtime": "2026-10-13T08:07:22.930Z",
+    "mtime": "2026-10-28T07:16:45.534Z",
     "size": 75652,
     "path": "../public/technologies/mysql.png"
   },
-  "/technologies/php.png": {
+  "/technologies/laravel.png": {
     "type": "image/png",
-    "etag": "\"2b36d-dV/42UP9hpW+fOl7v9CysfdDyYs\"",
-    "mtime": "2026-10-13T08:07:22.934Z",
-    "size": 177005,
-    "path": "../public/technologies/php.png"
+    "etag": "\"2411d-CJzG8h56nfJYIO8Mhg7086l1fKI\"",
+    "mtime": "2026-10-28T07:16:45.537Z",
+    "size": 147741,
+    "path": "../public/technologies/laravel.png"
   },
   "/images/about.jpg": {
     "type": "image/jpeg",
     "etag": "\"a34c6-f/v7K9j+cgZSUG/3VTjRuftvHS4\"",
-    "mtime": "2026-10-13T08:07:22.916Z",
+    "mtime": "2026-10-28T07:16:45.527Z",
     "size": 668870,
     "path": "../public/images/about.jpg"
   },
   "/projects/kapares.png": {
     "type": "image/png",
     "etag": "\"9ca46-TFsJV7HBrcX5ZkBa2ioExWwyaMs\"",
-    "mtime": "2026-10-13T08:07:22.922Z",
+    "mtime": "2026-10-28T07:16:45.529Z",
     "size": 641606,
     "path": "../public/projects/kapares.png"
   },
   "/projects/Screenshot 2025-07-03 124717.png": {
     "type": "image/png",
     "etag": "\"e9860-ucLuH2PdJYxzIMKwJEvb040I3Jo\"",
-    "mtime": "2026-10-13T08:07:22.911Z",
+    "mtime": "2026-10-28T07:16:45.527Z",
     "size": 956512,
     "path": "../public/projects/Screenshot 2025-07-03 124717.png"
   },
   "/projects/movietune.png": {
     "type": "image/png",
     "etag": "\"12bed4-fLQqJ7GOJhcm4r4514pIzyV+t5Y\"",
-    "mtime": "2026-10-13T08:07:22.922Z",
+    "mtime": "2026-10-28T07:16:45.535Z",
     "size": 1228500,
     "path": "../public/projects/movietune.png"
+  },
+  "/technologies/npm.png": {
+    "type": "image/png",
+    "etag": "\"59bc-imCTtwWZLLVWLpamUWx6WsYR61g\"",
+    "mtime": "2026-10-28T07:16:45.540Z",
+    "size": 22972,
+    "path": "../public/technologies/npm.png"
   },
   "/technologies/react.png": {
     "type": "image/png",
     "etag": "\"aa01-aW5ueNo+IHQ/rkkZ3FKpbIBcV4c\"",
-    "mtime": "2026-10-13T08:07:22.933Z",
+    "mtime": "2026-10-28T07:16:45.542Z",
     "size": 43521,
     "path": "../public/technologies/react.png"
+  },
+  "/technologies/php.png": {
+    "type": "image/png",
+    "etag": "\"2b36d-dV/42UP9hpW+fOl7v9CysfdDyYs\"",
+    "mtime": "2026-10-28T07:16:45.541Z",
+    "size": 177005,
+    "path": "../public/technologies/php.png"
   },
   "/technologies/tailwind.png": {
     "type": "image/png",
     "etag": "\"80a3-FT0uYHqMv/1YHhY56AOvCV9SgF0\"",
-    "mtime": "2026-10-13T08:07:22.935Z",
+    "mtime": "2026-10-28T07:16:45.541Z",
     "size": 32931,
     "path": "../public/technologies/tailwind.png"
   },
   "/technologies/vscode.png": {
     "type": "image/png",
     "etag": "\"7456-gM+Z2nsREsVA67uMmfBhCaNbXe0\"",
-    "mtime": "2026-10-13T08:07:22.935Z",
+    "mtime": "2026-10-28T07:16:45.542Z",
     "size": 29782,
     "path": "../public/technologies/vscode.png"
   },
   "/technologies/vscodep.png": {
     "type": "image/png",
     "etag": "\"7dc0-hzdWRrcCGkpVi6zcFWijk8LKNZo\"",
-    "mtime": "2026-10-13T08:07:22.935Z",
+    "mtime": "2026-10-28T07:16:45.543Z",
     "size": 32192,
     "path": "../public/technologies/vscodep.png"
   },
   "/technologies/vue.png": {
     "type": "image/png",
     "etag": "\"534a-qHQjQG9GBicYt5/k1TrCmoSwa/E\"",
-    "mtime": "2026-10-13T08:07:22.938Z",
+    "mtime": "2026-10-28T07:16:45.543Z",
     "size": 21322,
     "path": "../public/technologies/vue.png"
   },
   "/technologies/wamp.png": {
     "type": "image/png",
     "etag": "\"89e5-hDwT0RgJJcRns7PzKXcrpVCK28o\"",
-    "mtime": "2026-10-13T08:07:22.939Z",
+    "mtime": "2026-10-28T07:16:45.544Z",
     "size": 35301,
     "path": "../public/technologies/wamp.png"
-  },
-  "/_nuxt/builds/latest.json": {
-    "type": "application/json",
-    "etag": "\"b7-m9/5GS4z7FaRmXbU1z2rvAHoDyA\"",
-    "mtime": "2026-10-13T08:07:23.170Z",
-    "size": 183,
-    "path": "../public/_nuxt/builds/latest.json"
-  },
-  "/__nuxt_content/projects/sql_dump.txt": {
-    "type": "text/plain; charset=utf-8",
-    "etag": "\"a4c-mFPHuKMAP6wt/Wfzg3SCzEeyiEE\"",
-    "mtime": "2026-10-13T08:07:20.188Z",
-    "size": 2636,
-    "path": "../public/__nuxt_content/projects/sql_dump.txt"
   },
   "/__nuxt_content/blog/sql_dump.txt": {
     "type": "text/plain; charset=utf-8",
     "etag": "\"118c-tj22ku259+dDSPo5fwwB+CwTu0c\"",
-    "mtime": "2026-10-13T08:07:20.190Z",
+    "mtime": "2026-10-28T07:16:43.562Z",
     "size": 4492,
     "path": "../public/__nuxt_content/blog/sql_dump.txt"
+  },
+  "/__nuxt_content/projects/sql_dump.txt": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"a4c-mFPHuKMAP6wt/Wfzg3SCzEeyiEE\"",
+    "mtime": "2026-10-28T07:16:43.561Z",
+    "size": 2636,
+    "path": "../public/__nuxt_content/projects/sql_dump.txt"
+  },
+  "/_nuxt/builds/latest.json": {
+    "type": "application/json",
+    "etag": "\"107-SuS4dVec8InoX6N9wiVhe+xcLsE\"",
+    "mtime": "2026-10-28T07:16:45.908Z",
+    "size": 263,
+    "path": "../public/_nuxt/builds/latest.json"
   },
   "/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2": {
     "type": "font/woff2",
     "etag": "\"bd30-HcBE9IJP1a9r/tZ/7ki+cPoGnz8\"",
-    "mtime": "2026-10-13T08:07:22.633Z",
+    "mtime": "2026-10-28T07:16:45.100Z",
     "size": 48432,
     "path": "../public/_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2"
+  },
+  "/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6b4-prTo9pBi9mPrTPpk7K1hLVQqLkw\"",
+    "mtime": "2026-10-28T07:16:45.115Z",
+    "size": 1716,
+    "path": "../public/_nuxt/fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2"
   },
   "/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2": {
     "type": "font/woff2",
     "etag": "\"4a64-m06OCqyGws0mpyGBBfmbbVtFPSU\"",
-    "mtime": "2026-10-13T08:07:22.652Z",
+    "mtime": "2026-10-28T07:16:45.116Z",
     "size": 19044,
     "path": "../public/_nuxt/fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2"
   },
   "/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2": {
     "type": "font/woff2",
     "etag": "\"64f4-tK7ixsAzSz1n1+rZ0d41uh7QBHY\"",
-    "mtime": "2026-10-13T08:07:22.634Z",
+    "mtime": "2026-10-28T07:16:45.117Z",
     "size": 25844,
     "path": "../public/_nuxt/fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2"
   },
   "/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2": {
     "type": "font/woff2",
     "etag": "\"16f0-PS93/1kyCeu7IT5b4K4jaWHEBbQ\"",
-    "mtime": "2026-10-13T08:07:22.632Z",
+    "mtime": "2026-10-28T07:16:45.116Z",
     "size": 5872,
     "path": "../public/_nuxt/fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2"
   },
   "/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2": {
     "type": "font/woff2",
     "etag": "\"6b0-ZTiJyWk2hq/Kot3zMLKodM70hek\"",
-    "mtime": "2026-10-13T08:07:22.632Z",
+    "mtime": "2026-10-28T07:16:45.117Z",
     "size": 1712,
     "path": "../public/_nuxt/fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2"
   },
   "/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2": {
     "type": "font/woff2",
     "etag": "\"6afc-065UyE/loH4v/KPT2cqQjWbu2Yc\"",
-    "mtime": "2026-10-13T08:07:22.640Z",
+    "mtime": "2026-10-28T07:16:45.121Z",
     "size": 27388,
     "path": "../public/_nuxt/fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2"
   },
   "/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2": {
     "type": "font/woff2",
     "etag": "\"5084-wzEMqHmSXhs0bT3Vh/Szi16YDd8\"",
-    "mtime": "2026-10-13T08:07:22.634Z",
+    "mtime": "2026-10-28T07:16:45.121Z",
     "size": 20612,
     "path": "../public/_nuxt/fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2"
+  },
+  "/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2344-DAUO+kyWOqc8oxO6xq0DLfz3Vuo\"",
+    "mtime": "2026-10-28T07:16:45.118Z",
+    "size": 9028,
+    "path": "../public/_nuxt/fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2"
+  },
+  "/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2064-XBxD4BZ8na3DznT01MAcODAQE/Y\"",
+    "mtime": "2026-10-28T07:16:45.125Z",
+    "size": 8292,
+    "path": "../public/_nuxt/fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2"
   },
   "/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2": {
     "type": "font/woff2",
     "etag": "\"30b4-KS4yXTv5ZVD+RSqrmz1QfQepWOk\"",
-    "mtime": "2026-10-13T08:07:22.634Z",
+    "mtime": "2026-10-28T07:16:45.122Z",
     "size": 12468,
     "path": "../public/_nuxt/fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2"
+  },
+  "/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2": {
+    "type": "font/woff2",
+    "etag": "\"5a64-ZhxUEDkap1TiaZhbn5XkTV+0CpY\"",
+    "mtime": "2026-10-28T07:16:45.126Z",
+    "size": 23140,
+    "path": "../public/_nuxt/fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2"
+  },
+  "/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6a88-BpvjB8Hs9qtl1VBT5R9XSTsCBBI\"",
+    "mtime": "2026-10-28T07:16:45.125Z",
+    "size": 27272,
+    "path": "../public/_nuxt/fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2"
   },
   "/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2": {
     "type": "font/woff2",
     "etag": "\"2c08-0jmpRV2Mkkir4F2SgNetftT+X2g\"",
-    "mtime": "2026-10-13T08:07:22.638Z",
+    "mtime": "2026-10-28T07:16:45.126Z",
     "size": 11272,
     "path": "../public/_nuxt/fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2"
   },
   "/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2": {
     "type": "font/woff2",
     "etag": "\"7a6c-NA5papVQRrAC8RHI3W4wMgtFYYQ\"",
-    "mtime": "2026-10-13T08:07:22.637Z",
+    "mtime": "2026-10-28T07:16:45.127Z",
     "size": 31340,
     "path": "../public/_nuxt/fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2"
   },
   "/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2": {
     "type": "font/woff2",
     "etag": "\"4e30-CJVl1taa8AaNO619z7s06dRAxFQ\"",
-    "mtime": "2026-10-13T08:07:22.636Z",
+    "mtime": "2026-10-28T07:16:45.127Z",
     "size": 20016,
     "path": "../public/_nuxt/fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2"
-  },
-  "/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1a90-SizOLrQ3v2WnpUbpVfMW/w2GCiE\"",
-    "mtime": "2026-10-13T08:07:22.638Z",
-    "size": 6800,
-    "path": "../public/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2"
   },
   "/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2": {
     "type": "font/woff2",
     "etag": "\"1890-aytKPDH2k4tOt01FONbobtBXOjM\"",
-    "mtime": "2026-10-13T08:07:22.638Z",
+    "mtime": "2026-10-28T07:16:45.127Z",
     "size": 6288,
     "path": "../public/_nuxt/fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2"
   },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2": {
+  "/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2": {
     "type": "font/woff2",
-    "etag": "\"5c0c-tF0tn++arl0pHP7TfEUiHp+fnOQ\"",
-    "mtime": "2026-10-13T08:07:22.639Z",
-    "size": 23564,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2"
+    "etag": "\"1a90-SizOLrQ3v2WnpUbpVfMW/w2GCiE\"",
+    "mtime": "2026-10-28T07:16:45.127Z",
+    "size": 6800,
+    "path": "../public/_nuxt/fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2"
   },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2": {
+  "/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2": {
     "type": "font/woff2",
-    "etag": "\"6648-GvneFX0QOXs2JyiaNSZn0LBtUbg\"",
-    "mtime": "2026-10-13T08:07:22.639Z",
-    "size": 26184,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2": {
-    "type": "font/woff2",
-    "etag": "\"82d0-/f9OEQf0aHfRfV++dlYaorRbvYc\"",
-    "mtime": "2026-10-13T08:07:22.639Z",
-    "size": 33488,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2": {
-    "type": "font/woff2",
-    "etag": "\"557c-X/EfVAMBbkdkw//04T0KjKIOGrg\"",
-    "mtime": "2026-10-13T08:07:22.643Z",
-    "size": 21884,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2": {
-    "type": "font/woff2",
-    "etag": "\"79ec-ZU+DG8hr/8rLRonhe8i1C55vJ/I\"",
-    "mtime": "2026-10-13T08:07:22.644Z",
-    "size": 31212,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2": {
-    "type": "font/woff2",
-    "etag": "\"5acc-DriQMTZPIZ1WA7nF0YJKVvEDSQs\"",
-    "mtime": "2026-10-13T08:07:22.641Z",
-    "size": 23244,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2": {
-    "type": "font/woff2",
-    "etag": "\"60c0-SWhd5cTTg28rMtcY0xbEt0LoY7c\"",
-    "mtime": "2026-10-13T08:07:22.646Z",
-    "size": 24768,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2"
-  },
-  "/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2": {
-    "type": "font/woff2",
-    "etag": "\"562c-9aylf6fIwr42+2DvaB4wpp17ipU\"",
-    "mtime": "2026-10-13T08:07:22.645Z",
-    "size": 22060,
-    "path": "../public/_nuxt/fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2"
+    "etag": "\"54b8-5Z0Ta+EnIXV3mFb5QiUsGiBQKd4\"",
+    "mtime": "2026-10-28T07:16:45.128Z",
+    "size": 21688,
+    "path": "../public/_nuxt/fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2"
   },
   "/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2": {
     "type": "font/woff2",
     "etag": "\"22bc-Z2rEPYVGdg32Cp+fxceBLQ+Ap7k\"",
-    "mtime": "2026-10-13T08:07:22.646Z",
+    "mtime": "2026-10-28T07:16:45.128Z",
     "size": 8892,
     "path": "../public/_nuxt/fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2"
   },
   "/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2": {
     "type": "font/woff2",
     "etag": "\"14d18-Uh4k0XQeDHQ4ioQoYVD4qScmVZc\"",
-    "mtime": "2026-10-13T08:07:22.646Z",
+    "mtime": "2026-10-28T07:16:45.130Z",
     "size": 85272,
     "path": "../public/_nuxt/fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2"
+  },
+  "/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6d4-QGwkB5aVFMZXGwZJbl9BMRC7Uxs\"",
+    "mtime": "2026-10-28T07:16:45.128Z",
+    "size": 1748,
+    "path": "../public/_nuxt/fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2"
   },
   "/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2": {
     "type": "font/woff2",
     "etag": "\"2828-F3GDdFn8yIqL/ZsbzNDCHlQrmMo\"",
-    "mtime": "2026-10-13T08:07:22.647Z",
+    "mtime": "2026-10-28T07:16:45.129Z",
     "size": 10280,
     "path": "../public/_nuxt/fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2"
   },
   "/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2": {
     "type": "font/woff2",
     "etag": "\"8148-HSG+k8dmL2Li0VAMuIm0B1KST9s\"",
-    "mtime": "2026-10-13T08:07:22.647Z",
+    "mtime": "2026-10-28T07:16:45.130Z",
     "size": 33096,
     "path": "../public/_nuxt/fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2"
   },
   "/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2": {
     "type": "font/woff2",
     "etag": "\"2f04-ntsyPpeWIrXM3hz1Nt0hG95RmwU\"",
-    "mtime": "2026-10-13T08:07:22.647Z",
+    "mtime": "2026-10-28T07:16:45.130Z",
     "size": 12036,
     "path": "../public/_nuxt/fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2"
   },
   "/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2": {
     "type": "font/woff2",
     "etag": "\"166bc-r/t3z77mQ+DDMQr+Pkm5yR2/0FE\"",
-    "mtime": "2026-10-13T08:07:22.649Z",
+    "mtime": "2026-10-28T07:16:45.131Z",
     "size": 91836,
     "path": "../public/_nuxt/fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2"
   },
   "/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2": {
     "type": "font/woff2",
     "etag": "\"2674-1YmcrW5HgRW4aWYn0J/0G9sq/iU\"",
-    "mtime": "2026-10-13T08:07:22.650Z",
+    "mtime": "2026-10-28T07:16:45.131Z",
     "size": 9844,
     "path": "../public/_nuxt/fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2"
   },
   "/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2": {
     "type": "font/woff2",
     "etag": "\"4938-N3S2eKZrRgCJpY2MefXWBufCQaA\"",
-    "mtime": "2026-10-13T08:07:22.648Z",
+    "mtime": "2026-10-28T07:16:45.131Z",
     "size": 18744,
     "path": "../public/_nuxt/fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2"
   },
   "/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2": {
     "type": "font/woff2",
     "etag": "\"c9b4-M34QudaP9GdXqIjZ6Tla/ROWz5M\"",
-    "mtime": "2026-10-13T08:07:22.652Z",
+    "mtime": "2026-10-28T07:16:45.132Z",
     "size": 51636,
     "path": "../public/_nuxt/fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2"
   },
   "/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2": {
     "type": "font/woff2",
     "etag": "\"680-VWLpaDsPRIda6G1y7XsvdNRkvYg\"",
-    "mtime": "2026-10-13T08:07:22.650Z",
+    "mtime": "2026-10-28T07:16:45.132Z",
     "size": 1664,
     "path": "../public/_nuxt/fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2"
   },
   "/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2": {
     "type": "font/woff2",
     "etag": "\"1c04-5WvTmLciYjNEKbLAMFwcYU7Yy+M\"",
-    "mtime": "2026-10-13T08:07:22.650Z",
+    "mtime": "2026-10-28T07:16:45.132Z",
     "size": 7172,
     "path": "../public/_nuxt/fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2"
+  },
+  "/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2": {
+    "type": "font/woff2",
+    "etag": "\"7354-3sxZDbLsiNoVB/08ExYGqca1+XE\"",
+    "mtime": "2026-10-28T07:16:45.134Z",
+    "size": 29524,
+    "path": "../public/_nuxt/fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2"
   },
   "/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2": {
     "type": "font/woff2",
     "etag": "\"2d4c-fu0YPkGe9fMm+9OwyfoMtgRM/Uo\"",
-    "mtime": "2026-10-13T08:07:22.654Z",
+    "mtime": "2026-10-28T07:16:45.134Z",
     "size": 11596,
     "path": "../public/_nuxt/fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2"
   },
   "/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2": {
     "type": "font/woff2",
     "etag": "\"2998-n4Ng0qtMjpor9BjKimp6sLXh5BI\"",
-    "mtime": "2026-10-13T08:07:22.653Z",
+    "mtime": "2026-10-28T07:16:45.145Z",
     "size": 10648,
     "path": "../public/_nuxt/fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2"
   },
-  "/_nuxt/builds/meta/af42fc6b-e730-445c-b622-0134aba0b12d.json": {
+  "/_nuxt/builds/meta/48320cc4-82df-4057-b761-e89305267823.json": {
     "type": "application/json",
-    "etag": "\"92-wWLlokPfcwkA0fvmfT/rtZ/LE10\"",
-    "mtime": "2026-10-13T08:07:23.171Z",
-    "size": 146,
-    "path": "../public/_nuxt/builds/meta/af42fc6b-e730-445c-b622-0134aba0b12d.json"
+    "etag": "\"58-T2hR+OTrKcGS8XQWqmfYtrUcmB4\"",
+    "mtime": "2026-10-28T07:16:45.901Z",
+    "size": 88,
+    "path": "../public/_nuxt/builds/meta/48320cc4-82df-4057-b761-e89305267823.json"
   },
-  "/_nuxt/builds/skew/af42fc6b-e730-445c-b622-0134aba0b12d.json": {
+  "/_nuxt/builds/meta/e12c4d35-318c-4128-8c84-fa964d1aee9f.json": {
     "type": "application/json",
-    "etag": "\"14-5K6Cv39pjrthlG2bzVBHSVQ67as\"",
-    "mtime": "2026-10-13T08:07:23.172Z",
-    "size": 20,
-    "path": "../public/_nuxt/builds/skew/af42fc6b-e730-445c-b622-0134aba0b12d.json"
+    "etag": "\"92-cHl6KPJbOH1HBv4SJKHt89YXlo4\"",
+    "mtime": "2026-10-28T07:16:45.909Z",
+    "size": 146,
+    "path": "../public/_nuxt/builds/meta/e12c4d35-318c-4128-8c84-fa964d1aee9f.json"
+  },
+  "/_nuxt/builds/skew/e12c4d35-318c-4128-8c84-fa964d1aee9f.json": {
+    "type": "application/json",
+    "etag": "\"50-9cbdQCgy2sxeRuxVKSZrxm8y2/g\"",
+    "mtime": "2026-10-28T07:16:45.909Z",
+    "size": 80,
+    "path": "../public/_nuxt/builds/skew/e12c4d35-318c-4128-8c84-fa964d1aee9f.json"
   }
 };
 
@@ -8814,7 +9177,11 @@ const dirname = function(p) {
 
 function readAsset (id) {
   const serverDir = dirname(fileURLToPath(globalThis._importMeta_.url));
-  return promises.readFile(resolve$1(serverDir, assets[id].path))
+  // Public dirs might be pruned after the build (uploaded to a CDN, sourcemaps
+  // stripped), so a manifest entry with no file behind it reads as absent, not broken.
+  return promises.readFile(resolve$1(serverDir, assets[id].path)).catch((error) => {
+    if (error?.code !== 'ENOENT') { throw error }
+  })
 }
 
 const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1},"/_nuxt/fonts/":{"maxAge":31536000},"/_og-static-fonts/":{"maxAge":31536000},"/_nuxt/":{"maxAge":31536000}};
@@ -8835,7 +9202,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _aU4W5Z = eventHandler((event) => {
+const _rjytQs = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -8896,15 +9263,25 @@ const _aU4W5Z = eventHandler((event) => {
   if (asset.size > 0 && !getResponseHeader(event, "Content-Length")) {
     setResponseHeader(event, "Content-Length", asset.size);
   }
-  return readAsset(id);
+  const data = readAsset(id);
+  return typeof data?.then === "function" ? data.then(
+    (resolved) => assertAssetData(event, resolved)
+  ) : assertAssetData(event, data);
 });
+function assertAssetData(event, data) {
+  if (data === null || data === void 0) {
+    removeResponseHeader(event, "Cache-Control");
+    throw createError$2({ statusCode: 404 });
+  }
+  return data;
+}
 
 const options = {"iconifyApiEndpoint":"https://api.iconify.design"};
 
 const collections = {
 };
 
-const _OK8GsT = defineCachedEventHandler(async (event) => {
+const _BLMzya = defineCachedEventHandler(async (event) => {
   const collectionName = event.context.params?.collection?.replace(/\.json$/, "");
   const collection = collectionName && Object.hasOwn(collections, collectionName) ? await collections[collectionName]?.() : null;
   const apiEndPoint = options.iconifyApiEndpoint;
@@ -8940,6 +9317,8 @@ const _OK8GsT = defineCachedEventHandler(async (event) => {
 }, {
   group: "nuxt",
   name: "icon",
+  // @ts-expect-error Nitro 3 API
+  allowQuery: ["icons"],
   getKey(event) {
     const collection = event.context.params?.collection?.replace(/\.json$/, "") || "unknown";
     const icons = String(parseQuery(parsePath(event.path).search).icons || "").split(",");
@@ -8985,7 +9364,7 @@ function getSiteRobotConfig(e) {
   return { indexable, hints };
 }
 
-const _pLoBKz = defineEventHandler(async (e) => {
+const _3TejmD = defineEventHandler(async (e) => {
   const nitroApp = useNitroApp();
   const { indexable} = getSiteRobotConfig(e);
   const { credits, cacheControl, robotsDisabledValue } = useRuntimeConfigNuxtRobots();
@@ -9088,7 +9467,7 @@ function getPathRobotConfig(e, options) {
     }
   }
   const baseURL = runtimeConfig.app.baseURL;
-  const matchRules = (pathOrUrl) => getRouteRulesForPath(withoutBase(withoutTrailingSlash((pathOrUrl.startsWith("/") ? pathOrUrl : parseURL(pathOrUrl, baseURL).pathname).split("?")[0]), baseURL));
+  const matchRules = (pathOrUrl) => matchRouteRules(withoutBase(withoutTrailingSlash((pathOrUrl.startsWith("/") ? pathOrUrl : parseURL(pathOrUrl, baseURL).pathname).split("?")[0]), baseURL));
   let robotRouteRules = matchRules(path);
   let routeRulesPath = path;
   if (typeof robotRouteRules.robots === "undefined") {
@@ -9128,7 +9507,7 @@ function getPathRobotConfig(e, options) {
   };
 }
 
-const _1nhPgq = defineEventHandler(async (e) => {
+const _vnz8S8 = defineEventHandler(async (e) => {
   if (e.url.pathname === "/robots.txt" || e.url.pathname.startsWith("/__") || e.url.pathname.startsWith("/api") || e.url.pathname.startsWith("/_nuxt")) {
     const { header, robotsDisabledValue } = useRuntimeConfigNuxtRobots();
     if (header && !getSiteRobotConfig(e).indexable)
@@ -9429,7 +9808,7 @@ const filters = new Map();
 const onUrlFns = new Map();
 
 const { listPageCollections, provider, queryPages: queryPages$1 } = contentRuntime;
-const _ESGQj8 = defineEventHandler(async (e) => {
+const _BrFx_q = defineEventHandler(async (e) => {
   const collections = (await listPageCollections(e)).filter((collection) => collection.inSitemap && collection.hasField("sitemap")).map((collection) => collection.name);
   const results = await Promise.all(collections.map(async (collection) => {
     const needsAllFields = filters?.has(collection) || onUrlFns?.has(collection);
@@ -9473,7 +9852,7 @@ const _ESGQj8 = defineEventHandler(async (e) => {
   });
 });
 
-const staticConfig = {"isI18nMapped":false,"sitemapName":"sitemap.xml","isMultiSitemap":false,"excludeAppSources":[],"cacheMaxAgeSeconds":600,"experimentalStreaming":false,"routeRuleHeaders":{"/sitemap.xml":{"headers":{"Content-Type":"text/xml; charset=UTF-8","Cache-Control":"public, max-age=600, must-revalidate","X-Sitemap-Prerendered":"2026-10-13T08:06:49.011Z"}},"/_og/d/**":{"headers":{"cache-control":"public, max-age=259200, s-maxage=259200, immutable"}},"/_og/r/**":{"headers":{"cache-control":"public, max-age=259200, s-maxage=259200, immutable"}},"/_og/s/**":{"headers":{"cache-control":"public, max-age=31536000, immutable"}},"/llms.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms-full.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/sitemap.md":{"headers":{"Content-Type":"text/markdown; charset=utf-8"}}},"autoLastmod":false,"defaultSitemapsChunkSize":1000,"minify":false,"sortEntries":true,"discoverImages":true,"discoverVideos":true,"sitemapsPathPrefix":"/__sitemap__/","xsl":"/__sitemap__/style.xsl","xslTips":true,"xslColumns":[{"label":"URL","width":"50%"},{"label":"Images","width":"25%","select":"count(image:image)"},{"label":"Last Updated","width":"25%","select":"concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,6)))"}],"credits":true,"version":"9.0.2","sitemaps":{"sitemap.xml":{"sitemapName":"sitemap.xml","route":"sitemap.xml","defaults":{},"include":[],"exclude":["/_**","/_nuxt/**","/__nuxt_content/**"],"includeAppSources":true}}};
+const staticSitemapConfig = {"isI18nMapped":false,"sitemapName":"sitemap.xml","isMultiSitemap":false,"excludeAppSources":[],"cacheMaxAgeSeconds":600,"experimentalStreaming":false,"routeRuleHeaders":{"/sitemap.xml":{"headers":{"Content-Type":"text/xml; charset=UTF-8","Cache-Control":"public, max-age=600, must-revalidate","X-Sitemap-Prerendered":"2026-10-28T07:16:10.043Z"}},"/_og/d/**":{"headers":{"cache-control":"public, max-age=259200, s-maxage=259200, immutable"}},"/_og/r/**":{"headers":{"cache-control":"public, max-age=259200, s-maxage=259200, immutable"}},"/_og/s/**":{"headers":{"cache-control":"public, max-age=31536000, immutable"}},"/llms.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms/**":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms-full.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/sitemap.md":{"headers":{"Content-Type":"text/markdown; charset=utf-8"}}},"autoLastmod":false,"defaultSitemapsChunkSize":1000,"minify":false,"sortEntries":true,"discoverImages":true,"discoverVideos":true,"sitemapsPathPrefix":"/__sitemap__/","xsl":"/__sitemap__/style.xsl","xslTips":true,"xslColumns":[{"label":"URL","width":"50%"},{"label":"Images","width":"25%","select":"count(image:image)"},{"label":"Last Updated","width":"25%","select":"concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,6)))"}],"credits":true,"version":"9.1.0","sitemaps":{"sitemap.xml":{"sitemapName":"sitemap.xml","route":"sitemap.xml","defaults":{},"include":[],"exclude":["/_**","/_nuxt/**","/__nuxt_content/**"],"includeAppSources":true}}};
 
 function isUnlocalizedLocalePage(page) {
   return page._tag === "unlocalized" && typeof page.path === "string";
@@ -9995,12 +10374,32 @@ function createCacheKey(origin, parts) {
   return `sitemap-${hash$1([scope, parts])}`;
 }
 
-const SERVER_CACHE_MAX_AGE = staticConfig.cacheMaxAgeSeconds;
+function firstHeaderValue(value) {
+  return value?.split(",")[0]?.trim() || void 0;
+}
+function requestUrl(e) {
+  const { url } = e;
+  if (url)
+    return url;
+  const href = e.req?.url;
+  return typeof href === "string" && URL.canParse(href) ? new URL(href) : void 0;
+}
+function getForwardedHost(e) {
+  return firstHeaderValue(getRequestHeader(e, "x-forwarded-host")) || getRequestHeader(e, "host") || "";
+}
+function getForwardedProtocol(e) {
+  const forwarded = firstHeaderValue(getRequestHeader(e, "x-forwarded-proto"));
+  if (forwarded === "http" || forwarded === "https")
+    return forwarded;
+  return requestUrl(e)?.protocol.slice(0, -1);
+}
+
+const SERVER_CACHE_MAX_AGE = staticSitemapConfig.cacheMaxAgeSeconds;
 const REQUEST_SITE_URL_CONTEXT = "nitro:init";
 function getCacheOrigin(e) {
   return resolveCacheOrigin({
-    host: getRequestHost(e, { xForwardedHost: true }),
-    protocol: getRequestProtocol(e, { xForwardedProto: true }),
+    host: getForwardedHost(e),
+    protocol: getForwardedProtocol(e),
     siteUrl: () => {
       const siteConfig = getSiteConfig(e, { debug: true });
       return siteConfig._context?.url === REQUEST_SITE_URL_CONTEXT ? void 0 : siteConfig.url;
@@ -10024,7 +10423,7 @@ function dynamicRuntimeConfig(_e) {
 }
 function copyStaticSitemaps() {
   return Object.fromEntries(
-    Object.entries(staticConfig.sitemaps).map(([name, sitemap]) => [name, {
+    Object.entries(staticSitemapConfig.sitemaps).map(([name, sitemap]) => [name, {
       ...sitemap,
       include: normalizeRuntimeFilters("include" in sitemap ? sitemap.include : void 0),
       exclude: normalizeRuntimeFilters("exclude" in sitemap ? sitemap.exclude : void 0)
@@ -10033,7 +10432,7 @@ function copyStaticSitemaps() {
 }
 function useSitemapRuntimeConfig(e) {
   return Object.freeze({
-    ...staticConfig,
+    ...staticSitemapConfig,
     sitemaps: copyStaticSitemaps(),
     ...dynamicRuntimeConfig()
   });
@@ -10063,17 +10462,17 @@ async function resolveSitemapSitemaps(e, nitro) {
 }
 const resolveSitemapSitemapsCached = defineSitemapCachedFunction(resolveSitemapSitemaps, { name: "sitemap:runtime-sitemaps" });
 async function useResolvedSitemapRuntimeConfig(e) {
-  const maxAge = dynamicRuntimeConfig()?.cacheMaxAgeSeconds ?? staticConfig.cacheMaxAgeSeconds;
+  const maxAge = dynamicRuntimeConfig()?.cacheMaxAgeSeconds ?? staticSitemapConfig.cacheMaxAgeSeconds;
   const shouldCache = typeof maxAge === "number" && maxAge > 0;
   const sitemaps = shouldCache ? await resolveSitemapSitemapsCached(e, useNitroApp()) : await resolveSitemapSitemaps(e, useNitroApp());
   return Object.freeze({
-    ...staticConfig,
+    ...staticSitemapConfig,
     sitemaps,
     ...dynamicRuntimeConfig()
   });
 }
 
-const _TxAQTW = defineEventHandler(async (e) => {
+const _Erkv8L = defineEventHandler(async (e) => {
   const fixPath = createSitePathResolver(e, { absolute: false, withBase: true });
   const { sitemapName: fallbackSitemapName, cacheMaxAgeSeconds, version, xslColumns, xslTips } = useSitemapRuntimeConfig();
   e.res.headers.set("Content-Type", "application/xslt+xml");
@@ -12136,7 +12535,7 @@ const fetchSourceUrlsCached = defineSitemapCachedFunction(
   }
 );
 function isSourceCacheEnabled() {
-  const cacheMaxAgeSeconds = staticConfig.cacheMaxAgeSeconds;
+  const cacheMaxAgeSeconds = staticSitemapConfig.cacheMaxAgeSeconds;
   return cacheMaxAgeSeconds > 0;
 }
 async function fetchDataSource(input, event) {
@@ -12171,7 +12570,7 @@ async function fetchSourceUrls(url, options, event) {
       {
         Accept: isXmlRequest ? "text/xml" : "application/json"
       },
-      event && !isExternalUrl ? { host: getRequestHost(event, { xForwardedHost: true }) } : {}
+      event && !isExternalUrl ? { host: getForwardedHost(event) } : {}
     );
     const fetchOptions = {
       ...options,
@@ -12717,15 +13116,15 @@ async function sitemapXmlEventHandler(e) {
   return createSitemap(e, Object.values(sitemaps)[0], runtimeConfig);
 }
 
-const __yUcce = defineEventHandler(sitemapXmlEventHandler);
+const _rNJqzO = defineEventHandler(sitemapXmlEventHandler);
 
-const _GOK8TE = defineEventHandler$1(async (event) => {
+const _Tie3pO = defineEventHandler$1(async (event) => {
   return;
 });
 
-const _uW5Djc = defineEventHandler((e) => initRequestSiteConfig(e, getNitroOrigin(e), getRouteRules(e)));
+const _f7y4Wf = defineEventHandler((e) => initRequestSiteConfig(e, getNitroOrigin(e), getRouteRules(e)));
 
-const _bzxinv = defineEventHandler(() => {
+const _tEI4nH = defineEventHandler(() => {
   const config = useRuntimeConfig();
   return {
     ok: true,
@@ -12733,6 +13132,80 @@ const _bzxinv = defineEventHandler(() => {
     uptime: Math.floor(process.uptime())
   };
 });
+
+const RE_FRONTMATTER = /^\uFEFF?---[\t ]*\r?\n(?:[\s\S]*?\r?\n)?---[\t ]*(?:\r?\n|$)/;
+function llmsTxtDirective(llmsTxtUrl) {
+  return `> Index of every page on this site: [llms.txt](${llmsTxtUrl})`;
+}
+function insertLlmsTxtDirective(markdown, llmsTxtUrl) {
+  const directive = llmsTxtDirective(llmsTxtUrl);
+  const frontmatter = markdown.match(RE_FRONTMATTER)?.[0] ?? "";
+  const body = markdown.slice(frontmatter.length).replace(/^(?:\r?\n)+/, "");
+  if (body === directive || body.startsWith(`${directive}
+`) || body.startsWith(`${directive}\r
+`))
+    return markdown;
+  return `${frontmatter}${frontmatter ? "\n" : ""}${directive}
+
+${body}`;
+}
+const RE_DIRECTIVE_HTML = /<a [^>]*data-llms-txt-directive[^>]*>[^<]*<\/a>/g;
+function stripLlmsTxtDirectiveHtml(html) {
+  return html.replace(RE_DIRECTIVE_HTML, "");
+}
+
+const RE_FENCE = /^ {0,3}(`{3,}|~{3,})/;
+const RE_INLINE_ROOT_LINK = /\]\((<?)\/(?!\/)/g;
+const RE_REFERENCE_ROOT_LINK = /^( {0,3}\[[^\]]+\]:[\t ]*<?)\/(?!\/)/;
+function closesFence(line, fence) {
+  const trimmed = line.trim();
+  return trimmed.length >= fence.length && trimmed[0] === fence[0] && [...trimmed].every((char) => char === fence[0]);
+}
+function backtickRun(line, start) {
+  let end = start;
+  while (line[end] === "`")
+    end++;
+  return end - start;
+}
+function rewriteOutsideCodeSpans(line, rewrite) {
+  let output = "";
+  let last = 0;
+  let index = line.indexOf("`");
+  while (index !== -1) {
+    const length = backtickRun(line, index);
+    let close = line.indexOf("`", index + length);
+    while (close !== -1 && backtickRun(line, close) !== length)
+      close = line.indexOf("`", close + backtickRun(line, close));
+    if (close === -1) {
+      index = line.indexOf("`", index + length);
+      continue;
+    }
+    output += rewrite(line.slice(last, index)) + line.slice(index, close + length);
+    last = close + length;
+    index = line.indexOf("`", last);
+  }
+  return output + rewrite(line.slice(last));
+}
+function absoluteMarkdownLinks(markdown, siteUrl) {
+  const origin = new URL(siteUrl).origin;
+  let fence;
+  return markdown.split(/(?<=\n)/).map((line) => {
+    if (fence) {
+      if (closesFence(line, fence))
+        fence = void 0;
+      return line;
+    }
+    const opening = line.match(RE_FENCE);
+    if (opening) {
+      fence = opening[1];
+      return line;
+    }
+    return rewriteOutsideCodeSpans(line, (text) => text.replace(RE_REFERENCE_ROOT_LINK, `$1${origin}/`).replace(RE_INLINE_ROOT_LINK, `]($1${origin}/`));
+  }).join("");
+}
+function absoluteSiteUrl(path, siteUrl) {
+  return siteUrl ? new URL(path, new URL(siteUrl).origin).href : path;
+}
 
 const RE_ABSOLUTE_URL = /^(?:[a-z][a-z\d+.-]*:|\/\/)/i;
 function resolveMarkdownRedirect(location, { pageUrl, origins = [] }) {
@@ -12752,12 +13225,16 @@ function resolveMarkdownRedirect(location, { pageUrl, origins = [] }) {
   };
 }
 
+function escapeMarkdownHtml(value) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
 const SITEMAP_MD_ROUTE = "/sitemap.md";
 function topSegment(route) {
   return route.split("/").filter(Boolean)[0] || "";
 }
 function escapeTitle(title) {
-  return title.replaceAll("[", "\\[").replaceAll("]", "\\]");
+  return escapeMarkdownHtml(title).replaceAll("[", "\\[").replaceAll("]", "\\]");
 }
 function formatEntry(entry, resolveHref) {
   const title = escapeTitle(entry.title?.trim() || entry.route);
@@ -12787,7 +13264,7 @@ function buildSitemapMd(entries, options = {}) {
       return 1;
     return a.localeCompare(b);
   });
-  const parts = [`# ${options.siteName || "Site"} Sitemap`, "", "All pages in Markdown format."];
+  const parts = [`# ${escapeMarkdownHtml(options.siteName || "Site")} Sitemap`, "", "All pages in Markdown format."];
   for (const key of keys) {
     parts.push("", `## ${key || "Root"}`);
     for (const entry of groups.get(key))
@@ -12827,7 +13304,7 @@ function notFoundMarkdown(ctx, canonicalUrl, build) {
     ``,
     `- [Sitemap](${resolveUrl("/sitemap.xml")})`,
     `- [llms.txt](${resolveUrl("/llms.txt")})`,
-    `- [llms-full.txt](${resolveUrl("/llms-full.txt")})`,
+    ...config.llmsFullTxt === false ? [] : [`- [llms-full.txt](${resolveUrl("/llms-full.txt")})`],
     ``
   ].join("\n");
   const i18n = config.i18n;
@@ -12846,7 +13323,7 @@ function notFoundMarkdown(ctx, canonicalUrl, build) {
   return `${frontmatter}
 ${body}`;
 }
-const _2Ho153 = defineEventHandler$1(async (event) => {
+const _WkWZEk = defineEventHandler$1(async (event) => {
   const runtimeConfig = useRuntimeConfig$1(event);
   if (isSitemapMdRequest(event.path, runtimeConfig.app.baseURL, runtimeConfig["nuxt-ai-ready"]?.sitemapMd !== false))
     return;
@@ -12858,7 +13335,12 @@ const _2Ho153 = defineEventHandler$1(async (event) => {
   const ctx = buildNegotiationContext(event, decision.path);
   const { path, config, resolvePath, resolveUrl, routeContext } = ctx;
   const canonicalUrl = resolveUrl(path);
-  const finalizeMarkdown = (markdown) => config.sitemapMd === false ? markdown : appendSitemapSection(markdown, resolvePath(SITEMAP_MD_ROUTE));
+  const finalizeMarkdown = (markdown) => {
+    const withSitemap = config.sitemapMd === false ? markdown : appendSitemapSection(markdown, resolvePath(SITEMAP_MD_ROUTE));
+    const llmsTxt = config.llmsTxt;
+    const withDirective = llmsTxt?.directive?.markdown === false ? withSitemap : insertLlmsTxtDirective(withSitemap, resolveUrl("/llms.txt"));
+    return absoluteMarkdownLinks(withDirective, canonicalUrl);
+  };
   const [
     { tryGetContentMarkdown },
     { fetchRawWithEvent },
@@ -12982,7 +13464,7 @@ ${contentPage.markdown}`);
   return finalizeMarkdown(result.markdown);
 });
 
-const _eOnc1H = eventHandler(async (event) => {
+const _Jp3GX8 = eventHandler(async (event) => {
   const collection = getRouterParam(event, "collection") || event.path?.split("/")?.[2] || "";
   setHeader(event, "Content-Type", "text/plain");
   const data = await useStorage().getItem(`build:content:database.compressed.mjs`) || "";
@@ -13693,7 +14175,7 @@ function defineRenderHandler(render) {
   });
 }
 
-const componentNames = [{"hash":"","pascalName":"BlogPostTakumi","kebabName":"blog-post-takumi","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"BrutalistSatori","kebabName":"brutalist-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"DocsTakumi","kebabName":"docs-takumi","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"FrameSatori","kebabName":"frame-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSatori","kebabName":"nuxt-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSeoSatori","kebabName":"nuxt-seo-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSeoTakumi","kebabName":"nuxt-seo-takumi","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"PergelSatori","kebabName":"pergel-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"ProductCardTakumi","kebabName":"product-card-takumi","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"SaaSSatori","kebabName":"saa-ssatori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"SimpleBlogSatori","kebabName":"simple-blog-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"UnJsSatori","kebabName":"un-js-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"WithEmojiSatori","kebabName":"with-emoji-satori","path":"/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]}];
+const componentNames = [{"hash":"","pascalName":"BlogPostTakumi","kebabName":"blog-post-takumi","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"BrutalistSatori","kebabName":"brutalist-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"DocsTakumi","kebabName":"docs-takumi","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"FrameSatori","kebabName":"frame-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSatori","kebabName":"nuxt-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSeoSatori","kebabName":"nuxt-seo-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"NuxtSeoTakumi","kebabName":"nuxt-seo-takumi","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"PergelSatori","kebabName":"pergel-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"ProductCardTakumi","kebabName":"product-card-takumi","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"takumi","propNames":[]},{"hash":"","pascalName":"SaaSSatori","kebabName":"saa-ssatori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"SimpleBlogSatori","kebabName":"simple-blog-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"UnJsSatori","kebabName":"un-js-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]},{"hash":"","pascalName":"WithEmojiSatori","kebabName":"with-emoji-satori","path":"/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community","category":"community","renderer":"satori","propNames":[]}];
 
 const RE_SOCIAL_META_TAG = /<meta[^>]+(property|name)="(twitter|og):([^"]+)"[^>]*>/g;
 const RE_SOCIAL_META_KEY = /(property|name)="(twitter|og):([^"]+)"/;
@@ -15118,7 +15600,7 @@ var Pair$8 = {};
 
 var stringifyPair$2 = {};
 
-var stringify$7 = {};
+var stringify$8 = {};
 
 var stringifyComment$5 = {};
 
@@ -15727,7 +16209,7 @@ function stringifyProps(node, tagObj, { anchors: anchors$1$1, doc }) {
         props.push(doc.directives.tagString(tag));
     return props.join(' ');
 }
-function stringify$6(item, ctx, onComment, onChompKeep) {
+function stringify$7(item, ctx, onComment, onChompKeep) {
     if (identity$n.isPair(item))
         return item.toString(ctx, onComment, onChompKeep);
     if (identity$n.isAlias(item)) {
@@ -15764,12 +16246,12 @@ function stringify$6(item, ctx, onComment, onChompKeep) {
         : `${props}\n${ctx.indent}${str}`;
 }
 
-stringify$7.createStringifyContext = createStringifyContext;
-stringify$7.stringify = stringify$6;
+stringify$8.createStringifyContext = createStringifyContext;
+stringify$8.stringify = stringify$7;
 
 var identity$m = identity$x;
 var Scalar$g = Scalar$k;
-var stringify$5 = stringify$7;
+var stringify$6 = stringify$8;
 var stringifyComment$2 = stringifyComment$5;
 
 function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
@@ -15798,7 +16280,7 @@ function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
     });
     let keyCommentDone = false;
     let chompKeep = false;
-    let str = stringify$5.stringify(key, ctx, () => (keyCommentDone = true), () => (chompKeep = true));
+    let str = stringify$6.stringify(key, ctx, () => (keyCommentDone = true), () => (chompKeep = true));
     if (!explicitKey && !ctx.inFlow && str.length > 1024) {
         if (simpleKeys)
             throw new Error('With simple keys, single line scalar must not span more than 1024 characters');
@@ -15861,7 +16343,7 @@ function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
         ctx.indent = ctx.indent.substring(2);
     }
     let valueCommentDone = false;
-    const valueStr = stringify$5.stringify(value, ctx, () => (valueCommentDone = true), () => (chompKeep = true));
+    const valueStr = stringify$6.stringify(value, ctx, () => (valueCommentDone = true), () => (chompKeep = true));
     let ws = ' ';
     if (keyComment || vsb || vcb) {
         ws = vsb ? '\n' : '';
@@ -16014,7 +16496,7 @@ merge$4.merge = merge$3;
 
 var log$1 = log$2;
 var merge$2 = merge$4;
-var stringify$4 = stringify$7;
+var stringify$5 = stringify$8;
 var identity$k = identity$x;
 var toJS$3 = toJS$8;
 
@@ -16055,7 +16537,7 @@ function stringifyKey(key, jsKey, ctx) {
     if (typeof jsKey !== 'object')
         return String(jsKey);
     if (identity$k.isNode(key) && ctx?.doc) {
-        const strCtx = stringify$4.createStringifyContext(ctx.doc, {});
+        const strCtx = stringify$5.createStringifyContext(ctx.doc, {});
         strCtx.anchors = new Set();
         for (const node of ctx.anchors.keys())
             strCtx.anchors.add(node.anchor);
@@ -16123,7 +16605,7 @@ var YAMLMap$8 = {};
 var stringifyCollection$3 = {};
 
 var identity$i = identity$x;
-var stringify$3 = stringify$7;
+var stringify$4 = stringify$8;
 var stringifyComment$1 = stringifyComment$5;
 
 function stringifyCollection$2(collection, ctx, options) {
@@ -16155,7 +16637,7 @@ function stringifyBlockCollection({ comment, items }, ctx, { blockItemPrefix, fl
             }
         }
         chompKeep = false;
-        let str = stringify$3.stringify(item, itemCtx, () => (comment = null), () => (chompKeep = true));
+        let str = stringify$4.stringify(item, itemCtx, () => (comment = null), () => (chompKeep = true));
         if (comment)
             str += stringifyComment$1.lineComment(str, itemIndent, commentString(comment));
         if (chompKeep && comment)
@@ -16225,7 +16707,7 @@ function stringifyFlowCollection({ items }, ctx, { flowChars, itemIndent }) {
         }
         if (comment)
             reqNewline = true;
-        let str = stringify$3.stringify(item, itemCtx, () => (comment = null));
+        let str = stringify$4.stringify(item, itemCtx, () => (comment = null));
         reqNewline || (reqNewline = lines.length > linesAtValue || str.includes('\n'));
         if (i < items.length - 1) {
             str += ',';
@@ -17621,7 +18103,7 @@ Schema$2.Schema = Schema$1;
 var stringifyDocument$2 = {};
 
 var identity$9 = identity$x;
-var stringify$2 = stringify$7;
+var stringify$3 = stringify$8;
 var stringifyComment = stringifyComment$5;
 
 function stringifyDocument$1(doc, options) {
@@ -17638,7 +18120,7 @@ function stringifyDocument$1(doc, options) {
     }
     if (hasDirectives)
         lines.push('---');
-    const ctx = stringify$2.createStringifyContext(doc, options);
+    const ctx = stringify$3.createStringifyContext(doc, options);
     const { commentString } = ctx.options;
     if (doc.commentBefore) {
         if (lines.length !== 1)
@@ -17661,7 +18143,7 @@ function stringifyDocument$1(doc, options) {
             contentComment = doc.contents.comment;
         }
         const onChompKeep = contentComment ? undefined : () => (chompKeep = true);
-        let body = stringify$2.stringify(doc.contents, ctx, () => (contentComment = null), onChompKeep);
+        let body = stringify$3.stringify(doc.contents, ctx, () => (contentComment = null), onChompKeep);
         if (contentComment)
             body += stringifyComment.lineComment(body, '', commentString(contentComment));
         if ((body[0] === '|' || body[0] === '>') &&
@@ -17674,7 +18156,7 @@ function stringifyDocument$1(doc, options) {
             lines.push(body);
     }
     else {
-        lines.push(stringify$2.stringify(doc.contents, ctx));
+        lines.push(stringify$3.stringify(doc.contents, ctx));
     }
     if (doc.directives?.docEnd) {
         if (doc.comment) {
@@ -19995,7 +20477,7 @@ var cstStringify$1 = {};
  * Fair warning: This applies no validation whatsoever, and
  * simply concatenates the sources in their logical order.
  */
-const stringify$1 = (cst) => 'type' in cst ? stringifyToken(cst) : stringifyItem(cst);
+const stringify$2 = (cst) => 'type' in cst ? stringifyToken(cst) : stringifyItem(cst);
 function stringifyToken(token) {
     switch (token.type) {
         case 'block-scalar': {
@@ -20049,7 +20531,7 @@ function stringifyItem({ start, key, sep, value }) {
     return res;
 }
 
-cstStringify$1.stringify = stringify$1;
+cstStringify$1.stringify = stringify$2;
 
 var cstVisit$1 = {};
 
@@ -22088,7 +22570,7 @@ function parse(src, reviver, options) {
     }
     return doc.toJS(Object.assign({ reviver: _reviver }, options));
 }
-function stringify(value, replacer, options) {
+function stringify$1(value, replacer, options) {
     let _replacer = null;
     if (typeof replacer === 'function' || Array.isArray(replacer)) {
         _replacer = replacer;
@@ -22115,7 +22597,7 @@ function stringify(value, replacer, options) {
 publicApi$1.parse = parse;
 publicApi$1.parseAllDocuments = parseAllDocuments;
 publicApi$1.parseDocument = parseDocument$1;
-publicApi$1.stringify = stringify;
+publicApi$1.stringify = stringify$1;
 
 var errors = errors$4;
 var identity = identity$x;
@@ -22139,6 +22621,7 @@ Pair.Pair;
 Scalar.Scalar;
 YAMLMap.YAMLMap;
 var parseDocument = publicApi.parseDocument;
+var stringify = publicApi.stringify;
 visit.visit;
 visit.visitAsync;
 
@@ -22560,6 +23043,22 @@ function resolveSeedRefreshWindowMs(pruneTtlSeconds) {
     return SEED_REFRESH_WINDOW_MS;
   return Math.min(SEED_REFRESH_WINDOW_MS, Math.floor(pruneTtlSeconds * 1e3 / 2));
 }
+function parseSourceLastmod(input) {
+  if (input === void 0)
+    return null;
+  if (typeof input === "string" && (input.length > 64 || !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(input)))
+    return null;
+  const date = new Date(input);
+  if (!Number.isFinite(date.getTime()))
+    return null;
+  if (typeof input === "string") {
+    const calendarDate = input.slice(0, 10);
+    const parsedCalendarDate = new Date(calendarDate);
+    if (!Number.isFinite(parsedCalendarDate.getTime()) || parsedCalendarDate.toISOString().slice(0, 10) !== calendarDate)
+      return null;
+  }
+  return date.toISOString();
+}
 
 function getEventFromContext(providedEvent) {
   if (providedEvent)
@@ -22611,6 +23110,24 @@ async function getDb(event) {
   if (database === "Enabled")
     await syncBuildDump(resolvedEvent);
   return db;
+}
+async function queryPageMetadata(event, routes) {
+  if (!routes.length)
+    return [];
+  const db = await getDb(event);
+  if (!db)
+    return [];
+  const unique = [...new Set(routes)];
+  const pages = [];
+  for (let i = 0; i < unique.length; i += 100) {
+    const batch = unique.slice(i, i + 100);
+    const rows = await db.all(
+      `SELECT route, title, description, is_error, locale FROM ai_ready_pages WHERE route IN (${batch.map(() => "?").join(", ")})`,
+      batch
+    );
+    pages.push(...rows.map((row) => ({ route: row.route, title: row.title, description: row.description, isError: row.is_error === 1, locale: row.locale || "" })));
+  }
+  return pages;
 }
 function buildWhereClause(where) {
   const conditions = [];
@@ -22857,26 +23374,31 @@ async function seedRoutes(event, routes, options = {}) {
     byRoute.set(route, {
       route,
       routeKey: normalizeRouteKey(route),
-      locale: deriveLocale(event, route, explicitLocale, entryUrl)
+      locale: deriveLocale(event, route, explicitLocale, entryUrl),
+      sourceLastmod: parseSourceLastmod(typeof entry === "string" ? void 0 : entry.lastmod)
     });
   }
-  const rowsPerInsert = maxRowsPerInsert(4);
+  const rowsPerInsert = maxRowsPerInsert(5);
   const stmts = [];
   for (const batch of chunk([...byRoute.values()], rowsPerInsert)) {
-    const valuesSql = batch.map(() => `(?, ?, '', '', '', '[]', '[]', '', 0, 0, 0, 'runtime', ?, ?)`).join(", ");
-    const params = batch.flatMap((r) => [r.route, r.routeKey, nowMs, r.locale]);
+    const valuesSql = batch.map(() => `(?, ?, '', '', '', '[]', '[]', '', ?, 0, 0, 0, 'runtime', ?, ?)`).join(", ");
+    const params = batch.flatMap((r) => [r.route, r.routeKey, r.sourceLastmod, nowMs, r.locale]);
     stmts.push({
       sql: `
-        INSERT INTO ai_ready_pages (route, route_key, title, description, markdown, headings, keywords, updated_at, indexed_at, is_error, indexed, source, last_seen_at, locale)
+        INSERT INTO ai_ready_pages (route, route_key, title, description, markdown, headings, keywords, updated_at, source_lastmod, indexed_at, is_error, indexed, source, last_seen_at, locale)
         VALUES ${valuesSql}
         ON CONFLICT(route) DO UPDATE SET
           last_seen_at = excluded.last_seen_at,
           locale = excluded.locale,
+          source_lastmod = COALESCE(excluded.source_lastmod, ai_ready_pages.source_lastmod),
           is_error = 0,
-          indexed = CASE WHEN ai_ready_pages.is_error = 1 THEN 0 ELSE ai_ready_pages.indexed END
+          indexed = CASE WHEN ai_ready_pages.is_error = 1
+            OR (excluded.source_lastmod IS NOT NULL AND ai_ready_pages.source_lastmod IS DISTINCT FROM excluded.source_lastmod)
+            THEN 0 ELSE ai_ready_pages.indexed END
         WHERE ai_ready_pages.last_seen_at IS NULL
           OR ai_ready_pages.last_seen_at < excluded.last_seen_at - ${refreshWindowMs}
           OR ai_ready_pages.locale IS DISTINCT FROM excluded.locale
+          OR (excluded.source_lastmod IS NOT NULL AND ai_ready_pages.source_lastmod IS DISTINCT FROM excluded.source_lastmod)
       `,
       params
     });
@@ -23302,6 +23824,7 @@ const queries = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   pruneCronRunsByAge: pruneCronRunsByAge,
   prunePage: prunePage,
   pruneStaleRoutes: pruneStaleRoutes,
+  queryPageMetadata: queryPageMetadata,
   queryPages: queryPages,
   releaseCronLock: releaseCronLock,
   resetSitemapErrors: resetSitemapErrors,
@@ -23390,11 +23913,57 @@ const frontmatter = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.definePropert
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const RE_NBSP = /\u00A0/g;
+const JSON_LD_MAX_BYTES = 65536;
+const JSON_LD_MAX_BLOCKS = 16;
+const IMAGE_META_FIELDS = [
+  "og:image",
+  "og:image:url",
+  "og:image:secure_url",
+  "og:image:type",
+  "og:image:width",
+  "og:image:height",
+  "og:image:alt",
+  "twitter:image",
+  "twitter:image:src",
+  "twitter:image:alt"
+];
+function parseJsonLdBlock(text, remainingBytes) {
+  if (text.length > remainingBytes)
+    return { _tag: "Skipped" };
+  const content = text.trim();
+  if (!content)
+    return { _tag: "Skipped" };
+  let value;
+  try {
+    value = JSON.parse(text);
+  } catch {
+    return { _tag: "Skipped" };
+  }
+  const isObject = (item) => typeof item === "object" && item !== null && !Array.isArray(item);
+  if (!isObject(value) && !(Array.isArray(value) && value.every(isObject)))
+    return { _tag: "Skipped" };
+  const markdown = `\`\`\`json
+${content.replace(RE_NBSP, "\\u00a0")}
+\`\`\``;
+  const bytes = new TextEncoder().encode(markdown).byteLength + 2;
+  if (bytes > remainingBytes)
+    return { _tag: "Skipped" };
+  return { _tag: "Preserved", markdown, bytes };
+}
 function normalizeWhitespace(text) {
   return text.replace(RE_NBSP, " ");
 }
 function buildMdreamOptions(url, mdreamOptions, meta, extractUpdatedAt, additionalFields) {
   const extraction = {
+    "script[type]": (el) => {
+      if (el.attributes.type?.trim().toLowerCase() !== "application/ld+json" || meta.jsonLd.blocks.length >= JSON_LD_MAX_BLOCKS)
+        return;
+      const block = parseJsonLdBlock(el.textContent, JSON_LD_MAX_BYTES - meta.jsonLd.bytes);
+      if (block._tag === "Preserved") {
+        meta.jsonLd.blocks.push(block.markdown);
+        meta.jsonLd.bytes += block.bytes;
+      }
+    },
     'meta[name="keywords"]': (el) => {
       meta.metaKeywords = el.attributes.content || "";
     },
@@ -23417,6 +23986,7 @@ function buildMdreamOptions(url, mdreamOptions, meta, extractUpdatedAt, addition
   };
   const frontmatter = {
     additionalFields,
+    metaFields: [...IMAGE_META_FIELDS],
     onExtract: (fm) => {
       if (fm.title)
         meta.title = fm.title;
@@ -23457,13 +24027,14 @@ function extractLastUpdated(html) {
   return void 0;
 }
 async function convertHtmlToMarkdown(html, url, mdreamOptions, opts) {
-  const meta = { title: "", description: "", metaKeywords: "", headings: [], textContent: [] };
+  const meta = { title: "", description: "", metaKeywords: "", headings: [], textContent: [], jsonLd: { blocks: [], bytes: 0 } };
   const options = buildMdreamOptions(url, mdreamOptions, meta, opts.extractUpdatedAt ?? false, opts.additionalFrontmatter ?? {});
   const nitroApp = useNitroApp();
   await nitroApp.hooks.callHook("ai-ready:mdreamConfig", options);
+  const convertedMarkdown = hoistMetaDescription(htmlToMarkdown(stripLlmsTxtDirectiveHtml(html), options));
   const context = {
     html,
-    markdown: hoistMetaDescription(htmlToMarkdown(html, options)),
+    markdown: [convertedMarkdown, ...meta.jsonLd.blocks].join("\n\n"),
     route: opts.hooks.route,
     title: meta.title,
     description: meta.description,
@@ -23491,7 +24062,7 @@ const utils = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 
 const JSON_WRAPPER_OVERHEAD = 16;
 const MAX_BODY_BYTES = MAX_SQL_QUERY_LENGTH * 6 + JSON_WRAPPER_OVERHEAD;
-const _e3kOU6 = eventHandler(async (event) => {
+const _dQFLz9 = eventHandler(async (event) => {
   const contentLength = Number(getHeader(event, "content-length") || 0);
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
     throw createError$2({
@@ -23509,7 +24080,7 @@ const _e3kOU6 = eventHandler(async (event) => {
   return (await loadDatabaseAdapter(conf)).all(sql);
 });
 
-const _nAU6FH = lazyEventHandler(() => {
+const _4UaRKW = lazyEventHandler(() => {
   const opts = useRuntimeConfig$1().ipx || {};
   const fsDir = opts?.fs?.dir ? (Array.isArray(opts.fs.dir) ? opts.fs.dir : [opts.fs.dir]).map((dir) => isAbsolute(dir) ? dir : fileURLToPath(new URL(dir, globalThis._importMeta_.url))) : void 0;
   const fsStorage = opts.fs?.dir ? ipxFSStorage({ ...opts.fs, dir: fsDir }) : void 0;
@@ -23537,55 +24108,57 @@ const _nAU6FH = lazyEventHandler(() => {
   return fromNodeMiddleware(nodeHandler);
 });
 
-const _lazy_3rczLF = () => import('../routes/api/chat.mjs');
-const _lazy_7zopwq = () => import('../routes/api/contact.mjs');
-const _lazy_yanjIn = () => import('../routes/api/github-stats.mjs');
-const _lazy_t2bkmh = () => import('../routes/renderer.mjs');
-const _lazy_HcBQuE = () => import('../routes/_og/d/image.mjs');
-const _lazy_rWugZX = () => import('../routes/_og/r/resolve.mjs');
-const _lazy_iSt9pN = () => import('../routes/llms.txt.get.mjs');
-const _lazy_zQPpf9 = () => import('../routes/llms-full.txt.get.mjs');
-const _lazy_TW6v4Q = () => import('../routes/sitemap.md.get.mjs');
+const _lazy_R098Yb = () => import('../routes/api/chat.mjs');
+const _lazy_WgT8Le = () => import('../routes/api/contact.mjs');
+const _lazy_j6mNQj = () => import('../routes/api/github-stats.mjs');
+const _lazy_j5LhRV = () => import('../routes/api/gitlab-stats.mjs');
+const _lazy_ZA1syH = () => import('../routes/renderer.mjs');
+const _lazy_Bi27dw = () => import('../routes/_og/d/image.mjs');
+const _lazy_Kg32Qh = () => import('../routes/_og/r/resolve.mjs');
+const _lazy_X5iLYK = () => import('../_/llms.txt.get.mjs');
+const _lazy_qG0s0E = () => import('../routes/llms-full.txt.get.mjs');
+const _lazy_h1TJUT = () => import('../routes/sitemap.md.get.mjs');
 
 const handlers = [
-  { route: '', handler: _aU4W5Z, lazy: false, middleware: true, method: undefined },
-  { route: '/api/chat', handler: _lazy_3rczLF, lazy: true, middleware: false, method: undefined },
-  { route: '/api/contact', handler: _lazy_7zopwq, lazy: true, middleware: false, method: undefined },
-  { route: '/api/github-stats', handler: _lazy_yanjIn, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_t2bkmh, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_nuxt_icon/:collection', handler: _OK8GsT, lazy: false, middleware: false, method: undefined },
-  { route: '/robots.txt', handler: _pLoBKz, lazy: false, middleware: false, method: undefined },
-  { route: '', handler: _1nhPgq, lazy: false, middleware: true, method: undefined },
-  { route: '/__sitemap__/nuxt-content-urls.json', handler: _ESGQj8, lazy: false, middleware: false, method: undefined },
-  { route: '/__sitemap__/style.xsl', handler: _TxAQTW, lazy: false, middleware: false, method: undefined },
-  { route: '/sitemap.xml', handler: __yUcce, lazy: false, middleware: false, method: undefined },
-  { route: '/_og/d/**', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/d', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/s/**', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/s', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/r/**', handler: _lazy_rWugZX, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/r', handler: _lazy_rWugZX, lazy: true, middleware: false, method: undefined },
-  { route: '', handler: _GOK8TE, lazy: false, middleware: true, method: undefined },
-  { route: '', handler: _uW5Djc, lazy: false, middleware: true, method: undefined },
-  { route: '/__skew/health', handler: _bzxinv, lazy: false, middleware: false, method: "get" },
-  { route: '', handler: _2Ho153, lazy: false, middleware: true, method: undefined },
-  { route: '/llms.txt', handler: _lazy_iSt9pN, lazy: true, middleware: false, method: "get" },
-  { route: '/llms-full.txt', handler: _lazy_zQPpf9, lazy: true, middleware: false, method: "get" },
-  { route: '/sitemap.md', handler: _lazy_TW6v4Q, lazy: true, middleware: false, method: "get" },
-  { route: '/__nuxt_content/blog/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/projects/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/info/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _rjytQs, lazy: false, middleware: true, method: undefined },
+  { route: '/api/chat', handler: _lazy_R098Yb, lazy: true, middleware: false, method: undefined },
+  { route: '/api/contact', handler: _lazy_WgT8Le, lazy: true, middleware: false, method: undefined },
+  { route: '/api/github-stats', handler: _lazy_j6mNQj, lazy: true, middleware: false, method: undefined },
+  { route: '/api/gitlab-stats', handler: _lazy_j5LhRV, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_ZA1syH, lazy: true, middleware: false, method: undefined },
+  { route: '/api/_nuxt_icon/:collection', handler: _BLMzya, lazy: false, middleware: false, method: undefined },
+  { route: '/robots.txt', handler: _3TejmD, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _vnz8S8, lazy: false, middleware: true, method: undefined },
+  { route: '/__sitemap__/nuxt-content-urls.json', handler: _BrFx_q, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/style.xsl', handler: _Erkv8L, lazy: false, middleware: false, method: undefined },
+  { route: '/sitemap.xml', handler: _rNJqzO, lazy: false, middleware: false, method: undefined },
+  { route: '/_og/d/**', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/d', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/s/**', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/s', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/r/**', handler: _lazy_Kg32Qh, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/r', handler: _lazy_Kg32Qh, lazy: true, middleware: false, method: undefined },
+  { route: '', handler: _Tie3pO, lazy: false, middleware: true, method: undefined },
+  { route: '', handler: _f7y4Wf, lazy: false, middleware: true, method: undefined },
+  { route: '/__skew/health', handler: _tEI4nH, lazy: false, middleware: false, method: "get" },
+  { route: '', handler: _WkWZEk, lazy: false, middleware: true, method: undefined },
+  { route: '', handler: _lazy_X5iLYK, lazy: true, middleware: true, method: undefined },
+  { route: '/llms-full.txt', handler: _lazy_qG0s0E, lazy: true, middleware: false, method: undefined },
+  { route: '/sitemap.md', handler: _lazy_h1TJUT, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_content/blog/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/projects/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/blog/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/projects/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/info/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/_ipx/**', handler: _nAU6FH, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_t2bkmh, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_content/blog/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/projects/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/_ipx/**', handler: _4UaRKW, lazy: false, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_ZA1syH, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
   const config = useRuntimeConfig$1();
-  const hooks = createHooks();
+  const hooks = createHooks$1();
   const captureError = (error, context = {}) => {
     const promise = hooks.callHookParallel("error", error, context).catch((error_) => {
       console.error("Error while capturing another error", error_);
@@ -23787,7 +24360,7 @@ function GracefulShutdown(server, opts) {
   function destroy(socket, force = false) {
     if (socket._isIdle && isShuttingDown || force) {
       socket.destroy();
-      if (socket.server instanceof Bt.Server) {
+      if (socket.server instanceof http.Server) {
         delete connections[socket._connectionId];
       } else {
         delete secureConnections[socket._connectionId];
@@ -23981,7 +24554,8 @@ const cert = process.env.NITRO_SSL_CERT;
 const key = process.env.NITRO_SSL_KEY;
 const nitroApp = useNitroApp();
 const server = cert && key ? new Server({ key, cert }, toNodeListener(nitroApp.h3App)) : new Server$1(toNodeListener(nitroApp.h3App));
-const port = destr(process.env.NITRO_PORT || process.env.PORT) || 3e3;
+const _port = destr(process.env.NITRO_PORT || process.env.PORT);
+const port = _port === 0 ? 0 : _port || 3e3;
 const host = process.env.NITRO_HOST || process.env.HOST;
 const path = process.env.NITRO_UNIX_SOCKET;
 const listener = server.listen(path ? { path } : { port, host }, (err) => {
@@ -24003,5 +24577,5 @@ trapUnhandledNodeErrors();
 setupGracefulShutdown(listener, nitroApp);
 const nodeServer = {};
 
-export { defu as $, NUXT_NO_SCRIPTS_PATTERNS as A, relative as B, joinURL as C, appTeleportTag as D, NUXT_PAGE_PATTERNS as E, defineRenderHandler as F, toRequestEvent as G, setResponseHeader as H, createModuleLogger as I, normalizeKey$1 as J, parseURL as K, extractEncodedSegment as L, digestCanonical as M, NUXT_PRERENDER_NO_SSR_ROUTES as N, createStorage as O, lruCacheDriver as P, hash$1 as Q, createNitroRouteRuleMatcher as R, fetchWithEvent$1 as S, componentNames as T, useOgImageRuntimeConfig as U, createSitePathResolver as V, verifyOgImageSignature as W, decodeOgImageParams as X, withoutTrailingSlash as Y, withQuery as Z, separateProps as _, assertMethod as a, sanitizeProps as a0, getSiteConfig as a1, extractSocialPreviewTags as a2, $fetch$1 as a3, prefixStorage as a4, withTrailingSlash as a5, useStorage as a6, handleCacheHeaders as a7, setHeaders as a8, H3Error as a9, queryCollection as aA, manifest as aB, fetchRawWithEvent as aC, baseURL as aD, unavailable$1 as aE, resolveLocaleAlternateUrl as aF, nodeServer as aG, appendResponseHeader as aa, getRequestHost$2 as ab, sendRedirect$1 as ac, isInternalRoute as ad, collectSitemap as ae, logger$1 as af, hasAssets as ag, createUniversalContext as ah, parseSitemap as ai, getCfEnv as aj, queryPages as ak, toLogicalRoute as al, normalizePersistedRoute as am, withSiteUrl as an, toDeployedRoute as ao, withSiteTrailingSlash as ap, toMarkdownPath as aq, decodePath as ar, hasMarkdownTwin as as, eventHandler as at, defineCachedFunction as au, publicCacheControl as av, countPages as aw, sendIterable as ax, streamPages as ay, buildSitemapMd as az, getRequestIP as b, createError$2 as c, defineEventHandler$1 as d, appRootTag as e, appRootAttrs as f, getRequestHeader$1 as g, appSpaLoaderTag as h, appSpaLoaderAttrs as i, buildAssetsURL as j, getRouteRules$1 as k, useRuntimeConfig$1 as l, createHead as m, unheadOptions as n, appId as o, publicAssetsURL as p, getQuery$2 as q, readBody as r, setHeader as s, appHead as t, useNitroApp as u, destr as v, writeEarlyHints as w, NUXT_SSR_STREAMING as x, renderSSRHeadOptions as y, appTeleportAttrs as z };
+export { defu as $, NUXT_NO_SCRIPTS_PATTERNS as A, relative as B, joinURL as C, appTeleportTag as D, NUXT_PAGE_PATTERNS as E, defineRenderHandler as F, toRequestEvent as G, setResponseHeader as H, createModuleLogger as I, normalizeKey$1 as J, parseURL as K, extractEncodedSegment as L, digestCanonical as M, NUXT_PRERENDER_NO_SSR_ROUTES as N, createStorage as O, lruCacheDriver as P, hash$1 as Q, createNitroRouteRuleMatcher as R, fetchWithEvent$1 as S, componentNames as T, useOgImageRuntimeConfig as U, createSitePathResolver as V, verifyOgImageSignature as W, decodeOgImageParams as X, withoutTrailingSlash as Y, withQuery as Z, separateProps as _, assertMethod as a, digest as a$, sanitizeProps as a0, getSiteConfig as a1, extractSocialPreviewTags as a2, $fetch$1 as a3, prefixStorage as a4, withTrailingSlash as a5, useStorage as a6, handleCacheHeaders as a7, setHeaders as a8, H3Error as a9, parseDocument as aA, isMap as aB, isScalar as aC, stringify as aD, countPages as aE, sendIterable as aF, streamPages as aG, buildSitemapMd as aH, absoluteSiteUrl as aI, queryCollection as aJ, manifest as aK, fetchRawWithEvent as aL, createHooks as aM, isScriptProtocol as aN, sanitizeStatusCode as aO, baseURL as aP, klona as aQ, parseQuery as aR, hasProtocol as aS, titleCase as aT, toRouteMatcher as aU, createRouter$1 as aV, withoutBase as aW, withLeadingSlash as aX, withBase as aY, stringifyQuery as aZ, stringifyParsedURL as a_, appendResponseHeader as aa, getRequestHost as ab, sendRedirect$1 as ac, isInternalRoute as ad, collectSitemap as ae, staticSitemapConfig as af, logger$1 as ag, hasAssets as ah, createUniversalContext as ai, parseSitemap as aj, getCfEnv as ak, toLogicalRoute as al, getRequestURL as am, queryPages as an, queryPageMetadata as ao, toDeployedRoute as ap, normalizePersistedRoute as aq, withSiteUrl as ar, toMarkdownPath as as, decodePath as at, hasMarkdownTwin as au, withSiteTrailingSlash as av, eventHandler as aw, publicCacheControl as ax, defineCachedFunction as ay, escapeMarkdownHtml as az, getRequestIP as b, unavailable$1 as b0, resolveLocaleAlternateUrl as b1, encodeParam as b2, encodePath as b3, nodeServer as b4, createError$2 as c, defineEventHandler$1 as d, appRootTag as e, appRootAttrs as f, getRequestHeader$1 as g, appSpaLoaderTag as h, appSpaLoaderAttrs as i, buildAssetsURL as j, getRouteRules$1 as k, useRuntimeConfig$1 as l, createHead as m, unheadOptions as n, appId as o, publicAssetsURL as p, getQuery$2 as q, readBody as r, setHeader as s, appHead as t, useNitroApp as u, destr as v, writeEarlyHints as w, NUXT_SSR_STREAMING as x, renderSSRHeadOptions as y, appTeleportAttrs as z };
 //# sourceMappingURL=nitro.mjs.map
