@@ -1,9 +1,9 @@
 {
-  "_hash": "9V0cIjYJbs",
+  "_hash": "B3YdUQtm7F",
   "project": {
-    "rootDir": "/Users/ccci/Project/ReactPortfolio"
+    "rootDir": "/Users/ccci/Desktop/Projects/ReactPortfolio"
   },
   "versions": {
-    "nuxt": "4.6.1"
+    "nuxt": "4.6.3"
   }
 }

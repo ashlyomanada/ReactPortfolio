@@ -15,7 +15,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
           <div class="flex items-center gap-3">
             <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-amber-400">
-              <Icon name="logos:github-icon" class="w-6 h-6" />
+              <Icon name="logos:github-icon" class="w-6 h-6 dark:brightness-0 dark:invert" />
             </div>
             <div>
               <div class="flex items-center gap-2">

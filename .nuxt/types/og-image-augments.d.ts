@@ -2,6 +2,12 @@
 /// <reference path="./og-image-bindings.d.ts" />
 import type { OgImageIconsData, OgImageOptions, OgImageRenderEventContext, OgImageRuntimeConfig, VNode } from '../../runtime/types'
 
+declare module '@nuxt/schema' {
+  interface AppRouteRulesExtensions {
+    ogImage?: false | OgImageOptions & Record<string, any>
+  }
+}
+
 declare module 'nitropack' {
   interface NitroRouteRules {
     ogImage?: false | OgImageOptions & Record<string, any>

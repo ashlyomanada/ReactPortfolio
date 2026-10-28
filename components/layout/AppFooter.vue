@@ -48,7 +48,7 @@
           </ul>
           <div class="flex items-center gap-3">
             <a :href="profile.socials.github" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-slate-900 hover:text-amber-400 transition-colors border border-slate-800" aria-label="GitHub">
-              <Icon name="logos:github-icon" class="w-4 h-4" />
+              <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
             </a>
             <a :href="profile.socials.linkedin" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-slate-900 hover:text-amber-400 transition-colors border border-slate-800" aria-label="LinkedIn">
               <Icon name="logos:linkedin-icon" class="w-4 h-4" />

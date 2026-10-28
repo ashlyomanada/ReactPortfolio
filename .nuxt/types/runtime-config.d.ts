@@ -1,4 +1,4 @@
-import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRuntimeConfig } from 'nuxt/schema'
+import { RuntimeConfig as UserRuntimeConfig } from 'nuxt/schema'
   interface SharedRuntimeConfig {
    appSecret: string,
 
@@ -78,12 +78,20 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
       llmsTxt: {
          markdownLinks: boolean,
 
+         directive: {
+            markdown: boolean,
+
+            html: boolean,
+         },
+
          sections: Array<{
 
          }>,
 
          notes: any,
       },
+
+      llmsFullTxt: boolean,
 
       llmsTxtCacheSeconds: number,
 
@@ -241,6 +249,10 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
    },
   }
   interface SharedPublicRuntimeConfig {
+   colorMode: {
+      cookieAttrs: any,
+   },
+
    mdc: {
       components: {
          prose: boolean,
@@ -409,11 +421,11 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
       hasServerRuntime: boolean,
    },
   }
-declare module '@nuxt/schema' {
-  interface RuntimeConfig extends UserRuntimeConfig {}
-  interface PublicRuntimeConfig extends UserPublicRuntimeConfig {}
-}
 declare module 'nuxt/schema' {
+  interface RuntimeConfig extends SharedRuntimeConfig {}
+  interface PublicRuntimeConfig extends SharedPublicRuntimeConfig {}
+}
+declare module '@nuxt/schema' {
   interface RuntimeConfig extends SharedRuntimeConfig {}
   interface PublicRuntimeConfig extends SharedPublicRuntimeConfig {}
 }

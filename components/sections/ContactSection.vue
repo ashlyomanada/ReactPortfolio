@@ -63,7 +63,7 @@
                   rel="noopener noreferrer"
                   class="p-2 rounded-lg bg-slate-950 hover:text-amber-400 border border-slate-800 transition-colors"
                 >
-                  <Icon name="logos:github-icon" class="w-4 h-4" />
+                  <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
                 </a>
                 <a
                   :href="profile.socials.linkedin"

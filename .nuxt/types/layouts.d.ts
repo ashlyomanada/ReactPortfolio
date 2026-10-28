@@ -1,5 +1,5 @@
 import type { ComputedRef, MaybeRef } from "vue";
-import type { ComponentProps } from "../../node_modules/.pnpm/vue-component-type-helpers@3.3.13/node_modules/vue-component-type-helpers/index.js";
+import type { ComponentProps } from "../../node_modules/vue-component-type-helpers/index.js";
 
 declare module 'nuxt/app' {
   interface NuxtLayouts {

@@ -95,7 +95,7 @@
                 class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
                 title="View Source Repository"
               >
-                <Icon name="logos:github-icon" class="w-4 h-4" />
+                <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
               </a>
             </div>
           </div>
@@ -173,7 +173,7 @@
                   class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                   title="Source Code"
                 >
-                  <Icon name="logos:github-icon" class="w-4 h-4" />
+                  <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
                 </a>
               </div>
             </div>

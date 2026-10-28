@@ -72,7 +72,7 @@
               class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-amber-400"
               aria-label="GitHub"
             >
-              <Icon name="logos:github-icon" class="w-5 h-5" />
+              <Icon name="logos:github-icon" class="w-5 h-5 dark:brightness-0 dark:invert" />
             </a>
             <a
               :href="profile.socials.linkedin"

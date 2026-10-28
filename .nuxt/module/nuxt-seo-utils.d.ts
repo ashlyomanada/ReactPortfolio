@@ -4,33 +4,33 @@ import type { RobotsContext } from '#robots/types'
 
 declare module 'nitropack' {
   interface NitroRouteRules {
-    seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
-    head?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').Head
+    seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
+    head?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').Head
   }
   interface NitroRouteConfig {
-    seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
-    head?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').Head
+    seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
+    head?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').Head
   }
 }
 
 declare module 'nitropack/types' {
   interface NitroRouteRules {
-    seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
-    head?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').Head
+    seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
+    head?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').Head
   }
   interface NitroRouteConfig {
-    seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
-    head?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').Head
+    seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable
+    head?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').Head
   }
 }
 
 
 declare module '@nuxt/schema' {
-  interface AppHeadMetaObject { seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable }
+  interface AppHeadMetaObject { seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable }
 }
 
 declare module 'nuxt/schema' {
-  interface AppHeadMetaObject { seoMeta?: import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable }
+  interface AppHeadMetaObject { seoMeta?: import('../../node_modules/nuxt-seo-utils/dist/runtime/types').MetaFlatSerializable }
 }
 
 export {}

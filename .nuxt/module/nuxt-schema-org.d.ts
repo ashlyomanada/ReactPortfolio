@@ -2,12 +2,12 @@
 
 declare module '@nuxt/schema' {
   export interface RuntimeNuxtHooks {
-    'schema-org:meta': (meta: import('../../node_modules/.pnpm/nuxtseo-shared@6.0.2_ix7jyf4cnrat4v4s6fnb6knmky/node_modules/nuxtseo-shared/dist/runtime/types').MetaInput) => void | Promise<void>
+    'schema-org:meta': (meta: import('../../node_modules/nuxtseo-shared/dist/runtime/types').MetaInput) => void | Promise<void>
   }
 }
 declare module '#app' {
   export interface RuntimeNuxtHooks {
-    'schema-org:meta': (meta: import('../../node_modules/.pnpm/nuxtseo-shared@6.0.2_ix7jyf4cnrat4v4s6fnb6knmky/node_modules/nuxtseo-shared/dist/runtime/types').MetaInput) => void | Promise<void>
+    'schema-org:meta': (meta: import('../../node_modules/nuxtseo-shared/dist/runtime/types').MetaInput) => void | Promise<void>
   }
 }
 

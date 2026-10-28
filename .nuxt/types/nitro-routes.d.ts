@@ -13,130 +13,127 @@ declare module "nitropack/types" {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/github-stats').default>>>>
     }
     '/__nuxt_error': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.6.1_vrsi3sl73nhoqmiq57vsjnl3f4/node_modules/@nuxt/nitro-server/dist/runtime/handlers/renderer').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/nitro-server/dist/runtime/handlers/renderer').default>>>>
     }
     '/__nuxt_dev__/error/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+nitro-server@4.6.1_vrsi3sl73nhoqmiq57vsjnl3f4/node_modules/@nuxt/nitro-server/dist/runtime/handlers/error-channel').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/nitro-server/dist/runtime/handlers/error-channel').default>>>>
     }
     '/api/_nuxt_icon/:collection': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+icon@2.5.1_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_magic-_hswihdylrjkfep5h5vodmfzxku/node_modules/@nuxt/icon/dist/runtime/server/api').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/icon/dist/runtime/server/api').default>>>>
     }
     '/robots.txt': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+robots@7.0.2_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_ma_ab2sask254kgy466ehzmwabjby/node_modules/@nuxtjs/robots/dist/runtime/server/routes/robots-txt').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/robots/dist/runtime/server/routes/robots-txt').default>>>>
     }
     '/__robots__/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+robots@7.0.2_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_ma_ab2sask254kgy466ehzmwabjby/node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug').default>>>>
     }
     '/__robots__/debug-path.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+robots@7.0.2_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_ma_ab2sask254kgy466ehzmwabjby/node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug-path').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug-path').default>>>>
     }
     '/__robots__/debug-production.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+robots@7.0.2_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_ma_ab2sask254kgy466ehzmwabjby/node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug-production').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/robots/dist/runtime/server/routes/__robots__/debug-production').default>>>>
     }
     '/__sitemap__/nuxt-content-urls.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@9.0.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_confbox@0.3.1_dotenv@17.4_afmktlkci6ltnw52potordyfdq/node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/content-urls').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/content-urls').default>>>>
     }
     '/__sitemap__/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@9.0.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_confbox@0.3.1_dotenv@17.4_afmktlkci6ltnw52potordyfdq/node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/debug').default>>>>
     }
     '/__sitemap__/debug-production.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@9.0.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_confbox@0.3.1_dotenv@17.4_afmktlkci6ltnw52potordyfdq/node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/debug-production').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/__sitemap__/debug-production').default>>>>
     }
     '/__sitemap__/style.xsl': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@9.0.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_confbox@0.3.1_dotenv@17.4_afmktlkci6ltnw52potordyfdq/node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/sitemap.xsl').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/sitemap.xsl').default>>>>
     }
     '/sitemap.xml': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+sitemap@9.0.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_confbox@0.3.1_dotenv@17.4_afmktlkci6ltnw52potordyfdq/node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/sitemap.xml').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/sitemap/dist/runtime/server/routes/sitemap.xml').default>>>>
     }
     '/__link-checker__/inspect': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-link-checker@6.0.1_@nuxt+schema@4.6.1_confbox@0.3.1_db0@0.3.4_better-sqlite3@13.0.3__dot_4gezyabv5fbq2u4a277mpfdb4i/node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/inspect').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/inspect').default>>>>
     }
     '/__link-checker__/links': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-link-checker@6.0.1_@nuxt+schema@4.6.1_confbox@0.3.1_db0@0.3.4_better-sqlite3@13.0.3__dot_4gezyabv5fbq2u4a277mpfdb4i/node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/links').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/links').default>>>>
     }
     '/__link-checker__/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-link-checker@6.0.1_@nuxt+schema@4.6.1_confbox@0.3.1_db0@0.3.4_better-sqlite3@13.0.3__dot_4gezyabv5fbq2u4a277mpfdb4i/node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-link-checker/dist/runtime/server/routes/__link-checker__/debug').default>>>>
     }
     '/_og/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/debug.json').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/debug.json').default>>>>
     }
     '/_og-static-fonts/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/static-font').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/static-font').default>>>>
     }
     '/_og-static-fonts': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/static-font').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/static-font').default>>>>
     }
     '/_og/d/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
     }
     '/_og/d': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
     }
     '/_og/s/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
     }
     '/_og/s': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/image').default>>>>
     }
     '/_og/r/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/resolve').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/resolve').default>>>>
     }
     '/_og/r': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/server/routes/resolve').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-og-image/dist/runtime/server/routes/resolve').default>>>>
     }
     '/__schema-org__/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-schema-org@7.0.1_nhdt7xh7knmsj3xcdubcwoybdy/node_modules/nuxt-schema-org/dist/runtime/server/routes/__schema-org__/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-schema-org/dist/runtime/server/routes/__schema-org__/debug').default>>>>
     }
     '/__nuxt-seo-utils/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-seo-utils@9.0.0_3346dbkippwa2xoym7wparulvq/node_modules/nuxt-seo-utils/dist/runtime/server/routes/__nuxt-seo-utils/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-seo-utils/dist/runtime/server/routes/__nuxt-seo-utils/debug').default>>>>
     }
     '/__site-config__/debug.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-site-config@5.0.2_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0__2pgigetnotta4www4jfdqe3lvy/node_modules/nuxt-site-config/dist/runtime/server/routes/__site-config__/debug').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-site-config/dist/runtime/server/routes/__site-config__/debug').default>>>>
     }
     '/__skew-devtools/debug': {
-      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-skew-protection@2.0.2_jkuupfosvlh4z5lihnyqcpfvm4/node_modules/nuxt-skew-protection/dist/runtime/server/routes/__skew-devtools/debug.get').default>>>>
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-skew-protection/dist/runtime/server/routes/__skew-devtools/debug.get').default>>>>
     }
     '/__skew-devtools/debug-production': {
-      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-skew-protection@2.0.2_jkuupfosvlh4z5lihnyqcpfvm4/node_modules/nuxt-skew-protection/dist/runtime/server/routes/__skew-devtools/debug-production.get').default>>>>
-    }
-    '/llms.txt': {
-      'GET': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-ai-ready@3.0.3_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_dotenv@17.4.2_giget@3.3.1_j_g4epte4mturaikmuizehd4qhtq/node_modules/nuxt-ai-ready/dist/runtime/server/routes/llms.txt.get').default>>>>
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-skew-protection/dist/runtime/server/routes/__skew-devtools/debug-production.get').default>>>>
     }
     '/llms-full.txt': {
-      'GET': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-ai-ready@3.0.3_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_dotenv@17.4.2_giget@3.3.1_j_g4epte4mturaikmuizehd4qhtq/node_modules/nuxt-ai-ready/dist/runtime/server/routes/llms-full.txt.get').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-ai-ready/dist/runtime/server/routes/llms-full.txt.get').default>>>>
     }
     '/sitemap.md': {
-      'GET': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-ai-ready@3.0.3_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_dotenv@17.4.2_giget@3.3.1_j_g4epte4mturaikmuizehd4qhtq/node_modules/nuxt-ai-ready/dist/runtime/server/routes/sitemap.md.get').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-ai-ready/dist/runtime/server/routes/sitemap.md.get').default>>>>
     }
     '/__ai-ready__/debug.json': {
-      'GET': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt-ai-ready@3.0.3_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_dotenv@17.4.2_giget@3.3.1_j_g4epte4mturaikmuizehd4qhtq/node_modules/nuxt-ai-ready/dist/runtime/server/routes/__ai-ready/devtools.get').default>>>>
+      'get': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/nuxt-ai-ready/dist/runtime/server/routes/__ai-ready/devtools.get').default>>>>
     }
     '/__nuxt_content/blog/sql_dump.txt': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
     }
     '/__nuxt_content/projects/sql_dump.txt': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
     }
     '/__nuxt_content/info/sql_dump.txt': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
     }
     '/__nuxt-seo__/setup.json': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxtjs+seo@6.0.1_cdqgbxtg64pvgx5hp2wfvbu36u/node_modules/@nuxtjs/seo/dist/runtime/server/routes/setup.json').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxtjs/seo/dist/runtime/server/routes/setup.json').default>>>>
     }
     '/__nuxt_island/**': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/#internal/nuxt/island-renderer').default>>>>
     }
     '/__nuxt_content/blog/query': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
     }
     '/__nuxt_content/projects/query': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
     }
     '/__nuxt_content/info/query': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+content@3.16.2_@nuxt+schema@4.6.1_@oxc-project+types@0.153.0_better-sqlite3@13.0.3_conf_jhcs4ej4ppnm7i2jitvb7p4oda/node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
     }
     '/_ipx/**': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/@nuxt+image@2.1.0_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_magic_tbp73d5v3govyfz3i4hfpy665q/node_modules/@nuxt/image/dist/runtime/server/routes/_ipx').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/image/dist/runtime/server/routes/_ipx.legacy').default>>>>
     }
   }
 }

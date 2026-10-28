@@ -5,9 +5,14 @@ function createRemoteCollection(fetchEndpoint) {
   return async () => {
     if (_cache)
       return _cache
-    const res = await fetch(fetchEndpoint).then(r => r.json())
-    _cache = res
-    return res
+    _cache = fetch(fetchEndpoint).then(r => r.json()).then((data) => {
+      _cache = data
+      return data
+    }).catch((error) => {
+      _cache = undefined
+      throw error
+    })
+    return _cache
   }
 }
 

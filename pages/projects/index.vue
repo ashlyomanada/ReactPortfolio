@@ -125,7 +125,7 @@
                   class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                   title="Source Code"
                 >
-                  <Icon name="logos:github-icon" class="w-4 h-4" />
+                  <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
                 </a>
               </div>
             </div>

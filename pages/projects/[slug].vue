@@ -49,7 +49,7 @@
             rel="noopener noreferrer"
             class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium text-xs tracking-wider uppercase transition-colors flex items-center gap-2"
           >
-            <Icon name="logos:github-icon" class="w-4 h-4" />
+            <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
             <span>Source Code</span>
           </a>
         </div>

@@ -1,1 +1,1 @@
-export { default } from "/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+image@2.1.0_@nuxt+schema@4.6.1_confbox@0.3.1_dotenv@17.4.2_giget@3.3.1_jiti@2.7.0_magic_tbp73d5v3govyfz3i4hfpy665q/node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue"
+export { default } from "/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue"

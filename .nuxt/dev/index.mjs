@@ -1,90 +1,73 @@
-import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { htmlToMarkdown } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/mdream@2.0.2/node_modules/mdream/dist/index.mjs';
-import * as process$1 from 'node:process';
-import process__default from 'node:process';
-import * as node_buffer$1 from 'node:buffer';
+import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { htmlToMarkdown } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/mdream/dist/index.mjs';
 import { tmpdir } from 'node:os';
-import { defineEventHandler as defineEventHandler$1, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent as fetchWithEvent$2, isEvent, eventHandler, setHeaders, createError as createError$1, sendRedirect as sendRedirect$1, proxyRequest, getRequestProtocol as getRequestProtocol$2, getRequestHost as getRequestHost$2, getRequestURL as getRequestURL$2, readRawBody, getRequestHeader as getRequestHeader$1, isError, setResponseHeaders, setResponseStatus, send, setResponseHeader, appendResponseHeader, getResponseHeader, getRequestHeaders, getQuery as getQuery$2, getResponseStatus, removeResponseHeader, getHeader, setHeader, getResponseHeaders, getHeaders, appendHeader, readBody, getRouterParam, writeEarlyHints, getRequestWebStream, lazyEventHandler, fromNodeMiddleware, createApp, createRouter as createRouter$1, toNodeListener, assertMethod, getRequestIP, toWebRequest, H3Error, sendIterable } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/h3@1.15.11/node_modules/h3/dist/index.mjs';
+import { defineEventHandler as defineEventHandler$1, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent as fetchWithEvent$2, isEvent, eventHandler, setHeaders, createError as createError$1, sendRedirect as sendRedirect$1, proxyRequest, getRequestProtocol as getRequestProtocol$1, getRequestHost as getRequestHost$1, getRequestURL as getRequestURL$2, readRawBody, getRequestHeader as getRequestHeader$1, isError, setResponseHeaders, setResponseStatus, send, setResponseHeader, appendResponseHeader, getResponseHeader, getRequestHeaders, getQuery as getQuery$2, readBody as readBody$1, getResponseStatus, removeResponseHeader, getHeader, setHeader, getResponseHeaders, getHeaders, appendHeader, getRouterParam, writeEarlyHints, getRequestWebStream, lazyEventHandler, fromNodeMiddleware, createApp, createRouter as createRouter$1, toNodeListener, assertMethod, getRequestIP, toWebRequest, H3Error, sendIterable } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { resolve as resolve$3, dirname, join as join$1 } from 'node:path';
 import nodeCrypto, { randomUUID } from 'node:crypto';
 import { isMainThread, parentPort, threadId } from 'node:worker_threads';
-import { escapeHtml } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@vue+shared@3.5.43/node_modules/@vue/shared/dist/shared.cjs.js';
-import { stringify as stringify$9 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/minimark@0.2.0/node_modules/minimark/dist/stringify.mjs';
-import viteNodeEntry_mjs from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+vite-builder@4.6.1_y3z67hmklxwbruebxg66hq6le4/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
-import { viteNodeFetch } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+vite-builder@4.6.1_y3z67hmklxwbruebxg66hq6le4/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
-import { z } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/zod@3.25.76/node_modules/zod/index.js';
-import { stringify as stringify$8, parse as parse$1, uneval } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/devalue@6.0.2/node_modules/devalue/src/index.js';
-import { parseURL, withoutBase, joinURL, getQuery as getQuery$1, withQuery, joinRelativeURL, hasProtocol, withHttps, withTrailingSlash, withoutTrailingSlash, withLeadingSlash, withBase, decodePath, parseQuery, parsePath, stringifyQuery, encodePath, stringifyParsedURL } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/ufo@1.6.4/node_modules/ufo/dist/index.mjs';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/vue-bundle-renderer@2.4.0/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import destr, { destr as destr$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/destr@2.0.5/node_modules/destr/dist/index.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unhead@3.4.3_esbuild@0.28.2_rolldown@1.2.13_rollup@4.64.5_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/unhead/dist/server.mjs';
+import { escapeHtml } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@vue/shared/dist/shared.cjs.js';
+import { stringify as stringify$a } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/minimark/dist/stringify.mjs';
+import viteNodeEntry_mjs from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
+import { viteNodeFetch } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
+import { z } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/zod/index.js';
+import { stringify as stringify$9, parse as parse$1, uneval } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/devalue/src/index.js';
+import { parseURL, withoutBase, joinURL, getQuery as getQuery$1, withQuery, joinRelativeURL, hasProtocol, withHttps, withTrailingSlash, withoutTrailingSlash, withLeadingSlash, withBase, decodePath, parseQuery, parsePath, stringifyQuery, encodePath, stringifyParsedURL } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/ufo/dist/index.mjs';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import destr, { destr as destr$1 } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/destr/dist/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unhead/dist/server.mjs';
 import * as fs from 'node:fs/promises';
 import { readFile } from 'node:fs/promises';
-import { join, dirname as dirname$1, resolve as resolve$4, isAbsolute } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/pathe@2.0.3/node_modules/pathe/dist/index.mjs';
-import defu, { defuFn, createDefu, defu as defu$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/defu@6.1.7/node_modules/defu/dist/defu.mjs';
-import { digest as digest$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/ohash@2.0.12/node_modules/ohash/dist/crypto/node/index.mjs';
-import { digest, hash as hash$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/ohash@2.0.12/node_modules/ohash/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unstorage@1.17.5_db0@0.3.4_better-sqlite3@13.0.3__ioredis@5.11.1/node_modules/unstorage/dist/index.mjs';
-import lruCacheDriver from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unstorage@1.17.5_db0@0.3.4_better-sqlite3@13.0.3__ioredis@5.11.1/node_modules/unstorage/drivers/lru-cache.mjs';
-import { createFetch, $fetch as $fetch$1, Headers as Headers$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/ofetch@1.5.1/node_modules/ofetch/dist/node.mjs';
-import { createHooks } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/node-mock-http@1.0.5/node_modules/node-mock-http/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unstorage@1.17.5_db0@0.3.4_better-sqlite3@13.0.3__ioredis@5.11.1/node_modules/unstorage/drivers/fs.mjs';
-import unstorage_47drivers_47fs_45lite from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unstorage@1.17.5_db0@0.3.4_better-sqlite3@13.0.3__ioredis@5.11.1/node_modules/unstorage/drivers/fs-lite.mjs';
-import { klona } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/klona@2.0.6/node_modules/klona/dist/index.mjs';
-import { snakeCase } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/scule@1.3.0/node_modules/scule/dist/index.mjs';
+import { join, dirname as dirname$1, resolve as resolve$4, isAbsolute } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/pathe/dist/index.mjs';
+import defu, { defuFn, defu as defu$1, createDefu } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/defu/dist/defu.mjs';
+import { digest as digest$1 } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/ohash/dist/crypto/node/index.mjs';
+import { digest, hash as hash$1 } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/ohash/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unstorage/dist/index.mjs';
+import lruCacheDriver from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unstorage/drivers/lru-cache.mjs';
+import { createFetch, $fetch as $fetch$1, Headers as Headers$1 } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/ofetch/dist/node.mjs';
+import * as process$1 from 'node:process';
+import process__default from 'node:process';
+import * as node_buffer$1 from 'node:buffer';
+import { createHooks } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/hookable/dist/index.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/node-mock-http/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unstorage/drivers/fs.mjs';
+import unstorage_47drivers_47fs_45lite from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unstorage/drivers/fs-lite.mjs';
+import { klona } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/klona/dist/index.mjs';
+import { snakeCase } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/scule/dist/index.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { getContext } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unctx@2.5.0/node_modules/unctx/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/radix3@1.1.2/node_modules/radix3/dist/index.mjs';
-import consola, { consola as consola$1, createConsola } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/consola@3.4.2/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/youch-core@0.3.3/node_modules/youch-core/build/index.js';
-import { Youch } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/youch@4.1.1/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/source-map@0.7.6/node_modules/source-map/source-map.js';
-import { defineDiagnostics, createConsoleReporter } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nostics@1.3.0/node_modules/nostics/dist/index.mjs';
-import { ansiFormatter } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nostics@1.3.0/node_modules/nostics/dist/formatters/ansi.mjs';
-import { getContext as getContext$1 } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unctx@3.0.1_magic-string@1.4.3_oxc-parser@0.153.0_rolldown@1.2.13_unplugin@3.4.0_esbuild@0.28_d725wjkrzg63mniku3kjnd3x7u/node_modules/unctx/dist/index.mjs';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/errx@0.2.2/node_modules/errx/dist/index.mjs';
-import { isRef, toValue as toValue$1, isVNode } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/vue@3.5.43_typescript@5.9.3/node_modules/vue/index.mjs';
-import _u7bFibVBofD0S0VXvj8CW4sEGWOS4_ssSoLP0c9kJ8 from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+cli@4.0.1_@nuxt+schema@4.6.1_jiti@2.7.0_oxc-parser@0.153.0_rolldown@1.2.13_vite@8.3.4_e_36ls2dcczrrlwbdawlps6gfex4/node_modules/@nuxt/cli/runtime/dev-close-sockets.mjs';
+import { getContext } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nitropack/node_modules/unctx/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/radix3/dist/index.mjs';
+import consola, { consola as consola$1, createConsola } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/youch-core/build/index.js';
+import { Youch } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/source-map/source-map.js';
+import { defineDiagnostics, createConsoleReporter } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nostics/dist/index.mjs';
+import { ansiFormatter } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nostics/dist/formatters/ansi.mjs';
+import { getContext as getContext$1 } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unctx/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/errx/dist/index.mjs';
+import { isRef, toValue as toValue$1, isVNode } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/vue/index.mjs';
+import _lDpHfMLJtOuJ0dltDIvadLvYzlKzuvEXkbqE_xFki0Y from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/cli/runtime/dev-close-sockets.mjs';
 import dc from 'node:diagnostics_channel';
 import { formatWithOptions } from 'node:util';
 import fs$1, { existsSync, mkdirSync, readFileSync, writeFileSync, promises } from 'node:fs';
-import devalue from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+devalue@2.0.2/node_modules/@nuxt/devalue/dist/devalue.mjs';
-import { negotiateContent, parseAcceptHeader } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@mdream+js@2.0.2/node_modules/@mdream/js/dist/negotiate.mjs';
-import _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@nuxt+vite-builder@4.6.1_y3z67hmklxwbruebxg66hq6le4/node_modules/@nuxt/vite-builder/dist/ssr-sourcemap.mjs';
+import devalue from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/devalue/dist/devalue.mjs';
+import { negotiateContent, parseAcceptHeader } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@mdream/js/dist/negotiate.mjs';
+import _Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/vite-builder/dist/ssr-sourcemap.mjs';
+import _LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@nuxt/vite-builder/dist/vite-node-warmup.mjs';
 import { fileURLToPath } from 'node:url';
-import { getIcons } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/@iconify+utils@3.1.7/node_modules/@iconify/utils/lib/index.js';
-import { collections } from 'file:///Users/ccci/Project/ReactPortfolio/.nuxt/nuxt-icon-server-bundle.mjs';
-import { XMLValidator, XMLParser } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/fast-xml-parser@5.11.2/node_modules/fast-xml-parser/src/fxp.js';
-import Fuse from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/fuse.js@7.5.0/node_modules/fuse.js/dist/fuse.mjs';
-import { diffLines } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/diff@9.0.0/node_modules/diff/libesm/index.js';
-import MagicString from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/magic-string@1.4.3/node_modules/magic-string/dist/index.mjs';
-import { renderToString } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/vue@3.5.43_typescript@5.9.3/node_modules/vue/server-renderer/index.mjs';
-import { walkResolver } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unhead@3.4.3_esbuild@0.28.2_rolldown@1.2.13_rollup@4.64.5_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/unhead/dist/utils.mjs';
-import { DeprecationsPlugin } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unhead@3.4.3_esbuild@0.28.2_rolldown@1.2.13_rollup@4.64.5_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/unhead/dist/legacy.mjs';
-import { PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/unhead@3.4.3_esbuild@0.28.2_rolldown@1.2.13_rollup@4.64.5_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/unhead/dist/plugins.mjs';
-import localAdapter from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/db0@0.4.1/node_modules/db0/dist/connectors/better-sqlite3.mjs';
-import { ipxFSStorage, ipxHttpStorage, createIPX, createIPXNodeHandler, parseIPXURL } from 'file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/ipx@4.0.0-beta.1_unstorage@1.17.5_db0@0.3.4_better-sqlite3@13.0.3__ioredis@5.11.1_/node_modules/ipx/dist/index.mjs';
+import { getIcons } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/@iconify/utils/lib/index.js';
+import { collections } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/nuxt-icon-server-bundle.mjs';
+import { XMLValidator, XMLParser } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/fast-xml-parser/src/fxp.js';
+import Fuse from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/fuse.js/dist/fuse.mjs';
+import { diffLines } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/diff/libesm/index.js';
+import MagicString from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/magic-string/dist/index.mjs';
+import { resolveTags, walkResolver } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unhead/dist/utils.mjs';
+import { PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin, SafeInputPlugin } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unhead/dist/plugins.mjs';
+import { renderToString } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/vue/server-renderer/index.mjs';
+import { DeprecationsPlugin } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/unhead/dist/legacy.mjs';
+import localAdapter from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/db0/dist/connectors/better-sqlite3.mjs';
+import { ipxFSStorage, ipxHttpStorage, createIPX, createIPXNodeHandler, parseIPXURL } from 'file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/ipx/dist/index.mjs';
 
-function _mergeNamespaces(n, m) {
-  for (var i = 0; i < m.length; i++) {
-    const e = m[i];
-    if (typeof e !== 'string' && !Array.isArray(e)) { for (const k in e) {
-      if (k !== 'default' && !(k in n)) {
-        const d = Object.getOwnPropertyDescriptor(e, k);
-        if (d) {
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: true,
-            get: function () { return e[k]; }
-          });
-        }
-      }
-    } }
-  }
-  return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: 'Module' }));
-}
-
-const serverAssets = [{"baseName":"server","dir":"/Users/ccci/Project/ReactPortfolio/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/Users/ccci/Desktop/Projects/ReactPortfolio/server/assets"}];
 
 const assets$1 = createStorage();
 
@@ -98,11 +81,11 @@ storage$1.mount('/assets', assets$1);
 
 storage$1.mount('skew-protection', unstorage_47drivers_47fs_45lite({"driver":"fs-lite","base":"node_modules/.cache/nuxt-seo/skew-protection"}));
 storage$1.mount('cache/nuxt-og-image', lruCacheDriver({"driver":"lru-cache","max":0,"maxSize":67108864}));
-storage$1.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/ccci/Project/ReactPortfolio","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","/Users/ccci/Project/ReactPortfolio/vendor","**/node-compile-cache","**/test-results","**/*.sock","/Users/ccci/Project/ReactPortfolio/.nuxt/analyze","**/.nuxt","**/-*.*","/Users/ccci/Project/ReactPortfolio/content/**"]}));
-storage$1.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/ccci/Project/ReactPortfolio/server","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","**/node-compile-cache","**/test-results","**/*.sock","**/-*.*"]}));
-storage$1.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/ccci/Project/ReactPortfolio/.nuxt"}));
-storage$1.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/ccci/Project/ReactPortfolio/.nuxt/cache"}));
-storage$1.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/ccci/Project/ReactPortfolio/.data/kv"}));
+storage$1.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/ccci/Desktop/Projects/ReactPortfolio","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","/Users/ccci/Desktop/Projects/ReactPortfolio/vendor","**/node-compile-cache","**/test-results","**/*.sock","/Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/analyze","**/.nuxt","**/-*.*","/Users/ccci/Desktop/Projects/ReactPortfolio/content/**"]}));
+storage$1.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/ccci/Desktop/Projects/ReactPortfolio/server","ignore":["**/node_modules","**/*.stories.js","**/*.stories.cts","**/*.stories.mts","**/*.stories.ts","**/*.stories.jsx","**/*.stories.tsx","**/*.spec.js","**/*.spec.cts","**/*.spec.mts","**/*.spec.ts","**/*.spec.jsx","**/*.spec.tsx","**/*.test.js","**/*.test.cts","**/*.test.mts","**/*.test.ts","**/*.test.jsx","**/*.test.tsx","**/*.d.cts","**/*.d.mts","**/*.d.ts","**/*.d.vue.cts","**/*.d.vue.mts","**/*.d.vue.ts","**/.pnpm-store","**/.vercel","**/.netlify","**/.wrangler","**/.output","**/.git","**/.cache","**/.data","**/.direnv","**/node-compile-cache","**/test-results","**/*.sock","**/-*.*"]}));
+storage$1.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt"}));
+storage$1.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/cache"}));
+storage$1.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/ccci/Desktop/Projects/ReactPortfolio/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage$1, base) : storage$1;
@@ -526,6 +509,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
         }
       });
       const event = createEvent(reqProxy, resProxy);
+      event._path = incomingEvent._path;
       event.fetch = (url, fetchOptions) => fetchWithEvent$2(event, url, fetchOptions, {
         fetch: useNitroApp().localFetch
       });
@@ -705,10 +689,15 @@ const _inlineRuntimeConfig = {
         "headers": {
           "Content-Type": "text/xml; charset=UTF-8",
           "Cache-Control": "public, max-age=600, must-revalidate",
-          "X-Sitemap-Prerendered": "2026-10-13T08:10:54.324Z"
+          "X-Sitemap-Prerendered": "2026-10-28T06:09:02.185Z"
         }
       },
       "/llms.txt": {
+        "headers": {
+          "Content-Type": "text/plain; charset=utf-8"
+        }
+      },
+      "/llms/**": {
         "headers": {
           "Content-Type": "text/plain; charset=utf-8"
         }
@@ -761,8 +750,11 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "appSecret": "654ab4a785d9ee2827a6ec52471b81bc70494a7fbf45d8153401b81f067ceb51",
+  "appSecret": "0d91c7916d32f40b53d6a6a5d3fa28b78b6c661494119bf4d1642e4f7340bbf3",
   "public": {
+    "colorMode": {
+      "cookieAttrs": ""
+    },
     "mdc": {
       "components": {
         "prose": true,
@@ -806,8 +798,8 @@ const _inlineRuntimeConfig = {
     "nuxt-link-checker": {
       "version": "6.0.1",
       "hasSitemapModule": true,
-      "rootDir": "/Users/ccci/Project/ReactPortfolio",
-      "publicDir": "/Users/ccci/Project/ReactPortfolio/public",
+      "rootDir": "/Users/ccci/Desktop/Projects/ReactPortfolio",
+      "publicDir": "/Users/ccci/Desktop/Projects/ReactPortfolio/public",
       "excludeLinks": [
         {
           "regex": "/^\\/_/"
@@ -831,7 +823,7 @@ const _inlineRuntimeConfig = {
       "identity": "",
       "version": "7.0.1"
     },
-    "nuxt-seo-utils-version": "9.0.0",
+    "nuxt-seo-utils-version": "9.0.1",
     "seo-utils": {
       "canonicalQueryWhitelist": [
         "page",
@@ -860,7 +852,7 @@ const _inlineRuntimeConfig = {
       "ipTracking": "",
       "reloadStrategy": "prompt",
       "multiTab": true,
-      "version": "2.0.2"
+      "version": "2.0.3"
     },
     "content": {
       "wsUrl": ""
@@ -878,9 +870,11 @@ const _inlineRuntimeConfig = {
             ""
           ],
           "allow": [],
+          "contentSignal": [
+            "search=yes, ai-input=yes"
+          ],
           "comment": [],
           "contentUsage": [],
-          "contentSignal": [],
           "_indexable": true,
           "_rules": [],
           "_normalized": true
@@ -944,7 +938,7 @@ const _inlineRuntimeConfig = {
     }
   ],
   "nuxt-ai-ready": {
-    "version": "3.0.3",
+    "version": "3.4.0",
     "debug": false,
     "debugCron": false,
     "contentNegotiation": "auto",
@@ -960,7 +954,11 @@ const _inlineRuntimeConfig = {
       "swr": true
     },
     "llmsTxt": {
-      "markdownLinks": false,
+      "markdownLinks": true,
+      "directive": {
+        "markdown": true,
+        "html": false
+      },
       "sections": [
         {
           "title": "LLM Resources",
@@ -975,8 +973,9 @@ const _inlineRuntimeConfig = {
       ],
       "notes": ""
     },
+    "llmsFullTxt": true,
     "llmsTxtCacheSeconds": 600,
-    "prerenderCacheDir": "/Users/ccci/Project/ReactPortfolio/node_modules/.cache/nuxt-seo/ai-ready/routes",
+    "prerenderCacheDir": "/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/.cache/nuxt-seo/ai-ready/routes",
     "database": {
       "_tag": "Disabled"
     },
@@ -1001,7 +1000,7 @@ const _inlineRuntimeConfig = {
     },
     "localDatabase": {
       "type": "sqlite",
-      "filename": "/Users/ccci/Project/ReactPortfolio/.data/content/contents.sqlite"
+      "filename": "/Users/ccci/Desktop/Projects/ReactPortfolio/.data/content/contents.sqlite"
     },
     "integrityCheck": true
   },
@@ -1018,9 +1017,11 @@ const _inlineRuntimeConfig = {
           ""
         ],
         "allow": [],
+        "contentSignal": [
+          "search=yes, ai-input=yes"
+        ],
         "comment": [],
         "contentUsage": [],
-        "contentSignal": [],
         "_indexable": true,
         "_rules": [],
         "_normalized": true
@@ -1036,7 +1037,7 @@ const _inlineRuntimeConfig = {
     "botDetection": true
   },
   "nuxt-og-image": {
-    "version": "7.0.3",
+    "version": "7.0.7",
     "satoriOptions": {},
     "resvgOptions": {},
     "sharpOptions": {},
@@ -1050,7 +1051,7 @@ const _inlineRuntimeConfig = {
     },
     "debug": false,
     "includeTwitter": true,
-    "baseCacheKey": "/cache/nuxt-og-image/7.0.3",
+    "baseCacheKey": "/cache/nuxt-og-image/7.0.7",
     "buildCacheDir": "",
     "publish": "",
     "hasNuxtIcon": true,
@@ -1074,9 +1075,9 @@ const _inlineRuntimeConfig = {
       "og-image",
       "OgImageTemplate"
     ],
-    "srcDir": "/Users/ccci/Project/ReactPortfolio",
-    "rootDir": "/Users/ccci/Project/ReactPortfolio",
-    "communityTemplatesDir": "/Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/nuxt-og-image@7.0.3_5mwpruyw5zaobbmv4bpuwlo4d4/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community"
+    "srcDir": "/Users/ccci/Desktop/Projects/ReactPortfolio",
+    "rootDir": "/Users/ccci/Desktop/Projects/ReactPortfolio",
+    "communityTemplatesDir": "/Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/nuxt-og-image/dist/runtime/app/components/Templates/Community"
   },
   "nuxt-site-config": {
     "stack": [
@@ -1094,7 +1095,7 @@ const _inlineRuntimeConfig = {
         "defaultLocale": "en"
       }
     ],
-    "version": "5.0.2",
+    "version": "5.0.3",
     "debug": false,
     "multiTenancy": []
   },
@@ -1103,7 +1104,7 @@ const _inlineRuntimeConfig = {
     "alias": {},
     "fs": {
       "dir": [
-        "/Users/ccci/Project/ReactPortfolio/public"
+        "/Users/ccci/Desktop/Projects/ReactPortfolio/public"
       ]
     },
     "http": {
@@ -1177,7 +1178,7 @@ const _routeRulesMatcher = toRouteMatcher(
 );
 function createRouteRulesHandler(ctx) {
   return eventHandler((event) => {
-    const routeRules = getRouteRules$1(event);
+    const routeRules = getRouteRules$2(event);
     if (routeRules.headers) {
       setHeaders(event, routeRules.headers);
     }
@@ -1226,7 +1227,7 @@ function createRouteRulesHandler(ctx) {
     }
   });
 }
-function getRouteRules$1(event) {
+function getRouteRules$2(event) {
   event.context._nitro = event.context._nitro || {};
   if (!event.context._nitro.routeRules) {
     event.context._nitro.routeRules = getRouteRulesForPath(
@@ -1283,13 +1284,14 @@ function normalizeCookieHeaders(headers) {
   return outgoingHeaders;
 }
 
-//#region src/runtime/utils/event.ts
+// src/runtime/utils/event.ts
 const ENC_PIPE_RE = /%7C/g;
 const ENC_BRACKET_OPEN_RE = /%5B/g;
 const ENC_BRACKET_CLOSE_RE = /%5D/g;
 const ENC_ENC_SLASH_RE = /%252F/gi;
 const HASH_RE = /#/g;
 const QUESTION_MARK_RE = /\?/g;
+const DOT_SEGMENT_RE = /(?:^|\/)\.{1,2}(?:\/|$)/;
 function encodeEventPath(path) {
 	const queryIndex = path.indexOf("?");
 	if (queryIndex === -1) return encodeVueRouterPath(path);
@@ -1393,12 +1395,14 @@ function toWebRequest$1(event) {
 	const method = event.method;
 	if (!PAYLOAD_METHODS.has(method)) return new Request(getRequestURL$2(event), {
 		method,
-		headers: event.headers
+		headers: event.headers,
+		signal: toRequestSignal(event)
 	});
 	const request = new Request(getRequestURL$2(event), {
 		method,
 		headers: event.headers,
 		body: toBufferedBodyStream(event),
+		signal: toRequestSignal(event),
 		duplex: "half"
 	});
 	const read = () => readRawBody(event, false).then((body) => body ? new Uint8Array(body) : /* @__PURE__ */ new Uint8Array());
@@ -1412,6 +1416,18 @@ function toWebRequest$1(event) {
 		return typeof value === "function" ? value.bind(target) : value;
 	} });
 	return buffered;
+}
+/**
+* Aborts when the client disconnects before the response is finished, the same moment an h3 v1
+* handler would catch with `event.node.req.on('close')`.
+*/
+function toRequestSignal(event) {
+	const controller = new AbortController();
+	const res = event.node?.res;
+	if (typeof res?.once === "function") res.once("close", () => {
+		if (!res.writableFinished) controller.abort();
+	});
+	return controller.signal;
 }
 function toBufferedBodyStream(event) {
 	return new ReadableStream({ async pull(controller) {
@@ -1460,12 +1476,23 @@ function toPortableEvent(event, resolveURL) {
 function getFetchedRequestContext(event) {
 	return event.node.req.__unenv__?.nuxt;
 }
-/** The event the SSR renderer reads, which reaches the h3 v1 event itself through `~app`. */
+/**
+* The event the SSR renderer reads, which reaches the h3 v1 event itself through `~app`.
+* Of the Nuxt context a request nitro made to itself was fetched with, only the error render
+* flag carries over.
+*
+* Paths with `.` or `..` segments 404, as `url` would resolve them to a page other than the
+* one `event.path` names.
+*/
 function toRequestEvent(event) {
+	const queryIndex = event.path.indexOf("?");
+	if (DOT_SEGMENT_RE.test(queryIndex === -1 ? event.path : event.path.slice(0, queryIndex))) throw createError$1({
+		statusCode: 404,
+		statusMessage: "Page Not Found"
+	});
 	const requestEvent = toWebView(event);
-	const fetchedWith = getFetchedRequestContext(event);
-	if (fetchedWith) event.context.nuxt = {
-		...fetchedWith,
+	if (getFetchedRequestContext(event)?.["~rendering-error"]) event.context.nuxt = {
+		"~rendering-error": true,
 		...event.context.nuxt
 	};
 	return requestEvent;
@@ -1479,7 +1506,7 @@ function toRequestEvent(event) {
 * than a copy of it, so a header the application sets through h3 and a header the renderer
 * sets are the same header.
 */
-function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path), `${getRequestProtocol$2(event)}://${getRequestHost$2(event)}`)) {
+function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path), `${getRequestProtocol$1(event)}://${getRequestHost$1(event)}`)) {
 	const node = event.node;
 	let request;
 	let url;
@@ -1516,7 +1543,7 @@ function toWebView(event, resolveURL = () => new URL(encodeEventPath(event.path)
 	return requestEvent;
 }
 
-//#region src/runtime/utils/error.ts
+// src/runtime/utils/error.ts
 /**
 * Nitro internal functions extracted from https://github.com/nitrojs/nitro/blob/v2/src/runtime/internal/utils.ts
 */
@@ -1584,7 +1611,7 @@ const appSpaLoaderTag = "div";
 const appSpaLoaderAttrs = {"id":"__nuxt-loader"};
 const appId = "nuxt-app";
 
-//#region src/runtime/handlers/error.ts
+// src/runtime/handlers/error.ts
 var error_default = async function errorhandler(error, event, { defaultHandler }) {
 	if (event.handled) return;
 	const isRenderingError = !!(event.context.nuxt?.["~rendering-error"] || getFetchedRequestContext(event)?.["~rendering-error"]);
@@ -1806,28 +1833,57 @@ async function loadStackTrace(error) {
   if (!(error instanceof Error)) {
     return;
   }
-  const parsed = await new ErrorParser().defineSourceLoader(sourceLoader).parse(error);
+  const consumerCache = /* @__PURE__ */ new Map();
+  let parsed;
+  try {
+    parsed = await new ErrorParser().defineSourceLoader((frame) => sourceLoader(frame, consumerCache)).parse(error);
+  } finally {
+    for (const consumer of consumerCache.values()) {
+      await consumer.then((c) => c?.destroy()).catch(() => {
+      });
+    }
+  }
   const stack = error.message + "\n" + parsed.frames.map((frame) => fmtFrame(frame)).join("\n");
   Object.defineProperty(error, "stack", { value: stack });
   if (error.cause) {
     await loadStackTrace(error.cause).catch(consola.error);
   }
 }
-async function sourceLoader(frame) {
+function loadConsumer(fileName, cache) {
+  const cached = cache.get(fileName);
+  if (cached) {
+    return cached;
+  }
+  const promise = (async () => {
+    const rawSourceMap = await readFile(`${fileName}.map`, "utf8").catch(
+      () => {
+      }
+    );
+    if (!rawSourceMap) {
+      return void 0;
+    }
+    return await new SourceMapConsumer(rawSourceMap);
+  })().catch(() => void 0);
+  cache.set(fileName, promise);
+  return promise;
+}
+async function sourceLoader(frame, consumerCache) {
   if (!frame.fileName || frame.fileType !== "fs" || frame.type === "native") {
     return;
   }
   if (frame.type === "app") {
-    const rawSourceMap = await readFile(`${frame.fileName}.map`, "utf8").catch(() => {
-    });
-    if (rawSourceMap) {
-      const consumer = await new SourceMapConsumer(rawSourceMap);
-      const originalPosition = consumer.originalPositionFor({ line: frame.lineNumber, column: frame.columnNumber });
-      if (originalPosition.source && originalPosition.line) {
-        frame.fileName = resolve$3(dirname(frame.fileName), originalPosition.source);
-        frame.lineNumber = originalPosition.line;
-        frame.columnNumber = originalPosition.column || 0;
+    const bundleFileName = frame.fileName;
+    try {
+      const consumer = await loadConsumer(bundleFileName, consumerCache);
+      if (consumer) {
+        const originalPosition = consumer.originalPositionFor({ line: frame.lineNumber, column: frame.columnNumber });
+        if (originalPosition.source && originalPosition.line) {
+          frame.fileName = resolve$3(dirname(bundleFileName), originalPosition.source);
+          frame.lineNumber = originalPosition.line;
+          frame.columnNumber = originalPosition.column || 0;
+        }
       }
+    } catch {
     }
   }
   const contents = await readFile(frame.fileName, "utf8").catch(() => {
@@ -1870,11 +1926,91 @@ if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
 window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 `;
 
-const _8rLGPorw96bVH60NXZqHeTg2ZSvbBtoNbDc5KFwJQ = (function(nitro) {
+const _NXJ9Jzfsm5taomgphJ69oNGGUBOGwOOsXYg3GGLgFc = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script$1}<\/script>`);
   });
 });
+
+const decodeRoutePath = function decodeRoutePath(path) {
+	if (!path.includes("%")) return path;
+	const queryIndex = path.indexOf("?");
+	const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+	try {
+		return queryIndex === -1 ? decodeURI(pathname) : decodeURI(pathname) + path.slice(queryIndex);
+	} catch {
+		return path;
+	}
+};
+const resolveRoutePathDotSegments = function resolveRoutePathDotSegments(path) {
+	const queryIndex = path.indexOf("?");
+	const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+	if (!/(?:^|\/)(?:\.|%2e)/i.test(pathname)) return path;
+	const input = pathname.split("/");
+	const output = [];
+	const root = pathname.startsWith("/") ? 1 : 0;
+	for (const [i, segment] of input.entries()) {
+		const dots = /^(?:\.|%2e)(\.|%2e)?$/i.exec(segment);
+		if (!dots) {
+			output.push(segment);
+			continue;
+		}
+		if (dots[1] && output.length > root) output.pop();
+		if (i === input.length - 1) output.push("");
+	}
+	const resolved = output.join("/");
+	return queryIndex === -1 ? resolved : resolved + path.slice(queryIndex);
+};
+const foldRouteCase = function foldRouteCase(path) {
+	return path.replace(/[A-Z]+|[^\0-\x7F]/g, (char) => {
+		if (char.charCodeAt(0) < 128) return char.toLowerCase();
+		const upper = char.toUpperCase();
+		if (upper.length !== 1 || upper.charCodeAt(0) < 128) return char;
+		const lower = upper.toLowerCase();
+		return lower.length === 1 && lower.toUpperCase() === upper ? lower : upper;
+	});
+};
+const normalizePath$1 = (path, fold) => {
+  if (typeof path !== 'string') { return path }
+  const decoded = decodeRoutePath(resolveRoutePathDotSegments(path));
+  return fold ? foldRouteCase(decoded) : decoded
+};
+const normalizeRouteRulePath = path => normalizePath$1(path, true);
+
+// src/runtime/utils/route-rules.ts
+let matcher;
+function getMatcher() {
+	if (!matcher) {
+		const routes = {};
+		for (const [route, rules] of Object.entries(useRuntimeConfig$1().nitro?.routeRules || {})) routes[normalizeRouteRulePath(route)] = rules;
+		matcher = toRouteMatcher(createRouter({ routes }));
+	}
+	return matcher;
+}
+/**
+* Resolve the route rules for a path without the base URL. Keys and path are decoded,
+* and case-folded unless routing is `sensitive`.
+*/
+function matchRouteRules(path) {
+	return defu$1({}, ...getMatcher().matchAll(normalizeRouteRulePath(path)).reverse());
+}
+/** Resolve the route rules for a request, as {@link matchRouteRules} does for its path. */
+function resolveRequestRouteRules(event) {
+	return matchRouteRules(withoutBase(event.path.split("?")[0], useRuntimeConfig$1().app.baseURL));
+}
+/** The route rules for a request, reusing those already resolved for it. */
+function getRouteRules$1(event) {
+	const context = event.context._nitro ||= {};
+	return context.routeRules ||= resolveRequestRouteRules(event);
+}
+
+// src/runtime/plugins/route-rules.ts
+var route_rules_default = (nitroApp) => {
+	nitroApp.hooks.hook("request", (event) => {
+		event.context._nitro ||= {};
+		event.context._nitro.routeRules = resolveRequestRouteRules(event);
+	});
+};
 
 const PROTOCOL_RE = /^https?:\/\//;
 const TRAILING_SLASH_RE = /\/$/;
@@ -1961,7 +2097,7 @@ function getNitroOrigin$1(ctx = {}) {
   return `${protocol}://${host}${port ? `:${port}` : ""}/`;
 }
 
-//#region src/runtime/diagnostics.ts
+// src/runtime/diagnostics.ts
 const ansi$1 = (open, close) => (s) => `\x1B[${open}m${s}\x1B[${close}m`;
 const colors$1 = {
 	red: ansi$1(31, 39),
@@ -1999,10 +2135,10 @@ const serverDiagnostics = /* #__PURE__ */ defineDiagnostics({
 	}
 });
 
-//#region ../nuxt/src/app/error.ts
+// ../nuxt/src/app/error.ts
 const NUXT_ERROR_SIGNATURE = "__nuxt_error";
 
-//#region src/runtime/utils/paths.ts
+// src/runtime/utils/paths.ts
 function baseURL() {
 	return useRuntimeConfig$1().app.baseURL;
 }
@@ -2018,7 +2154,7 @@ function publicAssetsURL(...path) {
 	return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
-//#region src/server/fetch.ts
+// src/server/fetch.ts
 const DEFAULT_FORWARDED_HEADERS = ["cookie", "authorization"];
 /** @internal */
 function resolveServerFetchInit(event, init = {}) {
@@ -2047,9 +2183,9 @@ function resolveServerFetchInit(event, init = {}) {
 */
 function getRequestURL$1(event, options = {}) {
 	const url = new URL(event.url ?? event.req.url);
-	url.protocol = getRequestProtocol$1(event, options);
+	url.protocol = getRequestProtocol(event, options);
 	if (options.xForwardedHost) {
-		const host = getRequestHost$1(event, options);
+		const host = getRequestHost(event, options);
 		if (host) applyForwardedHost(url, host);
 	}
 	return url;
@@ -2059,7 +2195,7 @@ function getRequestURL$1(event, options = {}) {
 *
 * @since 4.6.0
 */
-function getRequestHost$1(event, options = {}) {
+function getRequestHost(event, options = {}) {
 	if (options.xForwardedHost) {
 		const forwarded = event.req.headers.get("x-forwarded-host")?.split(",")[0].trim();
 		if (forwarded) return forwarded;
@@ -2071,7 +2207,7 @@ function getRequestHost$1(event, options = {}) {
 *
 * @since 4.6.0
 */
-function getRequestProtocol$1(event, options = {}) {
+function getRequestProtocol(event, options = {}) {
 	if (options.xForwardedProto) {
 		const forwarded = event.req.headers.get("x-forwarded-proto")?.split(",")[0].trim();
 		if (forwarded === "https" || forwarded === "http") return forwarded;
@@ -2150,14 +2286,6 @@ function withPortableStatus(error) {
 function getRequestURL(event, options = {}) {
 	return getRequestURL$1(toForwardedEvent(event, options), options);
 }
-/** @see {@link import('nuxt/server').getRequestHost} */
-function getRequestHost(event, options = {}) {
-	return getRequestHost$1({ req: { headers: event.headers } }, options);
-}
-/** @see {@link import('nuxt/server').getRequestProtocol} */
-function getRequestProtocol(event, options = {}) {
-	return getRequestProtocol$1(toForwardedEvent(event, options), options);
-}
 /** The URL h3 resolves for the request, with the headers to read forwarded values from. */
 function toForwardedEvent(event, options) {
 	return {
@@ -2168,6 +2296,10 @@ function toForwardedEvent(event, options) {
 /** @see {@link import('nuxt/server').getRequestHeader} */
 function getRequestHeader(event, name) {
 	return getRequestHeader$1(event, name) || void 0;
+}
+/** @see {@link import('nuxt/server').readBody} */
+function readBody(event) {
+	return readBody$1(event);
 }
 /** @see {@link import('nuxt/server').getQuery} */
 function getQuery(event) {
@@ -2385,22 +2517,22 @@ async function initRequestSiteConfig(e, origin, routeRules) {
   e.context._initedSiteConfig = true;
 }
 
-const _EMSsgNcvdJvmhcpddJBIIPyxaI98sME5HQtCk5E68 = defineNitroPlugin((nitroApp) => {
+const _BSvNXZPhi69sXr8pvONebGLi23tJoAVTSQ3oHeT380 = defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook("request", (event) => {
     const path = withoutBase(event.path.split("?")[0] || "/", useRuntimeConfig().app.baseURL);
     return initRequestSiteConfig(event, getNitroOrigin$1({
       isDev: true,
       isPrerender: false,
-      requestHost: getRequestHost$2(event, { xForwardedHost: true }),
-      requestProtocol: getRequestProtocol$2(event, { xForwardedProto: true })
-    }), getRouteRulesForPath(path, event.method));
+      requestHost: getRequestHost$1(event, { xForwardedHost: true }),
+      requestProtocol: getRequestProtocol$1(event, { xForwardedProto: true })
+    }), matchRouteRules(path, event.method));
   });
 });
 
-const rootDir = "/Users/ccci/Project/ReactPortfolio";
-const srcDir = "/Users/ccci/Project/ReactPortfolio";
+const rootDir = "/Users/ccci/Desktop/Projects/ReactPortfolio";
+const srcDir = "/Users/ccci/Desktop/Projects/ReactPortfolio";
 
-//#region src/runtime/plugins/dev-server-logs.ts
+// src/runtime/plugins/dev-server-logs.ts
 const devReducers = {
 	VNode: (data) => isVNode(data) ? {
 		type: data.type,
@@ -2457,7 +2589,7 @@ var dev_server_logs_default = (nitroApp) => {
 		if (!ctx) return;
 		try {
 			const reducers = Object.assign(Object.create(null), devReducers, ctx.event.context["~payloadReducers"]);
-			htmlContext.bodyAppend.unshift(`<script type="application/json" data-nuxt-logs="${appId$1}">${stringify$8(ctx.logs, reducers)}<\/script>`);
+			htmlContext.bodyAppend.unshift(`<script type="application/json" data-nuxt-logs="${appId$1}">${stringify$9(ctx.logs, reducers)}<\/script>`);
 		} catch (e) {
 			serverDiagnostics.NUXT_E8003({
 				error: e instanceof Error ? e.toString() : void 0,
@@ -2498,7 +2630,7 @@ const storage = new AsyncLocalStorage();
 
 let spanChannel;
 
-function _HARkKuo6gKXys412uD1Qc3FL6XruYMlDK3UfcMWeBs0 (nitroApp) {
+function _NNx7kxkMLIO_ELt_cswN5Ni8jKzVM4V1T79yQKhPDs (nitroApp) {
   try {
     trackRequests(nitroApp);
     reportLogs();
@@ -2783,7 +2915,7 @@ function wrapConsole(post) {
 
 const script = "\"use strict\";(()=>{const o=window,e=document.documentElement,c=[\"dark\",\"light\"],s=getStorageValue(\"localStorage\",\"ashly-theme\")||\"dark\";let r=s===\"system\"?f():s;const l=e.getAttribute(\"data-color-mode-forced\");l&&(r=l),i(r),o[\"__NUXT_COLOR_MODE__\"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=\"\"+t+\"\",n=\"\";e.classList?e.classList.add(a):e.className+=\" \"+a,n&&e.setAttribute(\"data-\"+n,t)}function d(t){const a=\"\"+t+\"\",n=\"\";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,\"g\"),\"\"),n&&e.removeAttribute(\"data-\"+n)}function u(t){return o.matchMedia(\"(prefers-color-scheme\"+t+\")\")}function f(){if(o.matchMedia&&u(\"\").media!==\"not all\"){for(const t of c)if(u(\":\"+t).matches)return t}return\"dark\"}})();function getStorageValue(o,e){switch(o){case\"localStorage\":try{return window.localStorage.getItem(e)}catch{return null}case\"sessionStorage\":try{return window.sessionStorage.getItem(e)}catch{return null}case\"cookie\":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=(\"; \"+window.document.cookie).split(\"; \"+o+\"=\");if(c.length===2){const s=c.pop();return s?s.split(\";\").shift():null}}";
 
-const _LFHw4M2S0FUxAGDfDwHAKy0pLSt0KYaT8gXD8Xtthg = (function(nitro) {
+const _91qujzOfWJfyZkbD6zumMOS2zKQMJRq5PcFlMdXLtLc = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
@@ -3564,7 +3696,7 @@ async function resolveRobotsTxtContext(e, nitro = useNitroApp()) {
   return generateRobotsTxtCtx;
 }
 
-const _WssQ8f05_8JoyooB6BgDnl_7r3xRYs9o2KPC3p_Pwc = defineNitroPlugin(async (nitroApp) => {
+const _P3zm45gMTeq1U1MDjatqw6sNUh8aHq3HIrCVu2ZE8k = defineNitroPlugin(async (nitroApp) => {
   const { robotsDisabledValue, botDetection } = useRuntimeConfigNuxtRobots();
   if (botDetection !== false) {
     nitroApp._robotsPatternMap = createPatternMap();
@@ -4082,7 +4214,7 @@ function ejectCollectedTemplates(event) {
     autoEjectCommunityTemplate(component, runtimeConfig);
 }
 
-const _p7ZwZJsMqAFmkOyMTUiP1w42tM7EuILW1ahTf9jvLI = defineNitroPlugin((nitro) => {
+const _4iztyQmhYXBkxq0_LyycVo0SMPqJzwciJO6DYideqkE = defineNitroPlugin((nitro) => {
   nitro.hooks.hook("render:html", (html, { event }) => collectAutoEjectTemplates(html, event));
   nitro.hooks.hook("afterResponse", ejectCollectedTemplates);
 });
@@ -4109,7 +4241,7 @@ function getSiteConfig(e, _options) {
   return e.context.siteConfig.get(options);
 }
 
-const _kSFj9pRguOy5XNfAaZ0Y_gp09hiDl3q7HGBqnqwlmwo = defineNitroPlugin(async (nitroApp) => {
+const _HjximyGtxaKzmG6qKpPKryiwZpReNVn9DUQv2_r4t0U = defineNitroPlugin(async (nitroApp) => {
   nitroApp.hooks.hook("render:html", async (ctx, { event }) => {
     const routeOptions = getSiteRouteRules(event);
     const isIsland = process.env.NUXT_COMPONENT_ISLANDS && event.path.startsWith("/__nuxt_island");
@@ -4208,7 +4340,7 @@ function readSetCookies(event, fallback) {
   return fallback === void 0 || fallback === "" ? [] : [String(fallback)];
 }
 
-const _FTRSoggkG9fGNFnt7WIeqGcPB3bPueivxPOibUUO8 = defineNitroPlugin((nitroApp) => {
+const _rTHIzEztihvQQ5LFVqwkVt8qSp55bozwKxsOXmw = defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook("beforeResponse", (event, response) => {
     const nativeResponse = response?.body instanceof Response ? response.body : void 0;
     const cacheControl = sharedCacheControlHeader((name2) => nativeResponse?.headers.get(name2) ?? getResponseHeader(event, name2));
@@ -4255,7 +4387,7 @@ function setStatusAwareLinkHeader(event, safeHeader, successHeader) {
   };
   setHeader(event, "link", safeHeader);
 }
-const _qaJ1K13JINohXOmulKnxT3X6vcm5R1f2_kJJbJl4h5w = defineNitroPlugin((nitro) => {
+const _M4cJJb6bKazSTnV8NDV7__xmtafAyJYeWzc9AR6UU28 = defineNitroPlugin((nitro) => {
   nitro.hooks.hook("error", (_error, { event }) => {
     if (!event)
       return;
@@ -4687,10 +4819,7 @@ function getRequestRenderInfo(request, mode = { _tag: "runtime", contentNegotiat
   const isExplicit = originalPath.endsWith(".md");
   if (isPrerender && !isExplicit)
     return null;
-  const lastSegment = originalPath.split("/").pop() || "";
-  const hasExtension = lastSegment.includes(".");
-  const extension = hasExtension ? lastSegment.substring(lastSegment.lastIndexOf(".")) : "";
-  if (hasExtension && extension !== ".md")
+  if (!isExplicit && !hasMarkdownTwin(originalPath))
     return null;
   const negotiation = isPrerender ? "markdown" : mode.contentNegotiation ? negotiateRequestRepresentation(request, mode.botNegotiation) : "html";
   if (isExplicit) {
@@ -4805,6 +4934,9 @@ function setUncacheableHeaders(event) {
 }
 function setMarkdownHeaders(event, ctx, sourceHeaders) {
   setHeader(event, "content-type", "text/markdown; charset=utf-8");
+  const sourcePolicy = sourceHeaders?.get("content-signal");
+  if (sourcePolicy !== null && sourcePolicy !== void 0 && getResponseHeader(event, "content-signal") === void 0)
+    setHeader(event, "content-signal", sourcePolicy);
   const vary = [getResponseHeader(event, "vary"), sourceHeaders?.get("vary")].filter(Boolean).join(", ");
   setHeader(event, "vary", mergeVaryHeader(vary, "Accept"));
   setLinkHeader(event, ctx, "markdown");
@@ -4842,7 +4974,7 @@ function buildNegotiationContext(event, path) {
     path,
     resolvePath,
     resolveUrl: (target) => withSiteUrl(event, resolvePath(target), { withBase: true }),
-    routeContext: { host: getRequestHost$2(event, { xForwardedHost: true }) }
+    routeContext: { host: getRequestHost$1(event, { xForwardedHost: true }) }
   };
 }
 const REQUEST_DECISION = Symbol("nuxt-ai-ready:negotiation");
@@ -4933,7 +5065,7 @@ const negotiationHandler = defineEventHandler$1(async (event) => {
     return response;
   return serveCloudflarePrerenderedPage(event);
 });
-const _kzej8sbWtSQg7Q_wmkkQUGDmgOh5CcF3OhFrRhl3Gk = defineNitroPlugin((nitro) => {
+const _mt5acty3WRNiBEmclqIy__fo_sNxrHZbnZo21i9BoVI = defineNitroPlugin((nitro) => {
   const runtime = resolveH3Runtime(nitro);
   if (runtime._tag === "unsupported") {
     logger$2.debug("[markdown] No h3 stack found. Accept negotiation stays in the middleware.");
@@ -5172,7 +5304,7 @@ function evaluateContextChecks(slug, context) {
   return [{
     id: "app-secret",
     label: "Signing secret set",
-    description: "OG Image signs runtime image URLs with NUXT_APP_SECRET. Without it, production pages return a 500 error.",
+    description: "OG Image signs runtime image URLs with NUXT_APP_SECRET. Without it, production OG image requests return a 500 error. Pages still render.",
     level: "required",
     docsUrl: "https://nuxtseo.com/docs/og-image/guides/security#url-signing",
     status: passed ? "passed" : "failed",
@@ -5247,7 +5379,7 @@ function formatSetupReport(results, options = {}) {
   return lines.join("\n");
 }
 
-const setup = {"installedModuleSlugs":["robots","sitemap","og-image","schema-org","link-checker","seo-utils","site-config","skew-protection","ai-ready"],"disabledModuleSlugs":[],"baseURL":"/","homepagePaths":["/"],"stateDirectory":"/Users/ccci/Project/ReactPortfolio/.nuxt/cache/nuxt-seo","context":{"ssr":true,"hasI18n":false,"hasDynamicRoutes":true,"hasContent":true,"moduleOptions":{"site-config":{"enabled":true},"robots":{"enabled":true},"schema-org":{"enabled":true},"sitemap":{"enabled":true,"zeroRuntime":false,"zeroPrerender":false,"minify":false,"experimentalStreaming":false},"og-image":{"enabled":true},"seo-utils":{"enabled":true},"ai-ready":{"enabled":true},"link-checker":{"enabled":true,"showLiveInspections":false,"runOnBuild":true,"failOnError":false}},"optOuts":{"site-config":[],"robots":[],"schema-org":[],"skew-protection":[],"sitemap":[],"og-image":[],"seo-utils":[],"ai-ready":[],"link-checker":[]},"tipsEnabled":true,"isPrerendered":false,"hasPrerenderedRoutes":true,"devtoolsEnabled":true,"sitemapPrerendered":false,"hasSitemapOutputHook":false,"nuxtMajor":4,"nitroPreset":"node-server","ogImageSecret":"missing"}};
+const setup = {"installedModuleSlugs":["robots","sitemap","og-image","schema-org","link-checker","seo-utils","site-config","skew-protection","ai-ready"],"disabledModuleSlugs":[],"baseURL":"/","homepagePaths":["/"],"stateDirectory":"/Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/cache/nuxt-seo","context":{"ssr":true,"hasI18n":false,"hasDynamicRoutes":true,"hasContent":true,"moduleOptions":{"site-config":{"enabled":true},"robots":{"enabled":true},"schema-org":{"enabled":true},"sitemap":{"enabled":true,"zeroRuntime":false,"zeroPrerender":false,"minify":false,"experimentalStreaming":false},"og-image":{"enabled":true},"seo-utils":{"enabled":true},"ai-ready":{"enabled":true},"link-checker":{"enabled":true,"showLiveInspections":false,"runOnBuild":true,"failOnError":false}},"optOuts":{"site-config":[],"robots":[],"schema-org":[],"skew-protection":[],"sitemap":[],"og-image":[],"seo-utils":[],"ai-ready":[],"link-checker":[]},"tipsEnabled":true,"isPrerendered":false,"hasPrerenderedRoutes":true,"devtoolsEnabled":true,"sitemapPrerendered":false,"hasSitemapOutputHook":false,"nuxtMajor":4,"nitroPreset":"node-server","ogImageSecret":"missing"}};
 
 function getSiteIndexable(e) {
   const { env, indexable } = getSiteConfig(e);
@@ -5364,7 +5496,7 @@ async function claimSetupTips(options) {
   return result;
 }
 
-const _9lFWasAI8fzsGGzu_OFDqH5T69xI4Zk1RBskhcYoEw = defineNitroPlugin((nitroApp) => {
+const _vPsPA5BkmZ3vnWrtl4yWrTT0jLbxJ8NyyE1UThS14qg = defineNitroPlugin((nitroApp) => {
   const logger = createModuleLogger("Nuxt SEO");
   const check = createHomepageSetupCheck(setup.baseURL, async ({ event }) => {
     const installedModuleSlugs = new Set(setup.installedModuleSlugs);
@@ -5398,7 +5530,7 @@ const _9lFWasAI8fzsGGzu_OFDqH5T69xI4Zk1RBskhcYoEw = defineNitroPlugin((nitroApp)
   }
 });
 
-//#region src/runtime/server/dev-error/index.ts
+// src/runtime/server/dev-error/index.ts
 /** Base path the dev server owning the channel serves it at. */
 const ERROR_CHANNEL_ENV$1 = "NUXT_DEV_ERROR_CHANNEL";
 /** `BroadcastChannel` name reports are forwarded on. */
@@ -5415,7 +5547,7 @@ function setErrorChannelForwarding(forward) {
 /** The live error channel, forwarding to the dev server in front when there is one. */
 function useErrorChannel$1() {
 	const store = globalThis;
-	store[CHANNEL_KEY] ||= isForwarding() ? Promise.resolve(createForwardingChannel()) : import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/channel/index.mjs').then(({ createChannel }) => createOwnedChannel(createChannel({ open: true })));
+	store[CHANNEL_KEY] ||= isForwarding() ? Promise.resolve(createForwardingChannel()) : import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/channel/index.mjs').then(({ createChannel }) => createOwnedChannel(createChannel({ open: true })));
 	return store[CHANNEL_KEY];
 }
 /** The `BroadcastChannel` reports travel between threads on, which must not hold the process open. It drops every message where none can be opened. */
@@ -5569,7 +5701,7 @@ function thrownContext(error) {
 * `error.stack`, as frames are mapped by the loaders rather than read off the stack.
 */
 async function createErrorReport$1(error, options) {
-	const [{ createReport, fsLoader }, { nuxtPreset }] = await Promise.all([import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ createReport, fsLoader }, { nuxtPreset }] = await Promise.all([import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/presets/index.mjs')]);
 	return withoutEchoingCauses(await createReport(error, {
 		cwd: options.cwd,
 		loaders: [...options.loaders ?? [], fsLoader()],
@@ -5582,7 +5714,7 @@ async function createErrorReport$1(error, options) {
 }
 /** Add the error overlay to an already-rendered page. */
 async function withErrorOverlay(html, report, options) {
-	const [{ injectOverlay }, { nuxtTheme }] = await Promise.all([import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ injectOverlay }, { nuxtTheme }] = await Promise.all([import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/presets/index.mjs')]);
 	return injectOverlay(html, report, {
 		cwd: options.cwd,
 		channel: options.channel,
@@ -5594,7 +5726,7 @@ async function withErrorOverlay(html, report, options) {
 }
 /** Render a standalone error page, for when the app itself cannot render one. */
 async function renderErrorPage(report, options) {
-	const [{ renderPage }, { nuxtTheme }] = await Promise.all([import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/presets/index.mjs')]);
+	const [{ renderPage }, { nuxtTheme }] = await Promise.all([import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/index.mjs'), import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/presets/index.mjs')]);
 	return renderPage(report, {
 		cwd: options.cwd,
 		channel: options.channel,
@@ -5604,7 +5736,7 @@ async function renderErrorPage(report, options) {
 }
 /** Render a report for the terminal. It carries its own icon and colours. */
 async function renderErrorAnsi(report, options) {
-	const { renderAnsi } = await import('file:///Users/ccci/Project/ReactPortfolio/node_modules/.pnpm/my-bad@0.2.11_vite@8.3.4_esbuild@0.28.2_jiti@2.7.0_terser@5.51.2_yaml@2.9.1_/node_modules/my-bad/dist/index.mjs');
+	const { renderAnsi } = await import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/node_modules/my-bad/dist/index.mjs');
 	return renderAnsi(withoutEchoingCauses(report), { cwd: options.cwd });
 }
 /** Print a report to the terminal, falling back to the raw error when it cannot be rendered. */
@@ -5697,7 +5829,7 @@ function serializeErrorCause(cause, depth = 0, seen = /* @__PURE__ */ new WeakSe
 
 const NUXT_ERROR_CHANNEL = "/__nuxt_dev__/error";
 
-//#region src/runtime/utils/error-channel.ts
+// src/runtime/utils/error-channel.ts
 const ERROR_CHANNEL_ENV = ERROR_CHANNEL_ENV$1;
 const ERROR_CHANNEL_BROADCAST = ERROR_CHANNEL_BROADCAST$1;
 /** Whether reports should be forwarded to the dev server that set {@link ERROR_CHANNEL_ENV}. */
@@ -5789,7 +5921,7 @@ const observeDevError = createDevErrorReporter({
 	})
 });
 
-//#region src/runtime/plugins/dev-errors.ts
+// src/runtime/plugins/dev-errors.ts
 /** Opens the error channel before anything requests a page. */
 var dev_errors_default = (_nitroApp) => {
 	useErrorChannel().catch(() => {});
@@ -5847,43 +5979,49 @@ function toLogLevel(logObject) {
 }
 
 const plugins = [
-  _8rLGPorw96bVH60NXZqHeTg2ZSvbBtoNbDc5KFwJQ,
-_EMSsgNcvdJvmhcpddJBIIPyxaI98sME5HQtCk5E68,
+  _NXJ9Jzfsm5taomgphJ69oNGGUBOGwOOsXYg3GGLgFc,
+route_rules_default,
+_BSvNXZPhi69sXr8pvONebGLi23tJoAVTSQ3oHeT380,
 dev_server_logs_default,
-_u7bFibVBofD0S0VXvj8CW4sEGWOS4_ssSoLP0c9kJ8,
-_HARkKuo6gKXys412uD1Qc3FL6XruYMlDK3UfcMWeBs0,
-_LFHw4M2S0FUxAGDfDwHAKy0pLSt0KYaT8gXD8Xtthg,
-_WssQ8f05_8JoyooB6BgDnl_7r3xRYs9o2KPC3p_Pwc,
-_p7ZwZJsMqAFmkOyMTUiP1w42tM7EuILW1ahTf9jvLI,
-_kSFj9pRguOy5XNfAaZ0Y_gp09hiDl3q7HGBqnqwlmwo,
-_FTRSoggkG9fGNFnt7WIeqGcPB3bPueivxPOibUUO8,
-_qaJ1K13JINohXOmulKnxT3X6vcm5R1f2_kJJbJl4h5w,
-_kzej8sbWtSQg7Q_wmkkQUGDmgOh5CcF3OhFrRhl3Gk,
-_9lFWasAI8fzsGGzu_OFDqH5T69xI4Zk1RBskhcYoEw,
+_lDpHfMLJtOuJ0dltDIvadLvYzlKzuvEXkbqE_xFki0Y,
+_NNx7kxkMLIO_ELt_cswN5Ni8jKzVM4V1T79yQKhPDs,
+_91qujzOfWJfyZkbD6zumMOS2zKQMJRq5PcFlMdXLtLc,
+_P3zm45gMTeq1U1MDjatqw6sNUh8aHq3HIrCVu2ZE8k,
+_4iztyQmhYXBkxq0_LyycVo0SMPqJzwciJO6DYideqkE,
+_HjximyGtxaKzmG6qKpPKryiwZpReNVn9DUQv2_r4t0U,
+_rTHIzEztihvQQ5LFVqwkVt8qSp55bozwKxsOXmw,
+_M4cJJb6bKazSTnV8NDV7__xmtafAyJYeWzc9AR6UU28,
+_mt5acty3WRNiBEmclqIy__fo_sNxrHZbnZo21i9BoVI,
+_vPsPA5BkmZ3vnWrtl4yWrTT0jLbxJ8NyyE1UThS14qg,
 dev_errors_default,
-_Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU
+_Z4Vm0BJMJeyU_KFYzGBgSOBoZ4JOQn4jYmko_KtDwU,
+_LB91z6Ht2T49ncvhFWMKIA26eT4mdBc7tIFl06yLKKs
 ];
 
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"e05d1-4fPKHiYS7PtH4KHToYGIXz6zlM8\"",
-    "mtime": "2026-10-13T08:11:10.380Z",
-    "size": 918993,
+    "etag": "\"f62af-Osj7xfZSghL/G3Z3c3j8YEsA9xk\"",
+    "mtime": "2026-10-28T06:09:34.017Z",
+    "size": 1008303,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"3a5a57-cci0NFQETI6L/z2VXL0eTBbScAY\"",
-    "mtime": "2026-10-13T08:11:10.413Z",
-    "size": 3824215,
+    "etag": "\"3b31e0-jk/nC7Sn1joogRYF6uRXeikLEqg\"",
+    "mtime": "2026-10-28T06:09:34.946Z",
+    "size": 3879392,
     "path": "index.mjs.map"
   }
 };
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
-  return promises.readFile(resolve$4(serverDir, assets[id].path))
+  // Public dirs might be pruned after the build (uploaded to a CDN, sourcemaps
+  // stripped), so a manifest entry with no file behind it reads as absent, not broken.
+  return promises.readFile(resolve$4(serverDir, assets[id].path)).catch((error) => {
+    if (error?.code !== 'ENOENT') { throw error }
+  })
 }
 
 const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1},"/_fonts/":{"maxAge":31536000}};
@@ -5904,7 +6042,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _aU4W5Z = eventHandler((event) => {
+const _rjytQs = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -5965,8 +6103,18 @@ const _aU4W5Z = eventHandler((event) => {
   if (asset.size > 0 && !getResponseHeader(event, "Content-Length")) {
     setResponseHeader(event, "Content-Length", asset.size);
   }
-  return readAsset(id);
+  const data = readAsset(id);
+  return typeof data?.then === "function" ? data.then(
+    (resolved) => assertAssetData(event, resolved)
+  ) : assertAssetData(event, data);
 });
+function assertAssetData(event, data) {
+  if (data === null || data === void 0) {
+    removeResponseHeader(event, "Cache-Control");
+    throw createError$1({ statusCode: 404 });
+  }
+  return data;
+}
 
 const options = {"iconifyApiEndpoint":"https://api.iconify.design"};
 
@@ -5979,7 +6127,7 @@ function getInstallCommand(pkg) {
   if (ua.startsWith("bun")) return `bun add -D ${pkg}`;
   return `npm i -D ${pkg}`;
 }
-const _OK8GsT = defineCachedEventHandler(async (event) => {
+const _BLMzya = defineCachedEventHandler(async (event) => {
   const collectionName = event.context.params?.collection?.replace(/\.json$/, "");
   const collection = collectionName && Object.hasOwn(collections, collectionName) ? await collections[collectionName]?.() : null;
   const apiEndPoint = options.iconifyApiEndpoint;
@@ -6022,6 +6170,8 @@ const _OK8GsT = defineCachedEventHandler(async (event) => {
 }, {
   group: "nuxt",
   name: "icon",
+  // @ts-expect-error Nitro 3 API
+  allowQuery: ["icons"],
   getKey(event) {
     const collection = event.context.params?.collection?.replace(/\.json$/, "") || "unknown";
     const icons = String(parseQuery(parsePath(event.path).search).icons || "").split(",");
@@ -6062,7 +6212,7 @@ function getSiteRobotConfig(e) {
   return { indexable, hints };
 }
 
-const _pLoBKz = defineEventHandler(async (e) => {
+const _3TejmD = defineEventHandler(async (e) => {
   const nitroApp = useNitroApp();
   const { indexable, hints } = getSiteRobotConfig(e);
   const { credits, cacheControl, robotsDisabledValue } = useRuntimeConfigNuxtRobots();
@@ -6171,7 +6321,7 @@ function getPathRobotConfig(e, options) {
     }
   }
   const baseURL = runtimeConfig.app.baseURL;
-  const matchRules = (pathOrUrl) => getRouteRulesForPath(withoutBase(withoutTrailingSlash((pathOrUrl.startsWith("/") ? pathOrUrl : parseURL(pathOrUrl, baseURL).pathname).split("?")[0]), baseURL));
+  const matchRules = (pathOrUrl) => matchRouteRules(withoutBase(withoutTrailingSlash((pathOrUrl.startsWith("/") ? pathOrUrl : parseURL(pathOrUrl, baseURL).pathname).split("?")[0]), baseURL));
   let robotRouteRules = matchRules(path);
   let routeRulesPath = path;
   if (typeof robotRouteRules.robots === "undefined") {
@@ -6211,7 +6361,7 @@ function getPathRobotConfig(e, options) {
   };
 }
 
-const _1nhPgq = defineEventHandler(async (e) => {
+const _vnz8S8 = defineEventHandler(async (e) => {
   if (e.url.pathname === "/robots.txt" || e.url.pathname.startsWith("/__") || e.url.pathname.startsWith("/api") || e.url.pathname.startsWith("/_nuxt")) {
     const { header, robotsDisabledValue } = useRuntimeConfigNuxtRobots();
     if (header && !getSiteRobotConfig(e).indexable)
@@ -6234,7 +6384,7 @@ const _1nhPgq = defineEventHandler(async (e) => {
   }
 });
 
-const _ikEVQo = defineEventHandler(async (e) => {
+const _GMcR1y = defineEventHandler(async (e) => {
   const runtimeConfig = useRuntimeConfigNuxtRobots();
   const { indexable, hints } = getSiteRobotConfig(e);
   const siteConfig = getSiteConfig(e);
@@ -6272,7 +6422,7 @@ function extractRobotsMetaFromHtml(html) {
   return { content, productionContent, hint };
 }
 
-const _kbUV9M = defineEventHandler(async (e) => {
+const _XGBBE1 = defineEventHandler(async (e) => {
   const query = getQuery(e);
   const path = query.path;
   const isMockProduction = Boolean(query.mockProductionEnv);
@@ -6334,7 +6484,7 @@ const _kbUV9M = defineEventHandler(async (e) => {
 function errorResponse(url, error) {
   return { url, robotsTxt: "", indexable: false, hints: [], validation: { errors: [], warnings: [], groups: 0, sitemaps: [] }, hasRemoteDebug: false, error };
 }
-const _8T_Oa7 = defineEventHandler(async (e) => {
+const _DhpPa8 = defineEventHandler(async (e) => {
   const { url, mode } = getQuery(e);
   if (!url || typeof url !== "string")
     return errorResponse("", "Missing url query parameter");
@@ -6670,7 +6820,7 @@ const filters = new Map();
 const onUrlFns = new Map();
 
 const { listPageCollections: listPageCollections$1, provider, queryPages: queryPages$2 } = contentRuntime;
-const _ESGQj8 = defineEventHandler(async (e) => {
+const _BrFx_q = defineEventHandler(async (e) => {
   const collections = (await listPageCollections$1(e)).filter((collection) => collection.inSitemap && collection.hasField("sitemap")).map((collection) => collection.name);
   const results = await Promise.all(collections.map(async (collection) => {
     const needsAllFields = filters?.has(collection) || onUrlFns?.has(collection);
@@ -8567,7 +8717,7 @@ async function collectSitemap(input, options = {}) {
   };
 }
 
-const staticConfig = {"isI18nMapped":false,"sitemapName":"sitemap.xml","isMultiSitemap":false,"excludeAppSources":[],"cacheMaxAgeSeconds":0,"experimentalStreaming":false,"routeRuleHeaders":{"/sitemap.xml":{"headers":{"Content-Type":"text/xml; charset=UTF-8","Cache-Control":"public, max-age=600, must-revalidate","X-Sitemap-Prerendered":"2026-10-13T08:10:54.324Z"}},"/llms.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms-full.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/sitemap.md":{"headers":{"Content-Type":"text/markdown; charset=utf-8"}}},"autoLastmod":false,"defaultSitemapsChunkSize":1000,"minify":false,"sortEntries":true,"discoverImages":true,"discoverVideos":true,"sitemapsPathPrefix":"/__sitemap__/","xsl":"/__sitemap__/style.xsl","xslTips":true,"xslColumns":[{"label":"URL","width":"50%"},{"label":"Images","width":"25%","select":"count(image:image)"},{"label":"Last Updated","width":"25%","select":"concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,6)))"}],"credits":true,"version":"9.0.2","sitemaps":{"sitemap.xml":{"sitemapName":"sitemap.xml","route":"sitemap.xml","defaults":{},"include":[],"exclude":["/_**","/_nuxt/**","/__nuxt_content/**"],"includeAppSources":true}}};
+const staticSitemapConfig = {"isI18nMapped":false,"sitemapName":"sitemap.xml","isMultiSitemap":false,"excludeAppSources":[],"cacheMaxAgeSeconds":0,"experimentalStreaming":false,"routeRuleHeaders":{"/sitemap.xml":{"headers":{"Content-Type":"text/xml; charset=UTF-8","Cache-Control":"public, max-age=600, must-revalidate","X-Sitemap-Prerendered":"2026-10-28T06:09:02.185Z"}},"/llms.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms/**":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/llms-full.txt":{"headers":{"Content-Type":"text/plain; charset=utf-8"}},"/sitemap.md":{"headers":{"Content-Type":"text/markdown; charset=utf-8"}}},"autoLastmod":false,"defaultSitemapsChunkSize":1000,"minify":false,"sortEntries":true,"discoverImages":true,"discoverVideos":true,"sitemapsPathPrefix":"/__sitemap__/","xsl":"/__sitemap__/style.xsl","xslTips":true,"xslColumns":[{"label":"URL","width":"50%"},{"label":"Images","width":"25%","select":"count(image:image)"},{"label":"Last Updated","width":"25%","select":"concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,6)))"}],"credits":true,"version":"9.1.0","sitemaps":{"sitemap.xml":{"sitemapName":"sitemap.xml","route":"sitemap.xml","defaults":{},"include":[],"exclude":["/_**","/_nuxt/**","/__nuxt_content/**"],"includeAppSources":true}}};
 
 const LABEL_RE = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 const PORT_RE = /^[1-9]\d{0,4}$/;
@@ -8608,12 +8758,32 @@ function createCacheKey(origin, parts) {
   return `sitemap-${hash$1([scope, parts])}`;
 }
 
+function firstHeaderValue(value) {
+  return value?.split(",")[0]?.trim() || void 0;
+}
+function requestUrl(e) {
+  const { url } = e;
+  if (url)
+    return url;
+  const href = e.req?.url;
+  return typeof href === "string" && URL.canParse(href) ? new URL(href) : void 0;
+}
+function getForwardedHost(e) {
+  return firstHeaderValue(getRequestHeader(e, "x-forwarded-host")) || getRequestHeader(e, "host") || "";
+}
+function getForwardedProtocol(e) {
+  const forwarded = firstHeaderValue(getRequestHeader(e, "x-forwarded-proto"));
+  if (forwarded === "http" || forwarded === "https")
+    return forwarded;
+  return requestUrl(e)?.protocol.slice(0, -1);
+}
+
 const SERVER_CACHE_MAX_AGE = 60 * 10;
 const REQUEST_SITE_URL_CONTEXT = "nitro:init";
 function getCacheOrigin(e) {
   return resolveCacheOrigin({
-    host: getRequestHost(e, { xForwardedHost: true }),
-    protocol: getRequestProtocol(e, { xForwardedProto: true }),
+    host: getForwardedHost(e),
+    protocol: getForwardedProtocol(e),
     siteUrl: () => {
       const siteConfig = getSiteConfig(e, { debug: true });
       return siteConfig._context?.url === REQUEST_SITE_URL_CONTEXT ? void 0 : siteConfig.url;
@@ -8753,7 +8923,7 @@ async function fetchSourceUrls(url, options, event) {
       {
         Accept: isXmlRequest ? "text/xml" : "application/json"
       },
-      event && !isExternalUrl ? { host: getRequestHost(event, { xForwardedHost: true }) } : {}
+      event && !isExternalUrl ? { host: getForwardedHost(event) } : {}
     );
     const fetchOptions = {
       ...options,
@@ -8874,7 +9044,7 @@ function dynamicRuntimeConfig(_e) {
 }
 function copyStaticSitemaps() {
   return Object.fromEntries(
-    Object.entries(staticConfig.sitemaps).map(([name, sitemap]) => [name, {
+    Object.entries(staticSitemapConfig.sitemaps).map(([name, sitemap]) => [name, {
       ...sitemap,
       include: normalizeRuntimeFilters("include" in sitemap ? sitemap.include : void 0),
       exclude: normalizeRuntimeFilters("exclude" in sitemap ? sitemap.exclude : void 0)
@@ -8883,7 +9053,7 @@ function copyStaticSitemaps() {
 }
 function useSitemapRuntimeConfig(e) {
   return Object.freeze({
-    ...staticConfig,
+    ...staticSitemapConfig,
     sitemaps: copyStaticSitemaps(),
     ...dynamicRuntimeConfig()
   });
@@ -8913,10 +9083,10 @@ async function resolveSitemapSitemaps(e, nitro) {
 }
 defineSitemapCachedFunction(resolveSitemapSitemaps, { name: "sitemap:runtime-sitemaps" });
 async function useResolvedSitemapRuntimeConfig(e) {
-  dynamicRuntimeConfig()?.cacheMaxAgeSeconds ?? staticConfig.cacheMaxAgeSeconds;
+  dynamicRuntimeConfig()?.cacheMaxAgeSeconds ?? staticSitemapConfig.cacheMaxAgeSeconds;
   const sitemaps = await resolveSitemapSitemaps(e, useNitroApp());
   return Object.freeze({
-    ...staticConfig,
+    ...staticSitemapConfig,
     sitemaps,
     ...dynamicRuntimeConfig()
   });
@@ -8940,7 +9110,7 @@ function attachUrlWarnings(sources) {
   }
   return sources;
 }
-const _thGYRn = defineEventHandler(async (e) => {
+const _TIxSqx = defineEventHandler(async (e) => {
   const _runtimeConfig = await useResolvedSitemapRuntimeConfig(e);
   const siteConfig = getSiteConfig(e);
   const { sitemaps: _sitemaps } = _runtimeConfig;
@@ -8974,7 +9144,7 @@ async function fetchSitemapBody(url) {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   return new Uint8Array(await response.arrayBuffer());
 }
-const _rMrINU = defineEventHandler(async (e) => {
+const _bAJd8T = defineEventHandler(async (e) => {
   const { url, mode } = getQuery(e);
   if (!url || typeof url !== "string")
     return { url: "", isIndex: false, sitemaps: [], warnings: [], error: "Missing url query parameter" };
@@ -9056,7 +9226,7 @@ const _rMrINU = defineEventHandler(async (e) => {
   };
 });
 
-const _TxAQTW = defineEventHandler(async (e) => {
+const _Erkv8L = defineEventHandler(async (e) => {
   const fixPath = createSitePathResolver(e, { absolute: false, withBase: true });
   const { sitemapName: fallbackSitemapName, cacheMaxAgeSeconds, version, xslColumns, xslTips } = useSitemapRuntimeConfig();
   e.res.headers.set("Content-Type", "application/xslt+xml");
@@ -10145,7 +10315,7 @@ async function sitemapXmlEventHandler(e) {
   return createSitemap(e, Object.values(sitemaps)[0], runtimeConfig);
 }
 
-const __yUcce = defineEventHandler(sitemapXmlEventHandler);
+const _rNJqzO = defineEventHandler(sitemapXmlEventHandler);
 
 function defineRule(rule) {
   return rule;
@@ -10834,7 +11004,7 @@ function parseInspectRequestBody(body) {
   }
   return { tasks, ids, path };
 }
-const _j_qoAd = defineEventHandler(async (e) => {
+const _UJo_ZN = defineEventHandler(async (e) => {
   const appBaseURL = useRuntimeConfig().app.baseURL;
   const localFetch = createFetch({
     fetch: (input, init) => typeof input === "string" && input.startsWith("/") ? serverFetch(e, withoutBase(input, appBaseURL), init) : globalThis.fetch(input, init)
@@ -10903,76 +11073,111 @@ const pagePaths = [
   {
     "title": "",
     "link": "/blog",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/blog/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/blog/index.vue"
   },
   {
     "title": "",
     "link": "/certifications",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/certifications.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/certifications.vue"
   },
   {
     "title": "",
     "link": "/gallery",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/gallery.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/gallery.vue"
   },
   {
     "title": "",
     "link": "/projects",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/projects/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/projects/index.vue"
   },
   {
     "title": "",
     "link": "/tech-stack",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/tech-stack.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/tech-stack.vue"
   },
   {
     "title": "",
     "link": "/uses",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/uses.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/uses.vue"
   },
   {
     "title": "",
     "link": "/",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/index.vue"
   },
   {
     "title": "",
     "link": "/blog",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/blog/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/blog/index.vue"
   },
   {
     "title": "",
     "link": "/certifications",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/certifications.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/certifications.vue"
   },
   {
     "title": "",
     "link": "/gallery",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/gallery.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/gallery.vue"
   },
   {
     "title": "",
     "link": "/projects",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/projects/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/projects/index.vue"
   },
   {
     "title": "",
     "link": "/tech-stack",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/tech-stack.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/tech-stack.vue"
   },
   {
     "title": "",
     "link": "/uses",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/uses.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/uses.vue"
   },
   {
     "title": "",
     "link": "/",
-    "file": "/Users/ccci/Project/ReactPortfolio/pages/index.vue"
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/index.vue"
+  },
+  {
+    "title": "",
+    "link": "/blog",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/blog/index.vue"
+  },
+  {
+    "title": "",
+    "link": "/certifications",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/certifications.vue"
+  },
+  {
+    "title": "",
+    "link": "/gallery",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/gallery.vue"
+  },
+  {
+    "title": "",
+    "link": "/projects",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/projects/index.vue"
+  },
+  {
+    "title": "",
+    "link": "/tech-stack",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/tech-stack.vue"
+  },
+  {
+    "title": "",
+    "link": "/uses",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/uses.vue"
+  },
+  {
+    "title": "",
+    "link": "/",
+    "file": "/Users/ccci/Desktop/Projects/ReactPortfolio/pages/index.vue"
   }
 ];
 
-const _AbZ4B3 = defineCachedEventHandler(async (e) => {
+const _t5S60u = defineCachedEventHandler(async (e) => {
   const runtimeConfig = useRuntimeConfig$1().public["nuxt-link-checker"] || {};
   const linkDb = [
     ...pagePaths
@@ -10992,13 +11197,13 @@ const _AbZ4B3 = defineCachedEventHandler(async (e) => {
   // avoid thrashing
 });
 
-const _A4pE48 = defineEventHandler(async () => {
+const _6zLhhX = defineEventHandler(async () => {
   return {
     runtimeConfig: useRuntimeConfig().public["nuxt-link-checker"]
   };
 });
 
-const _GOK8TE = defineEventHandler$1(async (event) => {
+const _Tie3pO = defineEventHandler$1(async (event) => {
   return;
 });
 
@@ -11009,7 +11214,7 @@ function useSchemaOrgConfig() {
   });
 }
 
-const _s1O8O3 = defineEventHandler(async (e) => {
+const _uyauDh = defineEventHandler(async (e) => {
   const nitroOrigin = getNitroOrigin(e);
   const siteConfig = getSiteConfig(e);
   return {
@@ -11023,7 +11228,7 @@ const _s1O8O3 = defineEventHandler(async (e) => {
 
 const fileMapping = {};
 
-const _RpXWh4 = defineEventHandler(async (e) => {
+const _kkU_k2 = defineEventHandler(async (e) => {
   const path = e.url.pathname;
   if (fileMapping[path]) {
     if (path.endsWith(".svg"))
@@ -11036,7 +11241,7 @@ const _RpXWh4 = defineEventHandler(async (e) => {
   }
 });
 
-const _WSIA3a = defineEventHandler((e) => {
+const _NUmfQj = defineEventHandler((e) => {
   const siteConfig = getSiteConfig(e);
   const runtimeConfig = useRuntimeConfig();
   const seoUtils = runtimeConfig.public?.["seo-utils"] || {};
@@ -11065,9 +11270,9 @@ const _WSIA3a = defineEventHandler((e) => {
   };
 });
 
-const _uW5Djc = defineEventHandler((e) => initRequestSiteConfig(e, getNitroOrigin(e), getRouteRules(e)));
+const _f7y4Wf = defineEventHandler((e) => initRequestSiteConfig(e, getNitroOrigin(e), getRouteRules(e)));
 
-const _mR2TXm = defineEventHandler(async (e) => {
+const _PCYLue = defineEventHandler(async (e) => {
   const siteConfig = getSiteConfig(e);
   const nitroOrigin = getNitroOrigin(e);
   const runtimeConfig = useRuntimeConfig();
@@ -11085,7 +11290,7 @@ function getSkewSiteConfigUrl(event) {
   return getSiteConfig(event).url || event.url.origin;
 }
 
-const _HtHNaP = defineEventHandler((event) => {
+const _Kp6GkK = defineEventHandler((event) => {
   const config = useRuntimeConfig();
   const skewConfig = config.public?.skewProtection || {};
   return {
@@ -11122,7 +11327,7 @@ async function fetchDebugJson(url) {
   }
   return response.json();
 }
-const _1SCGVv = defineEventHandler(async (event) => {
+const _WnFGlg = defineEventHandler(async (event) => {
   const { url } = getQuery(event);
   if (!url) {
     return { errors: ["Missing url query parameter"] };
@@ -11147,6 +11352,80 @@ const _1SCGVv = defineEventHandler(async (event) => {
   };
 });
 
+const RE_FRONTMATTER$1 = /^\uFEFF?---[\t ]*\r?\n(?:[\s\S]*?\r?\n)?---[\t ]*(?:\r?\n|$)/;
+function llmsTxtDirective(llmsTxtUrl) {
+  return `> Index of every page on this site: [llms.txt](${llmsTxtUrl})`;
+}
+function insertLlmsTxtDirective(markdown, llmsTxtUrl) {
+  const directive = llmsTxtDirective(llmsTxtUrl);
+  const frontmatter = markdown.match(RE_FRONTMATTER$1)?.[0] ?? "";
+  const body = markdown.slice(frontmatter.length).replace(/^(?:\r?\n)+/, "");
+  if (body === directive || body.startsWith(`${directive}
+`) || body.startsWith(`${directive}\r
+`))
+    return markdown;
+  return `${frontmatter}${frontmatter ? "\n" : ""}${directive}
+
+${body}`;
+}
+const RE_DIRECTIVE_HTML = /<a [^>]*data-llms-txt-directive[^>]*>[^<]*<\/a>/g;
+function stripLlmsTxtDirectiveHtml(html) {
+  return html.replace(RE_DIRECTIVE_HTML, "");
+}
+
+const RE_FENCE = /^ {0,3}(`{3,}|~{3,})/;
+const RE_INLINE_ROOT_LINK = /\]\((<?)\/(?!\/)/g;
+const RE_REFERENCE_ROOT_LINK = /^( {0,3}\[[^\]]+\]:[\t ]*<?)\/(?!\/)/;
+function closesFence(line, fence) {
+  const trimmed = line.trim();
+  return trimmed.length >= fence.length && trimmed[0] === fence[0] && [...trimmed].every((char) => char === fence[0]);
+}
+function backtickRun(line, start) {
+  let end = start;
+  while (line[end] === "`")
+    end++;
+  return end - start;
+}
+function rewriteOutsideCodeSpans(line, rewrite) {
+  let output = "";
+  let last = 0;
+  let index = line.indexOf("`");
+  while (index !== -1) {
+    const length = backtickRun(line, index);
+    let close = line.indexOf("`", index + length);
+    while (close !== -1 && backtickRun(line, close) !== length)
+      close = line.indexOf("`", close + backtickRun(line, close));
+    if (close === -1) {
+      index = line.indexOf("`", index + length);
+      continue;
+    }
+    output += rewrite(line.slice(last, index)) + line.slice(index, close + length);
+    last = close + length;
+    index = line.indexOf("`", last);
+  }
+  return output + rewrite(line.slice(last));
+}
+function absoluteMarkdownLinks(markdown, siteUrl) {
+  const origin = new URL(siteUrl).origin;
+  let fence;
+  return markdown.split(/(?<=\n)/).map((line) => {
+    if (fence) {
+      if (closesFence(line, fence))
+        fence = void 0;
+      return line;
+    }
+    const opening = line.match(RE_FENCE);
+    if (opening) {
+      fence = opening[1];
+      return line;
+    }
+    return rewriteOutsideCodeSpans(line, (text) => text.replace(RE_REFERENCE_ROOT_LINK, `$1${origin}/`).replace(RE_INLINE_ROOT_LINK, `]($1${origin}/`));
+  }).join("");
+}
+function absoluteSiteUrl(path, siteUrl) {
+  return siteUrl ? new URL(path, new URL(siteUrl).origin).href : path;
+}
+
 const RE_ABSOLUTE_URL = /^(?:[a-z][a-z\d+.-]*:|\/\/)/i;
 function resolveMarkdownRedirect(location, { pageUrl, origins = [] }) {
   const page = new URL(pageUrl);
@@ -11165,12 +11444,16 @@ function resolveMarkdownRedirect(location, { pageUrl, origins = [] }) {
   };
 }
 
+function escapeMarkdownHtml(value) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
 const SITEMAP_MD_ROUTE = "/sitemap.md";
 function topSegment(route) {
   return route.split("/").filter(Boolean)[0] || "";
 }
 function escapeTitle(title) {
-  return title.replaceAll("[", "\\[").replaceAll("]", "\\]");
+  return escapeMarkdownHtml(title).replaceAll("[", "\\[").replaceAll("]", "\\]");
 }
 function formatEntry(entry, resolveHref) {
   const title = escapeTitle(entry.title?.trim() || entry.route);
@@ -11200,7 +11483,7 @@ function buildSitemapMd(entries, options = {}) {
       return 1;
     return a.localeCompare(b);
   });
-  const parts = [`# ${options.siteName || "Site"} Sitemap`, "", "All pages in Markdown format."];
+  const parts = [`# ${escapeMarkdownHtml(options.siteName || "Site")} Sitemap`, "", "All pages in Markdown format."];
   for (const key of keys) {
     parts.push("", `## ${key || "Root"}`);
     for (const entry of groups.get(key))
@@ -11240,7 +11523,7 @@ function notFoundMarkdown(ctx, canonicalUrl, build) {
     ``,
     `- [Sitemap](${resolveUrl("/sitemap.xml")})`,
     `- [llms.txt](${resolveUrl("/llms.txt")})`,
-    `- [llms-full.txt](${resolveUrl("/llms-full.txt")})`,
+    ...config.llmsFullTxt === false ? [] : [`- [llms-full.txt](${resolveUrl("/llms-full.txt")})`],
     ``
   ].join("\n");
   const i18n = config.i18n;
@@ -11259,7 +11542,7 @@ function notFoundMarkdown(ctx, canonicalUrl, build) {
   return `${frontmatter}
 ${body}`;
 }
-const _2Ho153 = defineEventHandler$1(async (event) => {
+const _WkWZEk = defineEventHandler$1(async (event) => {
   const runtimeConfig = useRuntimeConfig$1(event);
   if (isSitemapMdRequest(event.path, runtimeConfig.app.baseURL, runtimeConfig["nuxt-ai-ready"]?.sitemapMd !== false))
     return;
@@ -11271,7 +11554,12 @@ const _2Ho153 = defineEventHandler$1(async (event) => {
   const ctx = buildNegotiationContext(event, decision.path);
   const { path, config, resolvePath, resolveUrl, routeContext } = ctx;
   const canonicalUrl = resolveUrl(path);
-  const finalizeMarkdown = (markdown) => config.sitemapMd === false ? markdown : appendSitemapSection(markdown, resolvePath(SITEMAP_MD_ROUTE));
+  const finalizeMarkdown = (markdown) => {
+    const withSitemap = config.sitemapMd === false ? markdown : appendSitemapSection(markdown, resolvePath(SITEMAP_MD_ROUTE));
+    const llmsTxt = config.llmsTxt;
+    const withDirective = llmsTxt?.directive?.markdown === false ? withSitemap : insertLlmsTxtDirective(withSitemap, resolveUrl("/llms.txt"));
+    return absoluteMarkdownLinks(withDirective, canonicalUrl);
+  };
   const [
     { tryGetContentMarkdown },
     { fetchRawWithEvent },
@@ -11395,7 +11683,7 @@ ${contentPage.markdown}`);
   return finalizeMarkdown(result.markdown);
 });
 
-const _eOnc1H = eventHandler(async (event) => {
+const _Jp3GX8 = eventHandler(async (event) => {
   const collection = getRouterParam(event, "collection") || event.path?.split("/")?.[2] || "";
   setHeader(event, "Content-Type", "text/plain");
   const data = await useStorage().getItem(`build:content:database.compressed.mjs`) || "";
@@ -11406,10 +11694,10 @@ const _eOnc1H = eventHandler(async (event) => {
       return content.substring(lineStart.length, content.length - 1);
     }
   }
-  return await import('file:///Users/ccci/Project/ReactPortfolio/.nuxt/content/database.compressed.mjs').then((m) => m[collection]);
+  return await import('file:///Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/content/database.compressed.mjs').then((m) => m[collection]);
 });
 
-const _cChgd7 = defineEventHandler$1(() => ({
+const _oEMyJR = defineEventHandler$1(() => ({
   installedModuleSlugs: setup.installedModuleSlugs,
   disabledModuleSlugs: setup.disabledModuleSlugs,
   baseURL: setup.baseURL,
@@ -11417,7 +11705,7 @@ const _cChgd7 = defineEventHandler$1(() => ({
   context: setup.context
 }));
 
-//#region ../nuxt/src/app/island-hash.ts
+// ../nuxt/src/app/island-hash.ts
 /**
 * Strip Vue scoped-style attributes (`data-v-*`) from island props before hashing
 * or rendering. Scoped-id markers leak in from parent components and are not part
@@ -11462,7 +11750,7 @@ function parseSerializedProps$1(serializedProps) {
 	}
 }
 
-//#region src/runtime/utils/island-props.ts
+// src/runtime/utils/island-props.ts
 /** @internal */
 const MAX_ISLAND_BODY_BYTES = 65536;
 /**
@@ -11497,7 +11785,45 @@ function exceedsMaxBytes(raw, maxBytes = MAX_ISLAND_BODY_BYTES) {
 	return Buffer.byteLength(raw, "utf8") > maxBytes;
 }
 
-//#region ../nuxt/src/app/internal/tracing.ts
+// src/runtime/utils/island-head.ts
+const TAG_CONFIG_KEYS = [
+	"key",
+	"tagPosition",
+	"tagPriority"
+];
+/**
+* Apply the `useHeadSafe` allowlist to resolved head input, returning input that renders
+* the same tags when pushed without it.
+*/
+function toSafeHeadInput(input) {
+	const { titleTemplate, ...rest } = input;
+	const head = createHead({
+		disableDefaults: true,
+		plugins: [SafeInputPlugin]
+	});
+	head.push(rest, { _safe: true });
+	const safe = {};
+	if (typeof titleTemplate === "string" || titleTemplate === null) safe.titleTemplate = titleTemplate;
+	for (const tag of resolveTags(head)) {
+		if (tag.tag === "title") {
+			safe.title = tag.textContent;
+			continue;
+		}
+		const value = toInputValue(tag);
+		if (tag.tag === "htmlAttrs" || tag.tag === "bodyAttrs" || tag.tag === "base") safe[tag.tag] = value;
+		else (safe[tag.tag] ||= []).push(value);
+	}
+	return safe;
+}
+function toInputValue(tag) {
+	const value = {};
+	for (const [name, prop] of Object.entries(tag.props)) value[name] = prop instanceof Set ? [...prop].join(" ") : prop instanceof Map ? [...prop].map(([property, propertyValue]) => `${property}:${propertyValue}`).join(";") : prop;
+	if (tag.textContent !== void 0) value.textContent = tag.textContent;
+	for (const key of TAG_CONFIG_KEYS) if (tag[key] !== void 0) value[key] = tag[key];
+	return value;
+}
+
+// ../nuxt/src/app/internal/tracing.ts
 let _channels$1;
 function getChannel$1(name) {
 	_channels$1 ??= {};
@@ -11513,7 +11839,7 @@ function traceAsync$1(name, context, fn) {
 	return channel.tracePromise(() => Promise.resolve(fn()), context);
 }
 
-//#region src/runtime/utils/response.ts
+// src/runtime/utils/response.ts
 /**
 * The response the renderer builds, keeping its body as the renderer produced it.
 *
@@ -11533,8 +11859,58 @@ var NodeRenderResponse = class {
 		this.headers = init?.headers instanceof Headers ? init.headers : new Headers(init?.headers);
 	}
 };
+/**
+* The headers of a node response as the record nitro's `render:response` hook passes,
+* read from and written to the node response itself. `set-cookie` is omitted, as it
+* cannot be represented as one string. The proxy target is kept as a snapshot for
+* `util.inspect`, which bypasses the traps.
+*/
+function createResponseHeaderRecord(res) {
+	const read = (name) => {
+		if (typeof name !== "string" || name.toLowerCase() === "set-cookie") return;
+		const value = res.getHeader(name);
+		if (value === void 0) return;
+		return Array.isArray(value) ? value.join(", ") : String(value);
+	};
+	const snapshot = {};
+	const sync = (name) => {
+		const value = read(name);
+		if (value === void 0) delete snapshot[name.toLowerCase()];
+		else snapshot[name.toLowerCase()] = value;
+	};
+	for (const name of res.getHeaderNames()) sync(name);
+	return new Proxy(snapshot, {
+		get: (_, name) => read(name),
+		has: (_, name) => read(name) !== void 0,
+		set(_, name, value) {
+			if (typeof name === "string") {
+				if (value === void 0 || value === null) res.removeHeader(name);
+				else res.setHeader(name, value);
+				sync(name);
+			}
+			return true;
+		},
+		deleteProperty(_, name) {
+			if (typeof name === "string") {
+				res.removeHeader(name);
+				sync(name);
+			}
+			return true;
+		},
+		ownKeys: () => res.getHeaderNames().filter((name) => name !== "set-cookie"),
+		getOwnPropertyDescriptor(_, name) {
+			const value = read(name);
+			return value === void 0 ? void 0 : {
+				value,
+				writable: true,
+				enumerable: true,
+				configurable: true
+			};
+		}
+	});
+}
 
-//#region src/runtime/server/renderer/cache.ts
+// src/runtime/server/renderer/cache.ts
 function lazyCachedFunction(fn) {
 	let res = null;
 	return () => {
@@ -11546,7 +11922,7 @@ function lazyCachedFunction(fn) {
 	};
 }
 
-//#region src/runtime/server/renderer/diagnostics.ts
+// src/runtime/server/renderer/diagnostics.ts
 const ansi = (open, close) => (s) => `\x1B[${open}m${s}\x1B[${close}m`;
 const colors = {
 	red: ansi(31, 39),
@@ -11597,7 +11973,7 @@ const rendererDiagnostics = /* #__PURE__ */ defineDiagnostics({
 	}
 });
 
-//#region src/runtime/server/renderer/build-files.ts
+// src/runtime/server/renderer/build-files.ts
 const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
 const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
 const getServerEntry = () => Promise.resolve().then(function () { return entry; }).then((r) => r.default || r);
@@ -11661,7 +12037,7 @@ function renderSPATemplate() {
 }
 const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
 
-//#region src/runtime/server/renderer/instance.ts
+// src/runtime/server/renderer/instance.ts
 /**
 * Create the renderer state for a set of options.
 *
@@ -11676,7 +12052,7 @@ function createRendererInstance(options) {
 	};
 }
 
-//#region src/runtime/server/renderer/runtime.ts
+// src/runtime/server/renderer/runtime.ts
 /** The event to pass to application code and to the render hooks. */
 function appEvent(event) {
 	return event["~app"] ?? event;
@@ -11685,7 +12061,7 @@ function getRequestState(event) {
 	return event.context.nuxt;
 }
 
-//#region src/runtime/utils/renderer/options.ts
+// src/runtime/utils/renderer/options.ts
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
 /** The capabilities a nitropack v2 host provides to the Nuxt renderer. */
@@ -11715,7 +12091,7 @@ rendererOptions.onDevError = (error, event, options) => Promise.resolve().then(f
 */
 const rendererInstance = createRendererInstance(rendererOptions);
 
-//#region src/runtime/server/renderer/url.ts
+// src/runtime/server/renderer/url.ts
 /**
 * The fragment of a request URL, avoiding the lazy URL parse that reading `hash` triggers when
 * there is none. A fragment is never sent over the wire, so it can only appear on a URL the
@@ -11757,7 +12133,7 @@ function withRequestPath(url, path) {
 	return target;
 }
 
-//#region src/runtime/server/renderer/app.ts
+// src/runtime/server/renderer/app.ts
 new Set(NUXT_PRERENDER_NO_SSR_ROUTES);
 function createServerHead() {
 	return createHead(unheadOptions);
@@ -11797,7 +12173,7 @@ function setSSRError(ssrContext, error) {
 	ssrContext.url = error.url;
 }
 
-//#region src/runtime/server/renderer/inline-styles.ts
+// src/runtime/server/renderer/inline-styles.ts
 async function renderInlineStyles(usedModules) {
 	const styleMap = await getSSRStyles();
 	const inlinedStyles = /* @__PURE__ */ new Set();
@@ -11807,7 +12183,7 @@ async function renderInlineStyles(usedModules) {
 	return Array.from(inlinedStyles).map((style) => ({ innerHTML: style }));
 }
 
-//#region src/runtime/server/renderer/islands.ts
+// src/runtime/server/renderer/islands.ts
 const ROOT_NODE_REGEX = new RegExp(`^<${appRootTag}[^>]*>([\\s\\S]*)<\\/${appRootTag}>$`);
 /**
 * remove the root node from the html body
@@ -11904,7 +12280,7 @@ function replaceIslandTeleports(ssrContext, html) {
 	return stitch(html);
 }
 
-//#region src/runtime/server/renderer/dev-css.ts
+// src/runtime/server/renderer/dev-css.ts
 const QUERY_RE = /\?.*$/;
 const LEADING_RELATIVE_RE = /^(?:\.\.?\/)+/;
 /**
@@ -11923,7 +12299,7 @@ function isStyleOfModule(file, modules) {
 	return false;
 }
 
-//#region src/runtime/handlers/island.ts
+// src/runtime/handlers/island.ts
 const ISLAND_SUFFIX_RE = /\.json(?:\?.*)?$/;
 const handler$1 = defineEventHandler$1(async (event) => {
 	setResponseHeaders(event, {
@@ -11984,10 +12360,13 @@ async function renderIsland(event) {
 		if (link.length) ssrContext.head.push({ link });
 	}
 	const islandHead = {};
-	for (const entry of ssrContext.head.entries.values()) for (const [key, value] of Object.entries(walkResolver(entry.input, VueResolver))) {
-		const currentValue = islandHead[key];
-		if (Array.isArray(currentValue)) currentValue.push(...value);
-		else islandHead[key] = value;
+	for (const entry of ssrContext.head.entries.values()) {
+		const input = walkResolver(entry.input, VueResolver);
+		for (const [key, value] of Object.entries(entry.options?._safe ? toSafeHeadInput(input) : input)) {
+			const currentValue = islandHead[key];
+			if (Array.isArray(currentValue)) currentValue.push(...value);
+			else islandHead[key] = value;
+		}
 	}
 	const islandResponse = {
 		id: islandContext.id,
@@ -12750,7 +13129,7 @@ const require$$0$1 = /*@__PURE__*/getDefaultExportFromNamespaceIfNotNamed(proces
 
 var directives$2 = {};
 
-var identity$y = {};
+var identity$x = {};
 
 const ALIAS = Symbol.for('yaml.alias');
 const DOC = Symbol.for('yaml.document');
@@ -12787,43 +13166,22 @@ function isNode(node) {
 }
 const hasAnchor = (node) => (isScalar$2(node) || isCollection$1(node)) && !!node.anchor;
 
-var ALIAS_1 = identity$y.ALIAS = ALIAS;
-var DOC_1 = identity$y.DOC = DOC;
-var MAP_1 = identity$y.MAP = MAP;
-var NODE_TYPE_1 = identity$y.NODE_TYPE = NODE_TYPE;
-var PAIR_1 = identity$y.PAIR = PAIR;
-var SCALAR_1 = identity$y.SCALAR = SCALAR$1;
-var SEQ_1 = identity$y.SEQ = SEQ;
-var hasAnchor_1 = identity$y.hasAnchor = hasAnchor;
-var isAlias_1 = identity$y.isAlias = isAlias;
-var isCollection_1 = identity$y.isCollection = isCollection$1;
-var isDocument_1 = identity$y.isDocument = isDocument;
-var isMap_1 = identity$y.isMap = isMap$1;
-var isNode_1 = identity$y.isNode = isNode;
-var isPair_1 = identity$y.isPair = isPair;
-var isScalar_1 = identity$y.isScalar = isScalar$2;
-var isSeq_1 = identity$y.isSeq = isSeq;
-
-const identity$x = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  ALIAS: ALIAS_1,
-  DOC: DOC_1,
-  MAP: MAP_1,
-  NODE_TYPE: NODE_TYPE_1,
-  PAIR: PAIR_1,
-  SCALAR: SCALAR_1,
-  SEQ: SEQ_1,
-  default: identity$y,
-  hasAnchor: hasAnchor_1,
-  isAlias: isAlias_1,
-  isCollection: isCollection_1,
-  isDocument: isDocument_1,
-  isMap: isMap_1,
-  isNode: isNode_1,
-  isPair: isPair_1,
-  isScalar: isScalar_1,
-  isSeq: isSeq_1
-}, [identity$y]);
+identity$x.ALIAS = ALIAS;
+identity$x.DOC = DOC;
+identity$x.MAP = MAP;
+identity$x.NODE_TYPE = NODE_TYPE;
+identity$x.PAIR = PAIR;
+identity$x.SCALAR = SCALAR$1;
+identity$x.SEQ = SEQ;
+identity$x.hasAnchor = hasAnchor;
+identity$x.isAlias = isAlias;
+identity$x.isCollection = isCollection$1;
+identity$x.isDocument = isDocument;
+identity$x.isMap = isMap$1;
+identity$x.isNode = isNode;
+identity$x.isPair = isPair;
+identity$x.isScalar = isScalar$2;
+identity$x.isSeq = isSeq;
 
 var visit$6 = {};
 
@@ -13243,7 +13601,7 @@ var Document$4 = {};
 
 var Alias$4 = {};
 
-var anchors$4 = {};
+var anchors$3 = {};
 
 var identity$u = identity$x;
 var visit$3 = visit$6;
@@ -13315,19 +13673,10 @@ function createNodeAnchors(doc, prefix) {
     };
 }
 
-var anchorIsValid_1 = anchors$4.anchorIsValid = anchorIsValid;
-var anchorNames_1 = anchors$4.anchorNames = anchorNames;
-var createNodeAnchors_1 = anchors$4.createNodeAnchors = createNodeAnchors;
-var findNewAnchor_1 = anchors$4.findNewAnchor = findNewAnchor;
-
-const anchors$3 = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  anchorIsValid: anchorIsValid_1,
-  anchorNames: anchorNames_1,
-  createNodeAnchors: createNodeAnchors_1,
-  default: anchors$4,
-  findNewAnchor: findNewAnchor_1
-}, [anchors$4]);
+anchors$3.anchorIsValid = anchorIsValid;
+anchors$3.anchorNames = anchorNames;
+anchors$3.createNodeAnchors = createNodeAnchors;
+anchors$3.findNewAnchor = findNewAnchor;
 
 var Node$3 = {};
 
@@ -13389,7 +13738,7 @@ function applyReviver$2(reviver, obj, key, val) {
 
 applyReviver$3.applyReviver = applyReviver$2;
 
-var toJS$9 = {};
+var toJS$8 = {};
 
 var identity$t = identity$x;
 
@@ -13427,13 +13776,7 @@ function toJS$7(value, arg, ctx) {
     return value;
 }
 
-var toJS_2 = toJS$9.toJS = toJS$7;
-
-const toJS$8 = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  default: toJS$9,
-  toJS: toJS_2
-}, [toJS$9]);
+toJS$8.toJS = toJS$7;
 
 var applyReviver$1 = applyReviver$3;
 var identity$s = identity$x;
@@ -13604,7 +13947,7 @@ var Node$1 = Node$3;
 var toJS$4 = toJS$8;
 
 const isScalarValue = (value) => !value || (typeof value !== 'function' && typeof value !== 'object');
-let Scalar$i = class Scalar extends Node$1.NodeBase {
+let Scalar$j = class Scalar extends Node$1.NodeBase {
     constructor(value) {
         super(identity$q.SCALAR);
         this.value = value;
@@ -13616,25 +13959,18 @@ let Scalar$i = class Scalar extends Node$1.NodeBase {
         return String(this.value);
     }
 };
-Scalar$i.BLOCK_FOLDED = 'BLOCK_FOLDED';
-Scalar$i.BLOCK_LITERAL = 'BLOCK_LITERAL';
-Scalar$i.PLAIN = 'PLAIN';
-Scalar$i.QUOTE_DOUBLE = 'QUOTE_DOUBLE';
-Scalar$i.QUOTE_SINGLE = 'QUOTE_SINGLE';
+Scalar$j.BLOCK_FOLDED = 'BLOCK_FOLDED';
+Scalar$j.BLOCK_LITERAL = 'BLOCK_LITERAL';
+Scalar$j.PLAIN = 'PLAIN';
+Scalar$j.QUOTE_DOUBLE = 'QUOTE_DOUBLE';
+Scalar$j.QUOTE_SINGLE = 'QUOTE_SINGLE';
 
-var Scalar_2 = Scalar$k.Scalar = Scalar$i;
-var isScalarValue_1 = Scalar$k.isScalarValue = isScalarValue;
-
-const Scalar$j = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  Scalar: Scalar_2,
-  default: Scalar$k,
-  isScalarValue: isScalarValue_1
-}, [Scalar$k]);
+Scalar$k.Scalar = Scalar$j;
+Scalar$k.isScalarValue = isScalarValue;
 
 var Alias$2 = Alias$4;
 var identity$p = identity$x;
-var Scalar$h = Scalar$j;
+var Scalar$i = Scalar$k;
 
 const defaultTagPrefix = 'tag:yaml.org,2002:';
 function findTagObject(value, tagName, tags) {
@@ -13689,7 +14025,7 @@ function createNode$4(value, tagName, ctx) {
             value = value.toJSON();
         }
         if (!value || typeof value !== 'object') {
-            const node = new Scalar$h.Scalar(value);
+            const node = new Scalar$i.Scalar(value);
             if (ref)
                 ref.node = node;
             return node;
@@ -13709,7 +14045,7 @@ function createNode$4(value, tagName, ctx) {
         ? tagObj.createNode(ctx.schema, value, ctx)
         : typeof tagObj?.nodeClass?.from === 'function'
             ? tagObj.nodeClass.from(ctx.schema, value, ctx)
-            : new Scalar$h.Scalar(value);
+            : new Scalar$i.Scalar(value);
     if (tagName)
         node.tag = tagName;
     else if (!tagObj.default)
@@ -13875,7 +14211,7 @@ var Pair$8 = {};
 
 var stringifyPair$2 = {};
 
-var stringify$7 = {};
+var stringify$8 = {};
 
 var stringifyComment$5 = {};
 
@@ -14056,7 +14392,7 @@ foldFlowLines$2.FOLD_FLOW = FOLD_FLOW;
 foldFlowLines$2.FOLD_QUOTED = FOLD_QUOTED;
 foldFlowLines$2.foldFlowLines = foldFlowLines$1;
 
-var Scalar$g = Scalar$j;
+var Scalar$h = Scalar$k;
 var foldFlowLines = foldFlowLines$2;
 
 const getFoldOptions = (ctx, isBlock) => ({
@@ -14224,9 +14560,9 @@ function blockString({ comment, type, value }, ctx, onComment, onChompKeep) {
         (ctx.forceBlockIndent || containsDocumentMarker(value) ? '  ' : '');
     const literal = blockQuote === 'literal'
         ? true
-        : blockQuote === 'folded' || type === Scalar$g.Scalar.BLOCK_FOLDED
+        : blockQuote === 'folded' || type === Scalar$h.Scalar.BLOCK_FOLDED
             ? false
-            : type === Scalar$g.Scalar.BLOCK_LITERAL
+            : type === Scalar$h.Scalar.BLOCK_LITERAL
                 ? true
                 : !lineLengthOverLimit(value, lineWidth, indent.length);
     if (!value)
@@ -14292,7 +14628,7 @@ function blockString({ comment, type, value }, ctx, onComment, onChompKeep) {
             .replace(/\n+/g, `$&${indent}`);
         let literalFallback = false;
         const foldOptions = getFoldOptions(ctx, true);
-        if (blockQuote !== 'folded' && type !== Scalar$g.Scalar.BLOCK_FOLDED) {
+        if (blockQuote !== 'folded' && type !== Scalar$h.Scalar.BLOCK_FOLDED) {
             foldOptions.onOverflow = () => {
                 literalFallback = true;
             };
@@ -14324,7 +14660,7 @@ function plainString(item, ctx, onComment, onChompKeep) {
     }
     if (!implicitKey &&
         !inFlow &&
-        type !== Scalar$g.Scalar.PLAIN &&
+        type !== Scalar$h.Scalar.PLAIN &&
         value.includes('\n')) {
         // Where allowed & type not set explicitly, prefer block style for multiline strings
         return blockString(item, ctx, onComment, onChompKeep);
@@ -14358,23 +14694,23 @@ function stringifyString$4(item, ctx, onComment, onChompKeep) {
         ? item
         : Object.assign({}, item, { value: String(item.value) });
     let { type } = item;
-    if (type !== Scalar$g.Scalar.QUOTE_DOUBLE) {
+    if (type !== Scalar$h.Scalar.QUOTE_DOUBLE) {
         // force double quotes on control characters & unpaired surrogates
         if (/[\x00-\x08\x0b-\x1f\x7f-\x9f\u{D800}-\u{DFFF}]/u.test(ss.value))
-            type = Scalar$g.Scalar.QUOTE_DOUBLE;
+            type = Scalar$h.Scalar.QUOTE_DOUBLE;
     }
     const _stringify = (_type) => {
         switch (_type) {
-            case Scalar$g.Scalar.BLOCK_FOLDED:
-            case Scalar$g.Scalar.BLOCK_LITERAL:
+            case Scalar$h.Scalar.BLOCK_FOLDED:
+            case Scalar$h.Scalar.BLOCK_LITERAL:
                 return implicitKey || inFlow
                     ? quotedString(ss.value, ctx) // blocks are not valid inside flow containers
                     : blockString(ss, ctx, onComment, onChompKeep);
-            case Scalar$g.Scalar.QUOTE_DOUBLE:
+            case Scalar$h.Scalar.QUOTE_DOUBLE:
                 return doubleQuotedString(ss.value, ctx);
-            case Scalar$g.Scalar.QUOTE_SINGLE:
+            case Scalar$h.Scalar.QUOTE_SINGLE:
                 return singleQuotedString(ss.value, ctx);
-            case Scalar$g.Scalar.PLAIN:
+            case Scalar$h.Scalar.PLAIN:
                 return plainString(ss, ctx, onComment, onChompKeep);
             default:
                 return null;
@@ -14484,7 +14820,7 @@ function stringifyProps(node, tagObj, { anchors: anchors$1$1, doc }) {
         props.push(doc.directives.tagString(tag));
     return props.join(' ');
 }
-function stringify$6(item, ctx, onComment, onChompKeep) {
+function stringify$7(item, ctx, onComment, onChompKeep) {
     if (identity$n.isPair(item))
         return item.toString(ctx, onComment, onChompKeep);
     if (identity$n.isAlias(item)) {
@@ -14521,12 +14857,12 @@ function stringify$6(item, ctx, onComment, onChompKeep) {
         : `${props}\n${ctx.indent}${str}`;
 }
 
-stringify$7.createStringifyContext = createStringifyContext;
-stringify$7.stringify = stringify$6;
+stringify$8.createStringifyContext = createStringifyContext;
+stringify$8.stringify = stringify$7;
 
 var identity$m = identity$x;
-var Scalar$f = Scalar$j;
-var stringify$5 = stringify$7;
+var Scalar$g = Scalar$k;
+var stringify$6 = stringify$8;
 var stringifyComment$2 = stringifyComment$5;
 
 function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
@@ -14546,7 +14882,7 @@ function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
             (keyComment && value == null && !ctx.inFlow) ||
             identity$m.isCollection(key) ||
             (identity$m.isScalar(key)
-                ? key.type === Scalar$f.Scalar.BLOCK_FOLDED || key.type === Scalar$f.Scalar.BLOCK_LITERAL
+                ? key.type === Scalar$g.Scalar.BLOCK_FOLDED || key.type === Scalar$g.Scalar.BLOCK_LITERAL
                 : typeof key === 'object'));
     ctx = Object.assign({}, ctx, {
         allNullValues: false,
@@ -14555,7 +14891,7 @@ function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
     });
     let keyCommentDone = false;
     let chompKeep = false;
-    let str = stringify$5.stringify(key, ctx, () => (keyCommentDone = true), () => (chompKeep = true));
+    let str = stringify$6.stringify(key, ctx, () => (keyCommentDone = true), () => (chompKeep = true));
     if (!explicitKey && !ctx.inFlow && str.length > 1024) {
         if (simpleKeys)
             throw new Error('With simple keys, single line scalar must not span more than 1024 characters');
@@ -14618,7 +14954,7 @@ function stringifyPair$1({ key, value }, ctx, onComment, onChompKeep) {
         ctx.indent = ctx.indent.substring(2);
     }
     let valueCommentDone = false;
-    const valueStr = stringify$5.stringify(value, ctx, () => (valueCommentDone = true), () => (chompKeep = true));
+    const valueStr = stringify$6.stringify(value, ctx, () => (valueCommentDone = true), () => (chompKeep = true));
     let ws = ' ';
     if (keyComment || vsb || vcb) {
         ws = vsb ? '\n' : '';
@@ -14700,7 +15036,7 @@ log$2.warn = warn;
 var merge$4 = {};
 
 var identity$l = identity$x;
-var Scalar$e = Scalar$j;
+var Scalar$f = Scalar$k;
 
 // If the value associated with a merge key is a single mapping node, each of
 // its key/value pairs is inserted into the current mapping, unless the key
@@ -14716,14 +15052,14 @@ const merge$3 = {
     default: 'key',
     tag: 'tag:yaml.org,2002:merge',
     test: /^<<$/,
-    resolve: () => Object.assign(new Scalar$e.Scalar(Symbol(MERGE_KEY)), {
+    resolve: () => Object.assign(new Scalar$f.Scalar(Symbol(MERGE_KEY)), {
         addToJSMap: addMergeToJSMap
     }),
     stringify: () => MERGE_KEY
 };
 const isMergeKey = (ctx, key) => (merge$3.identify(key) ||
     (identity$l.isScalar(key) &&
-        (!key.type || key.type === Scalar$e.Scalar.PLAIN) &&
+        (!key.type || key.type === Scalar$f.Scalar.PLAIN) &&
         merge$3.identify(key.value))) &&
     ctx?.doc.schema.tags.some(tag => tag.tag === merge$3.tag && tag.default);
 function addMergeToJSMap(ctx, map, value) {
@@ -14771,7 +15107,7 @@ merge$4.merge = merge$3;
 
 var log$1 = log$2;
 var merge$2 = merge$4;
-var stringify$4 = stringify$7;
+var stringify$5 = stringify$8;
 var identity$k = identity$x;
 var toJS$3 = toJS$8;
 
@@ -14812,7 +15148,7 @@ function stringifyKey(key, jsKey, ctx) {
     if (typeof jsKey !== 'object')
         return String(jsKey);
     if (identity$k.isNode(key) && ctx?.doc) {
-        const strCtx = stringify$4.createStringifyContext(ctx.doc, {});
+        const strCtx = stringify$5.createStringifyContext(ctx.doc, {});
         strCtx.anchors = new Set();
         for (const node of ctx.anchors.keys())
             strCtx.anchors.add(node.anchor);
@@ -14841,9 +15177,9 @@ var identity$j = identity$x;
 function createPair(key, value, ctx) {
     const k = createNode$2.createNode(key, undefined, ctx);
     const v = createNode$2.createNode(value, undefined, ctx);
-    return new Pair$6(k, v);
+    return new Pair$7(k, v);
 }
-let Pair$6 = class Pair {
+let Pair$7 = class Pair {
     constructor(key, value = null) {
         Object.defineProperty(this, identity$j.NODE_TYPE, { value: identity$j.PAIR });
         this.key = key;
@@ -14868,24 +15204,19 @@ let Pair$6 = class Pair {
     }
 };
 
-var Pair_2 = Pair$8.Pair = Pair$6;
-var createPair_1 = Pair$8.createPair = createPair;
-
-const Pair$7 = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  Pair: Pair_2,
-  createPair: createPair_1,
-  default: Pair$8
-}, [Pair$8]);
+Pair$8.Pair = Pair$7;
+Pair$8.createPair = createPair;
 
 var Schema$2 = {};
+
+var map$6 = {};
 
 var YAMLMap$8 = {};
 
 var stringifyCollection$3 = {};
 
 var identity$i = identity$x;
-var stringify$3 = stringify$7;
+var stringify$4 = stringify$8;
 var stringifyComment$1 = stringifyComment$5;
 
 function stringifyCollection$2(collection, ctx, options) {
@@ -14917,7 +15248,7 @@ function stringifyBlockCollection({ comment, items }, ctx, { blockItemPrefix, fl
             }
         }
         chompKeep = false;
-        let str = stringify$3.stringify(item, itemCtx, () => (comment = null), () => (chompKeep = true));
+        let str = stringify$4.stringify(item, itemCtx, () => (comment = null), () => (chompKeep = true));
         if (comment)
             str += stringifyComment$1.lineComment(str, itemIndent, commentString(comment));
         if (chompKeep && comment)
@@ -14987,7 +15318,7 @@ function stringifyFlowCollection({ items }, ctx, { flowChars, itemIndent }) {
         }
         if (comment)
             reqNewline = true;
-        let str = stringify$3.stringify(item, itemCtx, () => (comment = null));
+        let str = stringify$4.stringify(item, itemCtx, () => (comment = null));
         reqNewline || (reqNewline = lines.length > linesAtValue || str.includes('\n'));
         if (i < items.length - 1) {
             str += ',';
@@ -15042,8 +15373,8 @@ var stringifyCollection$1 = stringifyCollection$3;
 var addPairToJSMap = addPairToJSMap$3;
 var Collection$2 = Collection$4;
 var identity$h = identity$x;
-var Pair$5 = Pair$7;
-var Scalar$d = Scalar$j;
+var Pair$6 = Pair$8;
+var Scalar$e = Scalar$k;
 
 function findPair(items, key) {
     const k = identity$h.isScalar(key) ? key.value : key;
@@ -15057,7 +15388,7 @@ function findPair(items, key) {
     }
     return undefined;
 }
-let YAMLMap$6 = class YAMLMap extends Collection$2.Collection {
+let YAMLMap$7 = class YAMLMap extends Collection$2.Collection {
     static get tagName() {
         return 'tag:yaml.org,2002:map';
     }
@@ -15078,7 +15409,7 @@ let YAMLMap$6 = class YAMLMap extends Collection$2.Collection {
             else if (Array.isArray(replacer) && !replacer.includes(key))
                 return;
             if (value !== undefined || keepUndefined)
-                map.items.push(Pair$5.createPair(key, value, ctx));
+                map.items.push(Pair$6.createPair(key, value, ctx));
         };
         if (obj instanceof Map) {
             for (const [key, value] of obj)
@@ -15105,17 +15436,17 @@ let YAMLMap$6 = class YAMLMap extends Collection$2.Collection {
             _pair = pair;
         else if (!pair || typeof pair !== 'object' || !('key' in pair)) {
             // In TypeScript, this never happens.
-            _pair = new Pair$5.Pair(pair, pair?.value);
+            _pair = new Pair$6.Pair(pair, pair?.value);
         }
         else
-            _pair = new Pair$5.Pair(pair.key, pair.value);
+            _pair = new Pair$6.Pair(pair.key, pair.value);
         const prev = findPair(this.items, _pair.key);
         const sortEntries = this.schema?.sortMapEntries;
         if (prev) {
             if (!overwrite)
                 throw new Error(`Key ${_pair.key} already set`);
             // For scalars, keep the old node & its comments and anchors
-            if (identity$h.isScalar(prev.value) && Scalar$d.isScalarValue(_pair.value))
+            if (identity$h.isScalar(prev.value) && Scalar$e.isScalarValue(_pair.value))
                 prev.value.value = _pair.value;
             else
                 prev.value = _pair.value;
@@ -15147,7 +15478,7 @@ let YAMLMap$6 = class YAMLMap extends Collection$2.Collection {
         return !!findPair(this.items, key);
     }
     set(key, value) {
-        this.add(new Pair$5.Pair(key, value), true);
+        this.add(new Pair$6.Pair(key, value), true);
     }
     /**
      * @param ctx - Conversion context, originally set in Document#toJS()
@@ -15181,44 +15512,36 @@ let YAMLMap$6 = class YAMLMap extends Collection$2.Collection {
     }
 };
 
-var YAMLMap_2 = YAMLMap$8.YAMLMap = YAMLMap$6;
-var findPair_1 = YAMLMap$8.findPair = findPair;
-
-const YAMLMap$7 = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  YAMLMap: YAMLMap_2,
-  default: YAMLMap$8,
-  findPair: findPair_1
-}, [YAMLMap$8]);
+YAMLMap$8.YAMLMap = YAMLMap$7;
+YAMLMap$8.findPair = findPair;
 
 var identity$g = identity$x;
-var YAMLMap$5 = YAMLMap$7;
+var YAMLMap$6 = YAMLMap$8;
 
 const map$5 = {
     collection: 'map',
     default: true,
-    nodeClass: YAMLMap$5.YAMLMap,
+    nodeClass: YAMLMap$6.YAMLMap,
     tag: 'tag:yaml.org,2002:map',
     resolve(map, onError) {
         if (!identity$g.isMap(map))
             onError('Expected a mapping for this tag');
         return map;
     },
-    createNode: (schema, obj, ctx) => YAMLMap$5.YAMLMap.from(schema, obj, ctx)
+    createNode: (schema, obj, ctx) => YAMLMap$6.YAMLMap.from(schema, obj, ctx)
 };
 
-var map_2 = map$5;
+map$6.map = map$5;
 
-const map$6 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  map: map_2
-}, Symbol.toStringTag, { value: 'Module' }));
+var seq$6 = {};
+
+var YAMLSeq$7 = {};
 
 var createNode$1 = createNode$5;
 var stringifyCollection = stringifyCollection$3;
 var Collection$1 = Collection$4;
 var identity$f = identity$x;
-var Scalar$c = Scalar$j;
+var Scalar$d = Scalar$k;
 var toJS$2 = toJS$8;
 
 let YAMLSeq$6 = class YAMLSeq extends Collection$1.Collection {
@@ -15276,7 +15599,7 @@ let YAMLSeq$6 = class YAMLSeq extends Collection$1.Collection {
         if (typeof idx !== 'number')
             throw new Error(`Expected a valid index, not ${key}.`);
         const prev = this.items[idx];
-        if (identity$f.isScalar(prev) && Scalar$c.isScalarValue(value))
+        if (identity$f.isScalar(prev) && Scalar$d.isScalarValue(value))
             prev.value = value;
         else
             this.items[idx] = value;
@@ -15326,12 +15649,7 @@ function asItemIndex(key) {
         : null;
 }
 
-var YAMLSeq_2 = YAMLSeq$6;
-
-const YAMLSeq$7 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  YAMLSeq: YAMLSeq_2
-}, Symbol.toStringTag, { value: 'Module' }));
+YAMLSeq$7.YAMLSeq = YAMLSeq$6;
 
 var identity$e = identity$x;
 var YAMLSeq$5 = YAMLSeq$7;
@@ -15349,12 +15667,9 @@ const seq$5 = {
     createNode: (schema, obj, ctx) => YAMLSeq$5.YAMLSeq.from(schema, obj, ctx)
 };
 
-var seq_2 = seq$5;
+seq$6.seq = seq$5;
 
-const seq$6 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  seq: seq_2
-}, Symbol.toStringTag, { value: 'Module' }));
+var string$5 = {};
 
 var stringifyString$2 = stringifyString$5;
 
@@ -15369,26 +15684,21 @@ const string$4 = {
     }
 };
 
-var string_2 = string$4;
-
-const string$5 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  string: string_2
-}, Symbol.toStringTag, { value: 'Module' }));
+string$5.string = string$4;
 
 var tags$1 = {};
 
 var _null$3 = {};
 
-var Scalar$b = Scalar$j;
+var Scalar$c = Scalar$k;
 
 const nullTag = {
     identify: value => value == null,
-    createNode: () => new Scalar$b.Scalar(null),
+    createNode: () => new Scalar$c.Scalar(null),
     default: true,
     tag: 'tag:yaml.org,2002:null',
     test: /^(?:~|[Nn]ull|NULL)?$/,
-    resolve: () => new Scalar$b.Scalar(null),
+    resolve: () => new Scalar$c.Scalar(null),
     stringify: ({ source }, ctx) => typeof source === 'string' && nullTag.test.test(source)
         ? source
         : ctx.options.nullStr
@@ -15398,14 +15708,14 @@ _null$3.nullTag = nullTag;
 
 var bool$4 = {};
 
-var Scalar$a = Scalar$j;
+var Scalar$b = Scalar$k;
 
 const boolTag = {
     identify: value => typeof value === 'boolean',
     default: true,
     tag: 'tag:yaml.org,2002:bool',
     test: /^(?:[Tt]rue|TRUE|[Ff]alse|FALSE)$/,
-    resolve: str => new Scalar$a.Scalar(str[0] === 't' || str[0] === 'T'),
+    resolve: str => new Scalar$b.Scalar(str[0] === 't' || str[0] === 'T'),
     stringify({ source, value }, ctx) {
         if (source && boolTag.test.test(source)) {
             const sv = source[0] === 't' || source[0] === 'T';
@@ -15448,7 +15758,7 @@ function stringifyNumber$5({ format, minFractionDigits, tag, value }) {
 
 stringifyNumber$6.stringifyNumber = stringifyNumber$5;
 
-var Scalar$9 = Scalar$j;
+var Scalar$a = Scalar$k;
 var stringifyNumber$4 = stringifyNumber$6;
 
 const floatNaN$1 = {
@@ -15481,7 +15791,7 @@ const float$5 = {
     tag: 'tag:yaml.org,2002:float',
     test: /^[-+]?(?:\.[0-9]+|[0-9]+\.[0-9]*)$/,
     resolve(str) {
-        const node = new Scalar$9.Scalar(parseFloat(str));
+        const node = new Scalar$a.Scalar(parseFloat(str));
         const dot = str.indexOf('.');
         if (dot !== -1 && str[str.length - 1] === '0')
             node.minFractionDigits = str.length - dot - 1;
@@ -15565,7 +15875,7 @@ schema$8.schema = schema$7;
 
 var schema$6 = {};
 
-var Scalar$8 = Scalar$j;
+var Scalar$9 = Scalar$k;
 var map$3 = map$6;
 var seq$3 = seq$6;
 
@@ -15583,7 +15893,7 @@ const jsonScalars = [
     },
     {
         identify: value => value == null,
-        createNode: () => new Scalar$8.Scalar(null),
+        createNode: () => new Scalar$9.Scalar(null),
         default: true,
         tag: 'tag:yaml.org,2002:null',
         test: /^null$/,
@@ -15633,7 +15943,7 @@ var binary$3 = {};
 const require$$0 = /*@__PURE__*/getDefaultExportFromNamespaceIfNotNamed(node_buffer$1);
 
 var node_buffer = require$$0;
-var Scalar$7 = Scalar$j;
+var Scalar$8 = Scalar$k;
 var stringifyString$1 = stringifyString$5;
 
 const binary$2 = {
@@ -15685,15 +15995,15 @@ const binary$2 = {
         else {
             throw new Error('This environment does not support writing binary tags; either Buffer or btoa is required');
         }
-        type ?? (type = Scalar$7.Scalar.BLOCK_LITERAL);
-        if (type !== Scalar$7.Scalar.QUOTE_DOUBLE) {
+        type ?? (type = Scalar$8.Scalar.BLOCK_LITERAL);
+        if (type !== Scalar$8.Scalar.QUOTE_DOUBLE) {
             const lineWidth = Math.max(ctx.options.lineWidth - ctx.indent.length, ctx.options.minContentWidth);
             const n = Math.ceil(str.length / lineWidth);
             const lines = new Array(n);
             for (let i = 0, o = 0; i < n; ++i, o += lineWidth) {
                 lines[i] = str.substr(o, lineWidth);
             }
-            str = lines.join(type === Scalar$7.Scalar.BLOCK_LITERAL ? '\n' : ' ');
+            str = lines.join(type === Scalar$8.Scalar.BLOCK_LITERAL ? '\n' : ' ');
         }
         return stringifyString$1.stringifyString({ comment, type, value: str }, ctx, onComment, onChompKeep);
     }
@@ -15706,8 +16016,8 @@ var omap$3 = {};
 var pairs$4 = {};
 
 var identity$d = identity$x;
-var Pair$4 = Pair$7;
-var Scalar$6 = Scalar$j;
+var Pair$5 = Pair$8;
+var Scalar$7 = Scalar$k;
 var YAMLSeq$4 = YAMLSeq$7;
 
 function resolvePairs(seq, onError) {
@@ -15719,7 +16029,7 @@ function resolvePairs(seq, onError) {
             else if (identity$d.isMap(item)) {
                 if (item.items.length > 1)
                     onError('Each pair must have its own sequence indicator');
-                const pair = item.items[0] || new Pair$4.Pair(new Scalar$6.Scalar(null));
+                const pair = item.items[0] || new Pair$5.Pair(new Scalar$7.Scalar(null));
                 if (item.commentBefore)
                     pair.key.commentBefore = pair.key.commentBefore
                         ? `${item.commentBefore}\n${pair.key.commentBefore}`
@@ -15732,7 +16042,7 @@ function resolvePairs(seq, onError) {
                 }
                 item = pair;
             }
-            seq.items[i] = identity$d.isPair(item) ? item : new Pair$4.Pair(item);
+            seq.items[i] = identity$d.isPair(item) ? item : new Pair$5.Pair(item);
         }
     }
     else
@@ -15770,7 +16080,7 @@ function createPairs(schema, iterable, ctx) {
             else {
                 key = it;
             }
-            pairs.items.push(Pair$4.createPair(key, value, ctx));
+            pairs.items.push(Pair$5.createPair(key, value, ctx));
         }
     return pairs;
 }
@@ -15788,18 +16098,18 @@ pairs$4.resolvePairs = resolvePairs;
 
 var identity$c = identity$x;
 var toJS$1 = toJS$8;
-var YAMLMap$4 = YAMLMap$7;
+var YAMLMap$5 = YAMLMap$8;
 var YAMLSeq$3 = YAMLSeq$7;
 var pairs$2 = pairs$4;
 
 class YAMLOMap extends YAMLSeq$3.YAMLSeq {
     constructor() {
         super();
-        this.add = YAMLMap$4.YAMLMap.prototype.add.bind(this);
-        this.delete = YAMLMap$4.YAMLMap.prototype.delete.bind(this);
-        this.get = YAMLMap$4.YAMLMap.prototype.get.bind(this);
-        this.has = YAMLMap$4.YAMLMap.prototype.has.bind(this);
-        this.set = YAMLMap$4.YAMLMap.prototype.set.bind(this);
+        this.add = YAMLMap$5.YAMLMap.prototype.add.bind(this);
+        this.delete = YAMLMap$5.YAMLMap.prototype.delete.bind(this);
+        this.get = YAMLMap$5.YAMLMap.prototype.get.bind(this);
+        this.has = YAMLMap$5.YAMLMap.prototype.has.bind(this);
+        this.set = YAMLMap$5.YAMLMap.prototype.set.bind(this);
         this.tag = YAMLOMap.tag;
     }
     /**
@@ -15866,7 +16176,7 @@ var schema$4 = {};
 
 var bool$2 = {};
 
-var Scalar$5 = Scalar$j;
+var Scalar$6 = Scalar$k;
 
 function boolStringify({ value, source }, ctx) {
     const boolObj = value ? trueTag : falseTag;
@@ -15879,7 +16189,7 @@ const trueTag = {
     default: true,
     tag: 'tag:yaml.org,2002:bool',
     test: /^(?:Y|y|[Yy]es|YES|[Tt]rue|TRUE|[Oo]n|ON)$/,
-    resolve: () => new Scalar$5.Scalar(true),
+    resolve: () => new Scalar$6.Scalar(true),
     stringify: boolStringify
 };
 const falseTag = {
@@ -15887,7 +16197,7 @@ const falseTag = {
     default: true,
     tag: 'tag:yaml.org,2002:bool',
     test: /^(?:N|n|[Nn]o|NO|[Ff]alse|FALSE|[Oo]ff|OFF)$/,
-    resolve: () => new Scalar$5.Scalar(false),
+    resolve: () => new Scalar$6.Scalar(false),
     stringify: boolStringify
 };
 
@@ -15896,7 +16206,7 @@ bool$2.trueTag = trueTag;
 
 var float$3 = {};
 
-var Scalar$4 = Scalar$j;
+var Scalar$5 = Scalar$k;
 var stringifyNumber$2 = stringifyNumber$6;
 
 const floatNaN = {
@@ -15929,7 +16239,7 @@ const float$2 = {
     tag: 'tag:yaml.org,2002:float',
     test: /^[-+]?(?:[0-9][0-9_]*)?\.[0-9_]*$/,
     resolve(str) {
-        const node = new Scalar$4.Scalar(parseFloat(str.replace(/_/g, '')));
+        const node = new Scalar$5.Scalar(parseFloat(str.replace(/_/g, '')));
         const dot = str.indexOf('.');
         if (dot !== -1) {
             const f = str.substring(dot + 1).replace(/_/g, '');
@@ -16025,10 +16335,10 @@ int$3.intOct = intOct;
 var set$3 = {};
 
 var identity$b = identity$x;
-var Pair$3 = Pair$7;
-var YAMLMap$3 = YAMLMap$7;
+var Pair$4 = Pair$8;
+var YAMLMap$4 = YAMLMap$8;
 
-class YAMLSet extends YAMLMap$3.YAMLMap {
+class YAMLSet extends YAMLMap$4.YAMLMap {
     constructor(schema) {
         super(schema);
         this.tag = YAMLSet.tag;
@@ -16042,10 +16352,10 @@ class YAMLSet extends YAMLMap$3.YAMLMap {
             'key' in key &&
             'value' in key &&
             key.value === null)
-            pair = new Pair$3.Pair(key.key, null);
+            pair = new Pair$4.Pair(key.key, null);
         else
-            pair = new Pair$3.Pair(key, null);
-        const prev = YAMLMap$3.findPair(this.items, pair.key);
+            pair = new Pair$4.Pair(key, null);
+        const prev = YAMLMap$4.findPair(this.items, pair.key);
         if (!prev)
             this.items.push(pair);
     }
@@ -16054,7 +16364,7 @@ class YAMLSet extends YAMLMap$3.YAMLMap {
      * Otherwise, returns the value of that Pair's key.
      */
     get(key, keepPair) {
-        const pair = YAMLMap$3.findPair(this.items, key);
+        const pair = YAMLMap$4.findPair(this.items, key);
         return !keepPair && identity$b.isPair(pair)
             ? identity$b.isScalar(pair.key)
                 ? pair.key.value
@@ -16064,12 +16374,12 @@ class YAMLSet extends YAMLMap$3.YAMLMap {
     set(key, value) {
         if (typeof value !== 'boolean')
             throw new Error(`Expected boolean value for set(key, value) in a YAML set, not ${typeof value}`);
-        const prev = YAMLMap$3.findPair(this.items, key);
+        const prev = YAMLMap$4.findPair(this.items, key);
         if (prev && !value) {
             this.items.splice(this.items.indexOf(prev), 1);
         }
         else if (!prev && value) {
-            this.items.push(new Pair$3.Pair(key));
+            this.items.push(new Pair$4.Pair(key));
         }
     }
     toJSON(_, ctx) {
@@ -16090,7 +16400,7 @@ class YAMLSet extends YAMLMap$3.YAMLMap {
             for (let value of iterable) {
                 if (typeof replacer === 'function')
                     value = replacer.call(iterable, value, value);
-                set.items.push(Pair$3.createPair(value, null, ctx));
+                set.items.push(Pair$4.createPair(value, null, ctx));
             }
         return set;
     }
@@ -16404,7 +16714,7 @@ Schema$2.Schema = Schema$1;
 var stringifyDocument$2 = {};
 
 var identity$9 = identity$x;
-var stringify$2 = stringify$7;
+var stringify$3 = stringify$8;
 var stringifyComment = stringifyComment$5;
 
 function stringifyDocument$1(doc, options) {
@@ -16421,7 +16731,7 @@ function stringifyDocument$1(doc, options) {
     }
     if (hasDirectives)
         lines.push('---');
-    const ctx = stringify$2.createStringifyContext(doc, options);
+    const ctx = stringify$3.createStringifyContext(doc, options);
     const { commentString } = ctx.options;
     if (doc.commentBefore) {
         if (lines.length !== 1)
@@ -16444,7 +16754,7 @@ function stringifyDocument$1(doc, options) {
             contentComment = doc.contents.comment;
         }
         const onChompKeep = contentComment ? undefined : () => (chompKeep = true);
-        let body = stringify$2.stringify(doc.contents, ctx, () => (contentComment = null), onChompKeep);
+        let body = stringify$3.stringify(doc.contents, ctx, () => (contentComment = null), onChompKeep);
         if (contentComment)
             body += stringifyComment.lineComment(body, '', commentString(contentComment));
         if ((body[0] === '|' || body[0] === '>') &&
@@ -16457,7 +16767,7 @@ function stringifyDocument$1(doc, options) {
             lines.push(body);
     }
     else {
-        lines.push(stringify$2.stringify(doc.contents, ctx));
+        lines.push(stringify$3.stringify(doc.contents, ctx));
     }
     if (doc.directives?.docEnd) {
         if (doc.comment) {
@@ -16492,7 +16802,7 @@ stringifyDocument$2.stringifyDocument = stringifyDocument$1;
 var Alias$1 = Alias$4;
 var Collection = Collection$4;
 var identity$8 = identity$x;
-var Pair$2 = Pair$7;
+var Pair$3 = Pair$8;
 var toJS = toJS$8;
 var Schema = Schema$2;
 var stringifyDocument = stringifyDocument$2;
@@ -16640,7 +16950,7 @@ let Document$3 = class Document {
     createPair(key, value, options = {}) {
         const k = this.createNode(key, null, options);
         const v = this.createNode(value, null, options);
-        return new Pair$2.Pair(k, v);
+        return new Pair$3.Pair(k, v);
     }
     /**
      * Removes a value from the document.
@@ -17116,8 +17426,8 @@ function mapIncludes(ctx, items, search) {
 
 utilMapIncludes$2.mapIncludes = mapIncludes;
 
-var Pair$1 = Pair$7;
-var YAMLMap$2 = YAMLMap$7;
+var Pair$2 = Pair$8;
+var YAMLMap$3 = YAMLMap$8;
 var resolveProps$3 = resolveProps$5;
 var utilContainsNewline$1 = utilContainsNewline$3;
 var utilFlowIndentCheck$1 = utilFlowIndentCheck$2;
@@ -17125,7 +17435,7 @@ var utilMapIncludes$1 = utilMapIncludes$2;
 
 const startColMsg = 'All mapping items must start at the same column';
 function resolveBlockMap$1({ composeNode, composeEmptyNode }, ctx, bm, onError, tag) {
-    const NodeClass = tag?.nodeClass ?? YAMLMap$2.YAMLMap;
+    const NodeClass = tag?.nodeClass ?? YAMLMap$3.YAMLMap;
     const map = new NodeClass(ctx.schema);
     if (ctx.atRoot)
         ctx.atRoot = false;
@@ -17203,7 +17513,7 @@ function resolveBlockMap$1({ composeNode, composeEmptyNode }, ctx, bm, onError, 
             if (ctx.schema.compat)
                 utilFlowIndentCheck$1.flowIndentCheck(bm.indent, value, onError);
             offset = valueNode.range[2];
-            const pair = new Pair$1.Pair(keyNode, valueNode);
+            const pair = new Pair$2.Pair(keyNode, valueNode);
             if (ctx.options.keepSourceTokens)
                 pair.srcToken = collItem;
             map.items.push(pair);
@@ -17218,7 +17528,7 @@ function resolveBlockMap$1({ composeNode, composeEmptyNode }, ctx, bm, onError, 
                 else
                     keyNode.comment = valueProps.comment;
             }
-            const pair = new Pair$1.Pair(keyNode);
+            const pair = new Pair$2.Pair(keyNode);
             if (ctx.options.keepSourceTokens)
                 pair.srcToken = collItem;
             map.items.push(pair);
@@ -17286,7 +17596,7 @@ resolveBlockSeq$2.resolveBlockSeq = resolveBlockSeq$1;
 
 var resolveFlowCollection$2 = {};
 
-var resolveEnd$7 = {};
+var resolveEnd$6 = {};
 
 function resolveEnd$5(end, offset, reqSpace, onError) {
     let comment = '';
@@ -17324,17 +17634,11 @@ function resolveEnd$5(end, offset, reqSpace, onError) {
     return { comment, offset };
 }
 
-var resolveEnd_2 = resolveEnd$7.resolveEnd = resolveEnd$5;
-
-const resolveEnd$6 = /*#__PURE__*/_mergeNamespaces({
-  __proto__: null,
-  default: resolveEnd$7,
-  resolveEnd: resolveEnd_2
-}, [resolveEnd$7]);
+resolveEnd$6.resolveEnd = resolveEnd$5;
 
 var identity$6 = identity$x;
-var Pair = Pair$7;
-var YAMLMap$1 = YAMLMap$7;
+var Pair$1 = Pair$8;
+var YAMLMap$2 = YAMLMap$8;
 var YAMLSeq$1 = YAMLSeq$7;
 var resolveEnd$4 = resolveEnd$6;
 var resolveProps$1 = resolveProps$5;
@@ -17346,7 +17650,7 @@ const isBlock = (token) => token && (token.type === 'block-map' || token.type ==
 function resolveFlowCollection$1({ composeNode, composeEmptyNode }, ctx, fc, onError, tag) {
     const isMap = fc.start.source === '{';
     const fcName = isMap ? 'flow map' : 'flow sequence';
-    const NodeClass = (tag?.nodeClass ?? (isMap ? YAMLMap$1.YAMLMap : YAMLSeq$1.YAMLSeq));
+    const NodeClass = (tag?.nodeClass ?? (isMap ? YAMLMap$2.YAMLMap : YAMLSeq$1.YAMLSeq));
     const coll = new NodeClass(ctx.schema);
     coll.flow = true;
     const atRoot = ctx.atRoot;
@@ -17488,7 +17792,7 @@ function resolveFlowCollection$1({ composeNode, composeEmptyNode }, ctx, fc, onE
                 else
                     keyNode.comment = valueProps.comment;
             }
-            const pair = new Pair.Pair(keyNode, valueNode);
+            const pair = new Pair$1.Pair(keyNode, valueNode);
             if (ctx.options.keepSourceTokens)
                 pair.srcToken = collItem;
             if (isMap) {
@@ -17498,7 +17802,7 @@ function resolveFlowCollection$1({ composeNode, composeEmptyNode }, ctx, fc, onE
                 map.items.push(pair);
             }
             else {
-                const map = new YAMLMap$1.YAMLMap(ctx.schema);
+                const map = new YAMLMap$2.YAMLMap(ctx.schema);
                 map.flow = true;
                 map.items.push(pair);
                 const endRange = (valueNode ?? keyNode).range;
@@ -17541,8 +17845,8 @@ function resolveFlowCollection$1({ composeNode, composeEmptyNode }, ctx, fc, onE
 resolveFlowCollection$2.resolveFlowCollection = resolveFlowCollection$1;
 
 var identity$5 = identity$x;
-var Scalar$3 = Scalar$j;
-var YAMLMap = YAMLMap$7;
+var Scalar$4 = Scalar$k;
+var YAMLMap$1 = YAMLMap$8;
 var YAMLSeq = YAMLSeq$7;
 var resolveBlockMap = resolveBlockMap$2;
 var resolveBlockSeq = resolveBlockSeq$2;
@@ -17594,7 +17898,7 @@ function composeCollection$1(CN, ctx, token, props, onError) {
     if (!tagToken ||
         !tagName ||
         tagName === '!' ||
-        (tagName === YAMLMap.YAMLMap.tagName && expType === 'map') ||
+        (tagName === YAMLMap$1.YAMLMap.tagName && expType === 'map') ||
         (tagName === YAMLSeq.YAMLSeq.tagName && expType === 'seq')) {
         return resolveCollection(CN, ctx, token, onError, tagName);
     }
@@ -17619,7 +17923,7 @@ function composeCollection$1(CN, ctx, token, props, onError) {
     const res = tag.resolve?.(coll, msg => onError(tagToken, 'TAG_RESOLVE_FAILED', msg), ctx.options) ?? coll;
     const node = identity$5.isNode(res)
         ? res
-        : new Scalar$3.Scalar(res);
+        : new Scalar$4.Scalar(res);
     node.range = coll.range;
     node.tag = tagName;
     if (tag?.format)
@@ -17633,14 +17937,14 @@ var composeScalar$2 = {};
 
 var resolveBlockScalar$3 = {};
 
-var Scalar$2 = Scalar$j;
+var Scalar$3 = Scalar$k;
 
 function resolveBlockScalar$2(ctx, scalar, onError) {
     const start = scalar.offset;
     const header = parseBlockScalarHeader(scalar, ctx.options.strict, onError);
     if (!header)
         return { value: '', type: null, comment: '', range: [start, start, start] };
-    const type = header.mode === '>' ? Scalar$2.Scalar.BLOCK_FOLDED : Scalar$2.Scalar.BLOCK_LITERAL;
+    const type = header.mode === '>' ? Scalar$3.Scalar.BLOCK_FOLDED : Scalar$3.Scalar.BLOCK_LITERAL;
     const lines = scalar.source ? splitLines(scalar.source) : [];
     // determine the end of content & start of chomping
     let chompStart = lines.length;
@@ -17713,7 +18017,7 @@ function resolveBlockScalar$2(ctx, scalar, onError) {
             onError(offset - content.length - (crlf ? 2 : 1), 'BAD_INDENT', message);
             indent = '';
         }
-        if (type === Scalar$2.Scalar.BLOCK_LITERAL) {
+        if (type === Scalar$3.Scalar.BLOCK_LITERAL) {
             value += sep + indent.slice(trimIndent) + content;
             sep = '\n';
         }
@@ -17834,7 +18138,7 @@ resolveBlockScalar$3.resolveBlockScalar = resolveBlockScalar$2;
 
 var resolveFlowScalar$3 = {};
 
-var Scalar$1 = Scalar$j;
+var Scalar$2 = Scalar$k;
 var resolveEnd$3 = resolveEnd$6;
 
 function resolveFlowScalar$2(scalar, strict, onError) {
@@ -17844,15 +18148,15 @@ function resolveFlowScalar$2(scalar, strict, onError) {
     const _onError = (rel, code, msg) => onError(offset + rel, code, msg);
     switch (type) {
         case 'scalar':
-            _type = Scalar$1.Scalar.PLAIN;
+            _type = Scalar$2.Scalar.PLAIN;
             value = plainValue(source, _onError);
             break;
         case 'single-quoted-scalar':
-            _type = Scalar$1.Scalar.QUOTE_SINGLE;
+            _type = Scalar$2.Scalar.QUOTE_SINGLE;
             value = singleQuotedValue(source, _onError);
             break;
         case 'double-quoted-scalar':
-            _type = Scalar$1.Scalar.QUOTE_DOUBLE;
+            _type = Scalar$2.Scalar.QUOTE_DOUBLE;
             value = doubleQuotedValue(source, _onError);
             break;
         /* istanbul ignore next should not happen */
@@ -18062,7 +18366,7 @@ function parseCharCode(source, offset, length, onError) {
 resolveFlowScalar$3.resolveFlowScalar = resolveFlowScalar$2;
 
 var identity$4 = identity$x;
-var Scalar = Scalar$j;
+var Scalar$1 = Scalar$k;
 var resolveBlockScalar$1 = resolveBlockScalar$3;
 var resolveFlowScalar$1 = resolveFlowScalar$3;
 
@@ -18086,12 +18390,12 @@ function composeScalar$1(ctx, token, tagToken, onError) {
     let scalar;
     try {
         const res = tag.resolve(value, msg => onError(tagToken ?? token, 'TAG_RESOLVE_FAILED', msg), ctx.options);
-        scalar = identity$4.isScalar(res) ? res : new Scalar.Scalar(res);
+        scalar = identity$4.isScalar(res) ? res : new Scalar$1.Scalar(res);
     }
     catch (error) {
         const msg = error instanceof Error ? error.message : String(error);
         onError(tagToken ?? token, 'TAG_RESOLVE_FAILED', msg);
-        scalar = new Scalar.Scalar(value);
+        scalar = new Scalar$1.Scalar(value);
     }
     scalar.range = range;
     scalar.source = value;
@@ -18784,7 +19088,7 @@ var cstStringify$1 = {};
  * Fair warning: This applies no validation whatsoever, and
  * simply concatenates the sources in their logical order.
  */
-const stringify$1 = (cst) => 'type' in cst ? stringifyToken(cst) : stringifyItem(cst);
+const stringify$2 = (cst) => 'type' in cst ? stringifyToken(cst) : stringifyItem(cst);
 function stringifyToken(token) {
     switch (token.type) {
         case 'block-scalar': {
@@ -18838,7 +19142,7 @@ function stringifyItem({ start, key, sep, value }) {
     return res;
 }
 
-cstStringify$1.stringify = stringify$1;
+cstStringify$1.stringify = stringify$2;
 
 var cstVisit$1 = {};
 
@@ -20877,7 +21181,7 @@ function parse(src, reviver, options) {
     }
     return doc.toJS(Object.assign({ reviver: _reviver }, options));
 }
-function stringify(value, replacer, options) {
+function stringify$1(value, replacer, options) {
     let _replacer = null;
     if (typeof replacer === 'function' || Array.isArray(replacer)) {
         _replacer = replacer;
@@ -20904,18 +21208,31 @@ function stringify(value, replacer, options) {
 publicApi$1.parse = parse;
 publicApi$1.parseAllDocuments = parseAllDocuments;
 publicApi$1.parseDocument = parseDocument$1;
-publicApi$1.stringify = stringify;
+publicApi$1.stringify = stringify$1;
 
 var errors = errors$4;
 var identity = identity$x;
+var Pair = Pair$8;
+var Scalar = Scalar$k;
+var YAMLMap = YAMLMap$8;
 var publicApi = publicApi$1;
 var visit = visit$6;
 errors.YAMLError;
 errors.YAMLParseError;
 errors.YAMLWarning;
+identity.isAlias;
+identity.isCollection;
+identity.isDocument;
 var isMap = identity.isMap;
+identity.isNode;
+identity.isPair;
 var isScalar = identity.isScalar;
+identity.isSeq;
+Pair.Pair;
+Scalar.Scalar;
+YAMLMap.YAMLMap;
 var parseDocument = publicApi.parseDocument;
+var stringify = publicApi.stringify;
 visit.visit;
 visit.visitAsync;
 
@@ -21049,6 +21366,22 @@ function resolveSeedRefreshWindowMs(pruneTtlSeconds) {
     return SEED_REFRESH_WINDOW_MS;
   return Math.min(SEED_REFRESH_WINDOW_MS, Math.floor(pruneTtlSeconds * 1e3 / 2));
 }
+function parseSourceLastmod(input) {
+  if (input === void 0)
+    return null;
+  if (typeof input === "string" && (input.length > 64 || !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(input)))
+    return null;
+  const date = new Date(input);
+  if (!Number.isFinite(date.getTime()))
+    return null;
+  if (typeof input === "string") {
+    const calendarDate = input.slice(0, 10);
+    const parsedCalendarDate = new Date(calendarDate);
+    if (!Number.isFinite(parsedCalendarDate.getTime()) || parsedCalendarDate.toISOString().slice(0, 10) !== calendarDate)
+      return null;
+  }
+  return date.toISOString();
+}
 
 let devNoticeShown = false;
 async function getDb(event) {
@@ -21059,6 +21392,24 @@ async function getDb(event) {
     }
     return null;
   }
+}
+async function queryPageMetadata(event, routes) {
+  if (!routes.length)
+    return [];
+  const db = await getDb();
+  if (!db)
+    return [];
+  const unique = [...new Set(routes)];
+  const pages = [];
+  for (let i = 0; i < unique.length; i += 100) {
+    const batch = unique.slice(i, i + 100);
+    const rows = await db.all(
+      `SELECT route, title, description, is_error, locale FROM ai_ready_pages WHERE route IN (${batch.map(() => "?").join(", ")})`,
+      batch
+    );
+    pages.push(...rows.map((row) => ({ route: row.route, title: row.title, description: row.description, isError: row.is_error === 1, locale: row.locale || "" })));
+  }
+  return pages;
 }
 function buildWhereClause(where) {
   const conditions = [];
@@ -21277,26 +21628,31 @@ async function seedRoutes(event, routes, options = {}) {
     byRoute.set(route, {
       route,
       routeKey: normalizeRouteKey(route),
-      locale: deriveLocale(event, route, explicitLocale, entryUrl)
+      locale: deriveLocale(event, route, explicitLocale, entryUrl),
+      sourceLastmod: parseSourceLastmod(typeof entry === "string" ? void 0 : entry.lastmod)
     });
   }
-  const rowsPerInsert = maxRowsPerInsert(4);
+  const rowsPerInsert = maxRowsPerInsert(5);
   const stmts = [];
   for (const batch of chunk([...byRoute.values()], rowsPerInsert)) {
-    const valuesSql = batch.map(() => `(?, ?, '', '', '', '[]', '[]', '', 0, 0, 0, 'runtime', ?, ?)`).join(", ");
-    const params = batch.flatMap((r) => [r.route, r.routeKey, nowMs, r.locale]);
+    const valuesSql = batch.map(() => `(?, ?, '', '', '', '[]', '[]', '', ?, 0, 0, 0, 'runtime', ?, ?)`).join(", ");
+    const params = batch.flatMap((r) => [r.route, r.routeKey, r.sourceLastmod, nowMs, r.locale]);
     stmts.push({
       sql: `
-        INSERT INTO ai_ready_pages (route, route_key, title, description, markdown, headings, keywords, updated_at, indexed_at, is_error, indexed, source, last_seen_at, locale)
+        INSERT INTO ai_ready_pages (route, route_key, title, description, markdown, headings, keywords, updated_at, source_lastmod, indexed_at, is_error, indexed, source, last_seen_at, locale)
         VALUES ${valuesSql}
         ON CONFLICT(route) DO UPDATE SET
           last_seen_at = excluded.last_seen_at,
           locale = excluded.locale,
+          source_lastmod = COALESCE(excluded.source_lastmod, ai_ready_pages.source_lastmod),
           is_error = 0,
-          indexed = CASE WHEN ai_ready_pages.is_error = 1 THEN 0 ELSE ai_ready_pages.indexed END
+          indexed = CASE WHEN ai_ready_pages.is_error = 1
+            OR (excluded.source_lastmod IS NOT NULL AND ai_ready_pages.source_lastmod IS DISTINCT FROM excluded.source_lastmod)
+            THEN 0 ELSE ai_ready_pages.indexed END
         WHERE ai_ready_pages.last_seen_at IS NULL
           OR ai_ready_pages.last_seen_at < excluded.last_seen_at - ${refreshWindowMs}
           OR ai_ready_pages.locale IS DISTINCT FROM excluded.locale
+          OR (excluded.source_lastmod IS NOT NULL AND ai_ready_pages.source_lastmod IS DISTINCT FROM excluded.source_lastmod)
       `,
       params
     });
@@ -21722,6 +22078,7 @@ const queries = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   pruneCronRunsByAge: pruneCronRunsByAge,
   prunePage: prunePage,
   pruneStaleRoutes: pruneStaleRoutes,
+  queryPageMetadata: queryPageMetadata,
   queryPages: queryPages,
   releaseCronLock: releaseCronLock,
   resetSitemapErrors: resetSitemapErrors,
@@ -21810,11 +22167,57 @@ const frontmatter = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.definePropert
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const RE_NBSP = /\u00A0/g;
+const JSON_LD_MAX_BYTES = 65536;
+const JSON_LD_MAX_BLOCKS = 16;
+const IMAGE_META_FIELDS = [
+  "og:image",
+  "og:image:url",
+  "og:image:secure_url",
+  "og:image:type",
+  "og:image:width",
+  "og:image:height",
+  "og:image:alt",
+  "twitter:image",
+  "twitter:image:src",
+  "twitter:image:alt"
+];
+function parseJsonLdBlock(text, remainingBytes) {
+  if (text.length > remainingBytes)
+    return { _tag: "Skipped" };
+  const content = text.trim();
+  if (!content)
+    return { _tag: "Skipped" };
+  let value;
+  try {
+    value = JSON.parse(text);
+  } catch {
+    return { _tag: "Skipped" };
+  }
+  const isObject = (item) => typeof item === "object" && item !== null && !Array.isArray(item);
+  if (!isObject(value) && !(Array.isArray(value) && value.every(isObject)))
+    return { _tag: "Skipped" };
+  const markdown = `\`\`\`json
+${content.replace(RE_NBSP, "\\u00a0")}
+\`\`\``;
+  const bytes = new TextEncoder().encode(markdown).byteLength + 2;
+  if (bytes > remainingBytes)
+    return { _tag: "Skipped" };
+  return { _tag: "Preserved", markdown, bytes };
+}
 function normalizeWhitespace(text) {
   return text.replace(RE_NBSP, " ");
 }
 function buildMdreamOptions(url, mdreamOptions, meta, extractUpdatedAt, additionalFields) {
   const extraction = {
+    "script[type]": (el) => {
+      if (el.attributes.type?.trim().toLowerCase() !== "application/ld+json" || meta.jsonLd.blocks.length >= JSON_LD_MAX_BLOCKS)
+        return;
+      const block = parseJsonLdBlock(el.textContent, JSON_LD_MAX_BYTES - meta.jsonLd.bytes);
+      if (block._tag === "Preserved") {
+        meta.jsonLd.blocks.push(block.markdown);
+        meta.jsonLd.bytes += block.bytes;
+      }
+    },
     'meta[name="keywords"]': (el) => {
       meta.metaKeywords = el.attributes.content || "";
     },
@@ -21837,6 +22240,7 @@ function buildMdreamOptions(url, mdreamOptions, meta, extractUpdatedAt, addition
   };
   const frontmatter = {
     additionalFields,
+    metaFields: [...IMAGE_META_FIELDS],
     onExtract: (fm) => {
       if (fm.title)
         meta.title = fm.title;
@@ -21877,13 +22281,14 @@ function extractLastUpdated(html) {
   return void 0;
 }
 async function convertHtmlToMarkdown(html, url, mdreamOptions, opts) {
-  const meta = { title: "", description: "", metaKeywords: "", headings: [], textContent: [] };
+  const meta = { title: "", description: "", metaKeywords: "", headings: [], textContent: [], jsonLd: { blocks: [], bytes: 0 } };
   const options = buildMdreamOptions(url, mdreamOptions, meta, opts.extractUpdatedAt ?? false, opts.additionalFrontmatter ?? {});
   const nitroApp = useNitroApp();
   await nitroApp.hooks.callHook("ai-ready:mdreamConfig", options);
+  const convertedMarkdown = hoistMetaDescription(htmlToMarkdown(stripLlmsTxtDirectiveHtml(html), options));
   const context = {
     html,
-    markdown: hoistMetaDescription(htmlToMarkdown(html, options)),
+    markdown: [convertedMarkdown, ...meta.jsonLd.blocks].join("\n\n"),
     route: opts.hooks.route,
     title: meta.title,
     description: meta.description,
@@ -21911,7 +22316,7 @@ const utils = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 
 const JSON_WRAPPER_OVERHEAD = 16;
 const MAX_BODY_BYTES = MAX_SQL_QUERY_LENGTH * 6 + JSON_WRAPPER_OVERHEAD;
-const _e3kOU6 = eventHandler(async (event) => {
+const _dQFLz9 = eventHandler(async (event) => {
   const contentLength = Number(getHeader(event, "content-length") || 0);
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
     throw createError$1({
@@ -21919,7 +22324,7 @@ const _e3kOU6 = eventHandler(async (event) => {
       statusMessage: "Request body too large"
     });
   }
-  const { sql } = await readBody(event);
+  const { sql } = await readBody$1(event);
   const collection = getRouterParam(event, "collection") || event.path?.split("/")?.[2] || "";
   assertSafeQuery(sql, collection);
   const conf = useRuntimeConfig$1().content;
@@ -21929,7 +22334,7 @@ const _e3kOU6 = eventHandler(async (event) => {
   return (await loadDatabaseAdapter(conf)).all(sql);
 });
 
-const _nAU6FH = lazyEventHandler(() => {
+const _4UaRKW = lazyEventHandler(() => {
   const opts = useRuntimeConfig$1().ipx || {};
   const fsDir = opts?.fs?.dir ? (Array.isArray(opts.fs.dir) ? opts.fs.dir : [opts.fs.dir]).map((dir) => isAbsolute(dir) ? dir : fileURLToPath(new URL(dir, globalThis._importMeta_.url))) : void 0;
   const fsStorage = opts.fs?.dir ? ipxFSStorage({ ...opts.fs, dir: fsDir }) : void 0;
@@ -21957,74 +22362,74 @@ const _nAU6FH = lazyEventHandler(() => {
   return fromNodeMiddleware(nodeHandler);
 });
 
-const _lazy_3rczLF = () => Promise.resolve().then(function () { return chat$1; });
-const _lazy_7zopwq = () => Promise.resolve().then(function () { return contact$1; });
-const _lazy_yanjIn = () => Promise.resolve().then(function () { return githubStats$1; });
-const _lazy_t2bkmh = () => Promise.resolve().then(function () { return renderer$1; });
-const _lazy_FwrXOL = () => Promise.resolve().then(function () { return errorChannel; });
-const _lazy_bJkDou = () => Promise.resolve().then(function () { return debug_json$1; });
-const _lazy_V2MkS1 = () => Promise.resolve().then(function () { return staticFont$1; });
-const _lazy_HcBQuE = () => Promise.resolve().then(function () { return image$1; });
-const _lazy_rWugZX = () => Promise.resolve().then(function () { return resolve$1; });
-const _lazy_iSt9pN = () => Promise.resolve().then(function () { return llms_txt_get$1; });
-const _lazy_zQPpf9 = () => Promise.resolve().then(function () { return llmsFull_txt_get$1; });
-const _lazy_TW6v4Q = () => Promise.resolve().then(function () { return sitemap_md_get$1; });
-const _lazy_XhZqgv = () => Promise.resolve().then(function () { return devtools_get$1; });
+const _lazy_R098Yb = () => Promise.resolve().then(function () { return chat$1; });
+const _lazy_WgT8Le = () => Promise.resolve().then(function () { return contact$1; });
+const _lazy_j6mNQj = () => Promise.resolve().then(function () { return githubStats$1; });
+const _lazy_ZA1syH = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_QR1eGy = () => Promise.resolve().then(function () { return errorChannel; });
+const _lazy_IFqQ7R = () => Promise.resolve().then(function () { return debug_json$1; });
+const _lazy_gMyKGu = () => Promise.resolve().then(function () { return staticFont$1; });
+const _lazy_Bi27dw = () => Promise.resolve().then(function () { return image$1; });
+const _lazy_Kg32Qh = () => Promise.resolve().then(function () { return resolve$1; });
+const _lazy_X5iLYK = () => Promise.resolve().then(function () { return llms_txt_get$1; });
+const _lazy_qG0s0E = () => Promise.resolve().then(function () { return llmsFull_txt_get$1; });
+const _lazy_h1TJUT = () => Promise.resolve().then(function () { return sitemap_md_get$1; });
+const _lazy_CQY6_l = () => Promise.resolve().then(function () { return devtools_get$1; });
 
 const handlers = [
-  { route: '', handler: _aU4W5Z, lazy: false, middleware: true, method: undefined },
-  { route: '/api/chat', handler: _lazy_3rczLF, lazy: true, middleware: false, method: undefined },
-  { route: '/api/contact', handler: _lazy_7zopwq, lazy: true, middleware: false, method: undefined },
-  { route: '/api/github-stats', handler: _lazy_yanjIn, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_t2bkmh, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_dev__/error/**', handler: _lazy_FwrXOL, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_nuxt_icon/:collection', handler: _OK8GsT, lazy: false, middleware: false, method: undefined },
-  { route: '/robots.txt', handler: _pLoBKz, lazy: false, middleware: false, method: undefined },
-  { route: '', handler: _1nhPgq, lazy: false, middleware: true, method: undefined },
-  { route: '/__robots__/debug.json', handler: _ikEVQo, lazy: false, middleware: false, method: undefined },
-  { route: '/__robots__/debug-path.json', handler: _kbUV9M, lazy: false, middleware: false, method: undefined },
-  { route: '/__robots__/debug-production.json', handler: _8T_Oa7, lazy: false, middleware: false, method: undefined },
-  { route: '/__sitemap__/nuxt-content-urls.json', handler: _ESGQj8, lazy: false, middleware: false, method: undefined },
-  { route: '/__sitemap__/debug.json', handler: _thGYRn, lazy: false, middleware: false, method: undefined },
-  { route: '/__sitemap__/debug-production.json', handler: _rMrINU, lazy: false, middleware: false, method: undefined },
-  { route: '/__sitemap__/style.xsl', handler: _TxAQTW, lazy: false, middleware: false, method: undefined },
-  { route: '/sitemap.xml', handler: __yUcce, lazy: false, middleware: false, method: undefined },
-  { route: '/__link-checker__/inspect', handler: _j_qoAd, lazy: false, middleware: false, method: undefined },
-  { route: '/__link-checker__/links', handler: _AbZ4B3, lazy: false, middleware: false, method: undefined },
-  { route: '/__link-checker__/debug.json', handler: _A4pE48, lazy: false, middleware: false, method: undefined },
-  { route: '/_og/debug.json', handler: _lazy_bJkDou, lazy: true, middleware: false, method: undefined },
-  { route: '/_og-static-fonts/**', handler: _lazy_V2MkS1, lazy: true, middleware: false, method: undefined },
-  { route: '/_og-static-fonts', handler: _lazy_V2MkS1, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/d/**', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/d', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/s/**', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/s', handler: _lazy_HcBQuE, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/r/**', handler: _lazy_rWugZX, lazy: true, middleware: false, method: undefined },
-  { route: '/_og/r', handler: _lazy_rWugZX, lazy: true, middleware: false, method: undefined },
-  { route: '', handler: _GOK8TE, lazy: false, middleware: true, method: undefined },
-  { route: '/__schema-org__/debug.json', handler: _s1O8O3, lazy: false, middleware: false, method: undefined },
-  { route: '', handler: _RpXWh4, lazy: false, middleware: true, method: undefined },
-  { route: '/__nuxt-seo-utils/debug.json', handler: _WSIA3a, lazy: false, middleware: false, method: undefined },
-  { route: '', handler: _uW5Djc, lazy: false, middleware: true, method: undefined },
-  { route: '/__site-config__/debug.json', handler: _mR2TXm, lazy: false, middleware: false, method: undefined },
-  { route: '/__skew-devtools/debug', handler: _HtHNaP, lazy: false, middleware: false, method: "get" },
-  { route: '/__skew-devtools/debug-production', handler: _1SCGVv, lazy: false, middleware: false, method: "get" },
-  { route: '', handler: _2Ho153, lazy: false, middleware: true, method: undefined },
-  { route: '/llms.txt', handler: _lazy_iSt9pN, lazy: true, middleware: false, method: "get" },
-  { route: '/llms-full.txt', handler: _lazy_zQPpf9, lazy: true, middleware: false, method: "get" },
-  { route: '/sitemap.md', handler: _lazy_TW6v4Q, lazy: true, middleware: false, method: "get" },
-  { route: '/__ai-ready__/debug.json', handler: _lazy_XhZqgv, lazy: true, middleware: false, method: "get" },
-  { route: '/__nuxt_content/blog/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/projects/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/info/sql_dump.txt', handler: _eOnc1H, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt-seo__/setup.json', handler: _cChgd7, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _rjytQs, lazy: false, middleware: true, method: undefined },
+  { route: '/api/chat', handler: _lazy_R098Yb, lazy: true, middleware: false, method: undefined },
+  { route: '/api/contact', handler: _lazy_WgT8Le, lazy: true, middleware: false, method: undefined },
+  { route: '/api/github-stats', handler: _lazy_j6mNQj, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_ZA1syH, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_dev__/error/**', handler: _lazy_QR1eGy, lazy: true, middleware: false, method: undefined },
+  { route: '/api/_nuxt_icon/:collection', handler: _BLMzya, lazy: false, middleware: false, method: undefined },
+  { route: '/robots.txt', handler: _3TejmD, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _vnz8S8, lazy: false, middleware: true, method: undefined },
+  { route: '/__robots__/debug.json', handler: _GMcR1y, lazy: false, middleware: false, method: undefined },
+  { route: '/__robots__/debug-path.json', handler: _XGBBE1, lazy: false, middleware: false, method: undefined },
+  { route: '/__robots__/debug-production.json', handler: _DhpPa8, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/nuxt-content-urls.json', handler: _BrFx_q, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/debug.json', handler: _TIxSqx, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/debug-production.json', handler: _bAJd8T, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/style.xsl', handler: _Erkv8L, lazy: false, middleware: false, method: undefined },
+  { route: '/sitemap.xml', handler: _rNJqzO, lazy: false, middleware: false, method: undefined },
+  { route: '/__link-checker__/inspect', handler: _UJo_ZN, lazy: false, middleware: false, method: undefined },
+  { route: '/__link-checker__/links', handler: _t5S60u, lazy: false, middleware: false, method: undefined },
+  { route: '/__link-checker__/debug.json', handler: _6zLhhX, lazy: false, middleware: false, method: undefined },
+  { route: '/_og/debug.json', handler: _lazy_IFqQ7R, lazy: true, middleware: false, method: undefined },
+  { route: '/_og-static-fonts/**', handler: _lazy_gMyKGu, lazy: true, middleware: false, method: undefined },
+  { route: '/_og-static-fonts', handler: _lazy_gMyKGu, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/d/**', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/d', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/s/**', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/s', handler: _lazy_Bi27dw, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/r/**', handler: _lazy_Kg32Qh, lazy: true, middleware: false, method: undefined },
+  { route: '/_og/r', handler: _lazy_Kg32Qh, lazy: true, middleware: false, method: undefined },
+  { route: '', handler: _Tie3pO, lazy: false, middleware: true, method: undefined },
+  { route: '/__schema-org__/debug.json', handler: _uyauDh, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _kkU_k2, lazy: false, middleware: true, method: undefined },
+  { route: '/__nuxt-seo-utils/debug.json', handler: _NUmfQj, lazy: false, middleware: false, method: undefined },
+  { route: '', handler: _f7y4Wf, lazy: false, middleware: true, method: undefined },
+  { route: '/__site-config__/debug.json', handler: _PCYLue, lazy: false, middleware: false, method: undefined },
+  { route: '/__skew-devtools/debug', handler: _Kp6GkK, lazy: false, middleware: false, method: "get" },
+  { route: '/__skew-devtools/debug-production', handler: _WnFGlg, lazy: false, middleware: false, method: "get" },
+  { route: '', handler: _WkWZEk, lazy: false, middleware: true, method: undefined },
+  { route: '', handler: _lazy_X5iLYK, lazy: true, middleware: true, method: undefined },
+  { route: '/llms-full.txt', handler: _lazy_qG0s0E, lazy: true, middleware: false, method: undefined },
+  { route: '/sitemap.md', handler: _lazy_h1TJUT, lazy: true, middleware: false, method: undefined },
+  { route: '/__ai-ready__/debug.json', handler: _lazy_CQY6_l, lazy: true, middleware: false, method: "get" },
+  { route: '/__nuxt_content/blog/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/projects/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/sql_dump.txt', handler: _Jp3GX8, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt-seo__/setup.json', handler: _oEMyJR, lazy: false, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/blog/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/projects/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_content/info/query', handler: _e3kOU6, lazy: false, middleware: false, method: undefined },
-  { route: '/_ipx/**', handler: _nAU6FH, lazy: false, middleware: false, method: undefined },
-  { route: '/_fonts/**', handler: _lazy_t2bkmh, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_t2bkmh, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_content/blog/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/projects/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/query', handler: _dQFLz9, lazy: false, middleware: false, method: undefined },
+  { route: '/_ipx/**', handler: _4UaRKW, lazy: false, middleware: false, method: undefined },
+  { route: '/_fonts/**', handler: _lazy_ZA1syH, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_ZA1syH, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -22188,6 +22593,7 @@ parentPort?.on("message", (msg) => {
 const nitroApp = useNitroApp();
 const server = new Server(toNodeListener(nitroApp.h3App));
 let listener;
+const upgradedSockets = /* @__PURE__ */ new Set();
 listen().catch(() => listen(
   true
   /* use random port */
@@ -22216,7 +22622,7 @@ nitroApp.router.use(
     const name = getRouterParam(event, "name");
     const payload = {
       ...getQuery$2(event),
-      ...await readBody(event).then((r) => r?.payload).catch(() => ({}))
+      ...await readBody$1(event).then((r) => r?.payload).catch(() => ({}))
     };
     return await runTask(name, { payload });
   })
@@ -22254,6 +22660,9 @@ function getSocketAddress() {
 }
 async function shutdown() {
   server.closeAllConnections?.();
+  for (const socket of upgradedSockets) {
+    socket.destroy();
+  }
   await Promise.all([
     new Promise((resolve) => listener?.close(resolve)),
     nitroApp.hooks.callHook("close").catch(console.error)
@@ -22277,7 +22686,7 @@ const errorChannel$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProp
   useErrorChannel: useErrorChannel
 }, Symbol.toStringTag, { value: 'Module' }));
 
-//#region src/runtime/server/renderer/error-template.ts
+// src/runtime/server/renderer/error-template.ts
 const _messages = {
 	"appName": "Nuxt",
 	"status": 500,
@@ -22368,7 +22777,7 @@ async function lookupContentPage(event, path) {
     for (const candidate of candidates) {
       const page = await queryCollection(event, collection).path(candidate).first().catch(() => null);
       if (!page) continue
-      const markdown = stringify$9({ ...page.body, type: 'minimark' }, { format: 'markdown/html' });
+      const markdown = stringify$a({ ...page.body, type: 'minimark' }, { format: 'markdown/html' });
       return {
         markdown,
         title: page.title,
@@ -22461,7 +22870,7 @@ Guidelines:
 const chat = defineEventHandler$1(async (event) => {
   var _a, _b, _c, _d;
   assertMethod(event, "POST");
-  const body = await readBody(event);
+  const body = await readBody$1(event);
   const messages = (body == null ? void 0 : body.messages) || [];
   const lastUserMessage = ((_a = messages[messages.length - 1]) == null ? void 0 : _a.content) || "";
   const apiKey = process.env.LLM_API_KEY || process.env.OPENAI_API_KEY;
@@ -22547,7 +22956,7 @@ const contact = defineEventHandler$1(async (event) => {
   }
   recentRequests.push(now);
   rateLimitMap.set(clientIp, recentRequests);
-  const body = await readBody(event);
+  const body = await readBody$1(event);
   const validation = ContactSchema.safeParse(body);
   if (!validation.success) {
     throw createError$1({
@@ -22710,7 +23119,7 @@ const githubStats$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.definePrope
   default: githubStats
 }, Symbol.toStringTag, { value: 'Module' }));
 
-//#region src/app/internal/tracing.ts
+// src/app/internal/tracing.ts
 let _channels;
 function getChannel(name) {
 	_channels ??= {};
@@ -22726,10 +23135,10 @@ function traceAsync(name, context, fn) {
 	return channel.tracePromise(() => Promise.resolve(fn()), context);
 }
 
-//#region src/runtime/server/renderer/payload.ts
+// src/runtime/server/renderer/payload.ts
 function renderPayloadResponse(ssrContext, event) {
 	return {
-		body: encodeForwardSlashes(stringify$8(splitPayload(ssrContext).payload, ssrContext["~payloadReducers"])) ,
+		body: encodeForwardSlashes(stringify$9(splitPayload(ssrContext).payload, ssrContext["~payloadReducers"])) ,
 		statusCode: event.res.status,
 		statusMessage: event.res.statusText,
 		headers: {
@@ -22739,7 +23148,7 @@ function renderPayloadResponse(ssrContext, event) {
 	};
 }
 function renderPayloadJsonScript(opts) {
-	const contents = opts.data ? encodeForwardSlashes(stringify$8(opts.data, opts.ssrContext["~payloadReducers"])) : "";
+	const contents = opts.data ? encodeForwardSlashes(stringify$9(opts.data, opts.ssrContext["~payloadReducers"])) : "";
 	warnOnLargePayload(opts.ssrContext, opts.data, contents.length);
 	const payload = {
 		"type": "application/json",
@@ -22768,7 +23177,7 @@ function formatPayloadSize(bytes) {
 function getPayloadKeySizes(data, reducers) {
 	const sizes = [];
 	for (const key in data) try {
-		sizes.push([key, stringify$8(data[key], reducers).length]);
+		sizes.push([key, stringify$9(data[key], reducers).length]);
 	} catch {}
 	return sizes.sort((a, b) => b[1] - a[1]);
 }
@@ -22798,7 +23207,7 @@ function splitPayload(ssrContext) {
 	};
 }
 
-//#region src/runtime/server/renderer/index.ts
+// src/runtime/server/renderer/index.ts
 const HAS_APP_TELEPORTS = !!(appTeleportAttrs.id);
 const APP_TELEPORT_OPEN_TAG = HAS_APP_TELEPORTS ? `<${appTeleportTag}${propsToString(appTeleportAttrs)}>` : "";
 const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
@@ -23038,7 +23447,8 @@ const handler = defineRenderHandler(async (event) => {
 	return {
 		body: response.body,
 		statusCode: response.status,
-		statusMessage: response.statusText || void 0
+		statusMessage: response.statusText || void 0,
+		headers: createResponseHeaderRecord(event.node.res)
 	};
 });
 
@@ -23047,7 +23457,7 @@ const renderer$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty
   default: handler
 }, Symbol.toStringTag, { value: 'Module' }));
 
-//#region src/runtime/server/dev/peer.ts
+// src/runtime/server/dev/peer.ts
 /**
 * Peer checks shared by the dev-only endpoints that disclose local state.
 *
@@ -23071,7 +23481,7 @@ function isLoopbackAddress(address) {
 	return /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(normalized);
 }
 
-//#region src/runtime/handlers/error-channel.ts
+// src/runtime/handlers/error-channel.ts
 /**
 * Serves the live error channel: the SSE stream, report lookups and "open in editor".
 *
@@ -23093,9 +23503,9 @@ const compatibility = {"browser":false,"satori":false,"takumi":false,"resvg":"no
 
 const fontRequirements = {"weights":[400],"styles":["normal"],"families":[],"hasDynamicBindings":true};
 
-const resolvedFonts = [{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":400,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":500,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":600,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":400,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":500,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":600,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":700,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":700,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":700,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":700,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":800,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":800,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":800,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":800,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":700,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":700,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":700,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":700,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":800,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":800,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":800,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":800,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"}];
+const resolvedFonts = [{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":700,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":700,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":700,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":700,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":800,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":800,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":800,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":800,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":700,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":700,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":700,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":700,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":800,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":800,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":800,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":800,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":400,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":500,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":600,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":400,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":500,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":600,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"}];
 
-const availableFonts = [{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":400,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":500,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":600,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":400,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":500,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":600,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":700,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":700,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":700,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":700,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-2HRY1tUXEzBSA3ehdBWswfP5KEDTlsdn7eDYfS05v1E.woff2","weight":800,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-9Tmuz_kT_l_4rGL8XVZ0ye_ryVSXJbCwiOrAN-IwQ_Q.woff2","weight":800,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-CdcJt2gxzoH8DXDcBwqGhC0dt8E6RPivmsD6pbCuCss.woff2","weight":800,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-NXEyhxsIb2L7WYo9et_ef48Abpi9PRPY9TjMLitIU6g.woff2","weight":800,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":700,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":700,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":700,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":700,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-ldhoGRsuFFYBY9DUWIXEhoUBRzxs0SO3TBGupFluV74.woff2","weight":800,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-RzYAzaOLi2k_Bkyb25OBtB7Va1rbZn38TMZTQKm27E8.woff2","weight":800,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-MBJFYEvCBZvY7sNnNaswGqvb1YoGo_TAhBJ8uRt2AUA.woff2","weight":800,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/Y3yC3keMqRP-dGiOTsnVD_nefOovQI8eT1NL1eiSHSo-FOiMse913_U_MBeNWnqFTOjF1XnAJnnVLnc1jhW2YfQ.woff2","weight":800,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"}];
+const availableFonts = [{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":700,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":700,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":700,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":700,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/h0AUkCfyfKyBKdwa_skvQ6DbDtFXLQ_Yy4xUirju9S4-jpeLu7eQ1_3PRT8dJ3oF3lAbnW0HnzvGEAmj9traCno.woff2","weight":800,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/EHhMPTZxs1DLFoSCpTpJi7S22G4OhYT8lewk_1xckC8-E9n0RhQShoqM5fLUT_RXtS4T2p_LAiIOBCwztLaRQuE.woff2","weight":800,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/MDwTfPBLLkOaYY6Syn3fT929XleGt5GMJv6uGhPZd0I-vv5nfMCKpC4Hg3_nmx6d4CQNZ3DqashpQcpoaoxsiuI.woff2","weight":800,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/vFd0fmDQQ6dUNFYjwFyhfNYWu-rKrxD3zqwr7yfeIbc-0u56STp_ypV_wck1PaUooNhuP_s4aEQjZEEXgQsB7o4.woff2","weight":800,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":700,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":700,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":700,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":700,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Plus Jakarta Sans","src":"/_fonts/5IgvIzWAveoNXlQFVm-aWM8yNj5ha56cFNya7Z9Q_YE-FK1AhkTx9rn_wGOIv9D38I9BXDJWXSSVmaZRw4bsXHg.woff2","weight":800,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/LlkRNqpUXT184ITHz2ImBS70pPRrIYbBYm5lnR5T2hQ-QqfHOS8AuhvxUBWI2_o7dfCfV6sgPgo8fKatOL_oXaU.woff2","weight":800,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Plus Jakarta Sans","src":"/_fonts/Z1Hxuez7RsZqYWJcXrjljtVt8dWJe-fB47SF0b3XCbM-bY_e0N33vFDEeRepazCWL6rGkfqt27UyV0RXQUhhydE.woff2","weight":800,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Plus Jakarta Sans","src":"/_fonts/N6a464ONG6G2QwvXkRQxmkb6Upu53F9VINRl-UICiPU-5A74LG92j2E8ztd62HTHyuecPyMCJzc74dIf2kdcJmE.woff2","weight":800,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/BzBvP5B6n3wHNSK9KgmBNZ1PczdZ0kq6L6nu_kw03Ug-wV8zARWYtkWLbDq13Xl90XFZKXVs1nvvXB8zvlghsBY.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/p8XC4b0v0m-EiJQAVrKLvU8spsJJrRwg_pQb6ne3LZ8-Xk9a7EzZySU6YDiCY67upfbFiJMXjFXMlVfxZu_bifY.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/uNrZoOJFFhG06f8xJpyWup6Hx8TmDAR6g1B083Ihiak-YOKRRXgcGSy5ObA5GI_ApuS5tJ3aqNRMJ5ClC-DHYdA.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/WvBWEpMh0GHIAGpqPUMY78bL9_LoEQDKSugTtbND-Gw-hEI3quQvUUMagnXpWFrZQqIerqrvJPyvttLONmLIyJ8.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/LtUPvBNCw2mRmTSCUrv_YeRqBX7xHSSUdk52U1zOKFY-3AVjdIdQvFhNIastDeFZR8qe9V_KKIxGcJA0VzJUi_E.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/kqHQLokKhbDhYAECQOy8tl9ltEsY5H0SHs5YVvjw1LY-DEH_xe_HpkDt9DTHbxyxHeV4Ct1N6mL81LzQokJdWc4.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"JetBrains Mono","src":"/_fonts/sr4-YXzOS5oe12y9YMYGBmhFhQd5GA1Qg2jPqXf_vgg-l_3Pof0nun2cQotURDGKdEXajlJTkQmaPWMyNbixwUs.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"JetBrains Mono","src":"/_fonts/ZDmckrAe5KkZg7oRmja8y8J386eiRioT_oX1sx-uQUI-RNad721svf_ClPMXNl65MSWr3Kjs4qWy3a_LEzQOL8w.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"JetBrains Mono","src":"/_fonts/RQ9QFFjRgsXVyz0lHw8ez57FeiQzAb89Xyf5vU5maVg-pg72ynemUWU2h2KQWjiuhgXRXu_VM_YNUN5WfPOOT1M.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"JetBrains Mono","src":"/_fonts/9KCRpkmcW_okkHNr8XnT2Or5GlVKmIYYxKd5FYoPWDg-YDD9qUZJ_xItNnR_0ovbhYwdmHMf5touelhWERQfK24.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"JetBrains Mono","src":"/_fonts/xHqlKZJFIS6402jbzL4BhtqDi2iwcDgPxe93WbcZ6SY-8WtAIQu51G7odKW44VNvFchd_g_5KgJyLFia_e_GHo0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"JetBrains Mono","src":"/_fonts/PGxXZWn226tHnA2OqxZU7CTUvT6nLXK7MoQbZiEZNy8-erQjQvygkJkW0XY1KA9z_RwUelzNKQYK0ne5Xd6o7WM.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":400,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":400,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":400,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":400,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":400,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":400,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":400,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":500,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":500,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":500,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":500,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":500,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":500,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":500,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/DYJdeJPtCBIYWgA5cyxBmly7l27Wj1oQp4mFkXDxvIs-DPFPVSnB8cId8pOwgvRNA2TCO2OWamyoeCtk437Sapc.woff2","weight":600,"style":"italic","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/QpJYL2mwM_fWcwdT8T92e3Zj7wNrhqhFzZMwIpW9Yhk-XgOijeIybntTr80kfTNzJ_MAYXALsEz4LGK8FlCLUMQ.woff2","weight":600,"style":"italic","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/nRO08svVDfHK2I6XQv8acbCwVYFPI-lNFmbTO_Ato-U-leG_hYlPLJBni6ljwuquGygDJ11Q9JovV7X4etSwPIs.woff2","weight":600,"style":"italic","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/DyoSP_ZB-sZ6jdZm0DNNNAZlak-n8B55ylByyLLv58Y-LDxnRyFE6SL_0xO8Ook5rXOokOEsSmBy44omeJ02DT4.woff2","weight":600,"style":"italic","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/xiWtFoOGVpxz2O8rJiJmkaO17BlbbGGm_obdnXH3FNs-8YIR4ZfCCs9oJJ4E1XpjqOJwDB0_yPAN4AMVgQAVTKs.woff2","weight":600,"style":"italic","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/okGTeHOzA93WHhiHQhh2kiQFJ8jP7Rs_J1FR3XblyKk-bIMLl2bdqTiV6xWjXZLjoJYX4UhZc8AFIlYM7Hc12TM.woff2","weight":600,"style":"italic","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/shQVi3meleYLIUqZP9-ZwNpu1UG0BrC8W1a0_vPu1vM-WIRtv4uldWqfFM5rfsEDcWL99nKboOnkZoW_g2Ev8Uk.woff2","weight":600,"style":"italic","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":400,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":400,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":400,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":400,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":400,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":400,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":400,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":500,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":500,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":500,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":500,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":500,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":500,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":500,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"},{"family":"Inter","src":"/_fonts/95LF05ynkR2iited5vKC3ML7Mt4iflufgyYJQAK9nF4-NZaZZt6E_IGCSpI3DA35nDyNvesPNS4QNP7XC2pYBYE.woff2","weight":600,"style":"normal","unicodeRange":"U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F","subset":"cyrillic-ext"},{"family":"Inter","src":"/_fonts/rKlr2fNB2-iyJhDGh3GjbB7U7xF6BMr1eV-ngyy8udQ-JfckSRSkmknXCHp5oZLIYR_jNB6MzYb7ifA6hU4lk2o.woff2","weight":600,"style":"normal","unicodeRange":"U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116","subset":"cyrillic"},{"family":"Inter","src":"/_fonts/Nah9koTOFvXUREZWfV7DH4zgASpXCzPkz6Tn28ZWLF8-BPqOaS9b32mrF_JERGBi9aAWCHVMBVP2cgIrQCresgU.woff2","weight":600,"style":"normal","unicodeRange":"U+1F00-1FFF","subset":"greek-ext"},{"family":"Inter","src":"/_fonts/6yQlgZNOH42hUtIIIHjZiNFc1WmiHD7IpV78HkewQzs-Qk_1yENQUazQQ0tP2ZD16gLhgnkqQqP7MhASnXvWtqQ.woff2","weight":600,"style":"normal","unicodeRange":"U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF","subset":"greek"},{"family":"Inter","src":"/_fonts/k3YRPyaHq8R9a3gxNSuQ3W_8hdDfEx-SbAtGnVOYnHY-fVFZzzariE_Uq-dTHevDSbvLurnlJRTddHpakm9Ws1w.woff2","weight":600,"style":"normal","unicodeRange":"U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB","subset":"vietnamese"},{"family":"Inter","src":"/_fonts/der4-T0bORlPDyrpWSOU_0VRetbtC4vnusni_kWmK7Q-GXB5hylV4plFt0WDHf1wY5BRE9_7uLFvbkkQKAdfTP0.woff2","weight":600,"style":"normal","unicodeRange":"U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF","subset":"latin-ext"},{"family":"Inter","src":"/_fonts/23mtYSzxPVyLoxLNpoXveb5p0hEC2MbGLOudqhNuXQQ-sHyjhRga9hvdq4tAx7_wIeBFh1sLJ_E5PRwGnzrqxWs.woff2","weight":600,"style":"normal","unicodeRange":"U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD","subset":"latin"}];
 
 function getOgImageOrigin(event) {
   return getNitroOrigin({ context: event.context });
@@ -23121,7 +23531,7 @@ const debug_json$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProper
   default: debug_json
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const staticFontCacheDir = "/Users/ccci/Project/ReactPortfolio/.nuxt/cache/og-image/static-fonts";
+const staticFontCacheDir = "/Users/ccci/Desktop/Projects/ReactPortfolio/.nuxt/cache/og-image/static-fonts";
 
 const staticFont = defineEventHandler(async (event) => {
   const path = withoutBase(getRequestURL(event).pathname, useRuntimeConfig().app.baseURL);
@@ -24277,7 +24687,7 @@ function normalizeInlineText(value) {
   return value.trim().replace(RE_INLINE_WHITESPACE$1, " ");
 }
 function normalizeLinkTitle(value) {
-  return normalizeInlineText(value).replace(RE_LINK_TITLE_BRACKET, (bracket) => bracket === "[" ? "&#91;" : "&#93;");
+  return escapeMarkdownHtml(normalizeInlineText(value)).replace(RE_LINK_TITLE_BRACKET, (bracket) => bracket === "[" ? "&#91;" : "&#93;");
 }
 function normalizeLinkHref(value) {
   return value.trim().replace(RE_LINK_HREF_UNSAFE, (character) => {
@@ -24300,7 +24710,7 @@ function normalizeLink(link, descriptionPrefixes = []) {
   return `- [${normalizeLinkTitle(link.title)}](${normalizeLinkHref(link.href)})${description ? `: ${description}` : ""}`;
 }
 function normalizeSection(section) {
-  const parts = [`## ${normalizeInlineText(section.title)}`];
+  const parts = [`## ${escapeMarkdownHtml(normalizeInlineText(section.title))}`];
   if (section.links?.length)
     parts.push("", ...section.links.map((link) => normalizeLink(link)));
   return parts.join("\n");
@@ -24317,7 +24727,7 @@ function normalizePreamble(config) {
       continue;
     const descriptions = normalizePreambleBlocks(section.description);
     if (descriptions.length)
-      parts.push([`**${normalizeInlineText(section.title)}:**`, ...descriptions].join("\n\n"));
+      parts.push([`**${escapeMarkdownHtml(normalizeInlineText(section.title))}:**`, ...descriptions].join("\n\n"));
   }
   return parts;
 }
@@ -24338,7 +24748,7 @@ function formatLlmsTxtPageLink(page) {
   const title = normalizedTitle && normalizedTitle !== page.pathname ? normalizedTitle : page.pathname;
   const href = (page.href || page.pathname).trim();
   const truncatedDescription = description ? `${description.substring(0, 160)}${description.length > 160 ? "..." : ""}` : void 0;
-  return normalizeLink({ title, href, description: truncatedDescription });
+  return normalizeLink({ title, href, description: truncatedDescription ? escapeMarkdownHtml(truncatedDescription) : void 0 });
 }
 function normalizeLlmsTxtConfig(config) {
   const required = config.sections?.filter((section) => !section.optional) ?? [];
@@ -24351,6 +24761,166 @@ function normalizeLlmsTxtConfig(config) {
   if (optionalSection)
     parts.push(optionalSection);
   return parts.join("\n\n");
+}
+
+function llmsTxtSectionPath(section) {
+  const name = Array.isArray(section.sitemap) ? section.sitemap[0] : section.sitemap;
+  return section.path || `/llms/${name}.txt`;
+}
+function createLlmsTxtFiles(input) {
+  const files = /* @__PURE__ */ new Map();
+  const maxLength = input.config.maxLength ?? 8e4;
+  const link = (title, path, description) => formatLlmsTxtPageLink({ pathname: path, href: input.resolveUrl(path), title, description });
+  const render = (header, title, lines) => `${header.trim()}
+
+## ${title.replace(/\s+/g, " ").trim()}
+
+${lines.join("\n")}
+`;
+  function tree(path, prefix, header, title, lines, level = 0) {
+    const body = render(header, title, lines);
+    if (body.length <= maxLength) {
+      files.set(path, body);
+      return;
+    }
+    const overhead = render(header, title, []).length;
+    const chunks = [];
+    let chunk = [];
+    let length = overhead;
+    for (const line of lines) {
+      if (overhead + line.length + 1 > maxLength)
+        throw new Error("An llms.txt entry exceeds llmsTxt.maxLength. Shorten the entry or increase the limit.");
+      if (length + line.length + 1 > maxLength) {
+        chunks.push(chunk);
+        chunk = [];
+        length = overhead;
+      }
+      chunk.push(line);
+      length += line.length + 1;
+    }
+    if (chunk.length)
+      chunks.push(chunk);
+    const links = chunks.map((entries, index) => {
+      const child = `/llms/_${prefix}-${level}-${index + 1}.txt`;
+      files.set(child, render(header, title, entries));
+      return link(`${title} ${index + 1}`, child);
+    });
+    if (chunks.length >= lines.length && render(header, title, links).length >= body.length)
+      throw new Error("llmsTxt.maxLength cannot fit an index. Increase the limit.");
+    tree(path, prefix, header, title, links, level + 1);
+  }
+  const sections = [];
+  const assigned = /* @__PURE__ */ new Set();
+  for (const [index, section] of input.sections.entries()) {
+    if (!section.sitemap) {
+      sections.push(section);
+      continue;
+    }
+    const names = Array.isArray(section.sitemap) ? section.sitemap : [section.sitemap];
+    const pages2 = /* @__PURE__ */ new Map();
+    for (const name of names) {
+      for (const page of input.sitemapPages.get(name) || []) {
+        if (!assigned.has(page.pathname))
+          pages2.set(page.pathname, page);
+      }
+    }
+    const entries = [...(section.links || []).map((entry) => formatLlmsTxtPageLink({ pathname: entry.href, ...entry })), ...[...pages2.values()].map(formatLlmsTxtPageLink)];
+    if (!entries.length)
+      continue;
+    for (const pathname of pages2.keys())
+      assigned.add(pathname);
+    const path = llmsTxtSectionPath(section);
+    const description = Array.isArray(section.description) ? section.description.join(" ") : section.description;
+    const preamble = normalizeLlmsTxtConfig({ notes: description });
+    tree(path, `section-${index + 1}`, `${input.header.trim()}
+
+${preamble}
+
+${link("llms.txt", "/llms.txt")}`, section.title, entries);
+    sections.push({ ...section, sitemap: void 0, path: void 0, links: [{ title: section.title, href: input.resolveUrl(path), description }] });
+  }
+  const rootPreamble = `${input.header.trim()}
+
+${normalizeLlmsTxtConfig({ notes: input.config.notes })}${input.rootContent ? `
+
+${input.rootContent}` : ""}`;
+  const pageIndexSpace = input.pages.some((page) => !assigned.has(page.pathname)) ? render("", "Pages", [link("Pages", "/llms/_pages.txt")]).length : 1;
+  let rootHeader = `${input.header.trim()}
+
+${normalizeLlmsTxtConfig({ ...input.config, sections })}${input.rootContent ? `
+
+${input.rootContent}` : ""}`;
+  if (rootHeader.length + pageIndexSpace > maxLength) {
+    const references = sections.flatMap((section, index) => {
+      const path = `/llms/_configured-${index + 1}.txt`;
+      if (!section.links?.length) {
+        const context = normalizeLlmsTxtConfig({ sections: [section] });
+        if (!context)
+          return [];
+        const body = `${input.header.trim()}
+
+${context}
+
+${link("llms.txt", "/llms.txt")}
+`;
+        if (body.length > maxLength)
+          throw new Error("An llms.txt entry exceeds llmsTxt.maxLength. Shorten the entry or increase the limit.");
+        files.set(path, body);
+        return [{ title: section.title, links: [{ title: section.title, href: input.resolveUrl(path) }] }];
+      }
+      const text = normalizeLlmsTxtConfig({ sections: [{ ...section, description: section.optional ? section.description : void 0 }] });
+      const lines = text.split("\n").slice(2);
+      const description = Array.isArray(section.description) ? section.description.join(" ") : section.description;
+      const preamble = section.optional ? "" : normalizeLlmsTxtConfig({ notes: description });
+      tree(path, `configured-${index + 1}`, `${input.header.trim()}
+
+${preamble}
+
+${link("llms.txt", "/llms.txt")}`, section.optional ? "Optional" : section.title, lines);
+      return [{ title: section.title, optional: section.optional, links: [{ title: section.title, href: input.resolveUrl(path), description }] }];
+    });
+    rootHeader = `${rootPreamble}
+
+${normalizeLlmsTxtConfig({ sections: references })}`;
+    if (rootHeader.length + pageIndexSpace > maxLength) {
+      const indexes = [];
+      for (const optional of [false, true]) {
+        const selected = references.filter((section) => Boolean(section.optional) === optional);
+        if (!selected.length)
+          continue;
+        const title = optional ? "Optional" : "Sections";
+        const path = optional ? "/llms/_optional.txt" : "/llms/_sections.txt";
+        const text = normalizeLlmsTxtConfig({ sections: selected.map((section) => ({ ...section, optional: true })) });
+        tree(path, optional ? "optional" : "sections", input.header, title, text.split("\n").slice(2));
+        indexes.push({ title, optional, links: [{ title, href: input.resolveUrl(path) }] });
+      }
+      rootHeader = `${rootPreamble}
+
+${normalizeLlmsTxtConfig({ sections: indexes })}`;
+    }
+  }
+  const pages = input.pages.filter((page) => !assigned.has(page.pathname)).map(formatLlmsTxtPageLink);
+  if (!pages.length && rootHeader.length + 1 <= maxLength) {
+    files.set("/llms.txt", `${rootHeader.trim()}
+`);
+  } else {
+    const inline = render(rootHeader, "Pages", pages);
+    if (inline.length <= maxLength) {
+      files.set("/llms.txt", inline);
+    } else {
+      tree("/llms/_pages.txt", "pages", input.header, "Pages", pages);
+      const root = `${rootHeader.trim()}
+
+## Pages
+
+${link("Pages", "/llms/_pages.txt")}
+`;
+      if (root.length > maxLength)
+        throw new Error("llms.txt sections exceed llmsTxt.maxLength. Shorten the sections or increase the limit.");
+      files.set("/llms.txt", root);
+    }
+  }
+  return files;
 }
 
 const DEFAULT_MAX_REDIRECTS = 5;
@@ -24842,6 +25412,19 @@ function createSitemapReader(options) {
   return { read, walk };
 }
 
+const INDEXED_LASTMOD_MARKER = "<!-- nuxt-ai-ready:indexed-lastmod -->";
+function stripIndexedSitemapLastmods(body) {
+  let xml;
+  try {
+    xml = new TextDecoder("utf-8", { fatal: true }).decode(body);
+  } catch {
+    return body;
+  }
+  if (!xml.includes(INDEXED_LASTMOD_MARKER))
+    return body;
+  return new TextEncoder().encode(xml.replace(/<!-- nuxt-ai-ready:indexed-lastmod -->\s*<lastmod>[^<]*<\/lastmod>/g, ""));
+}
+
 const FETCH_TIMEOUT = 15e3;
 const SITEMAP_FALLBACK_ORIGIN = "http://localhost";
 const SITEMAP_READER_LIMITS = {
@@ -24856,17 +25439,18 @@ const SITEMAP_READER_LIMITS = {
 const MAX_SITEMAP_CRAWL_ROUNDS = 10;
 function getSitemapsFromConfig(event) {
   const runtimeConfig = useRuntimeConfig$1(event);
-  const sitemapConfig = runtimeConfig.sitemap;
+  const sitemapConfig = { ...staticSitemapConfig, ...runtimeConfig.sitemap };
   if (!sitemapConfig?.sitemaps)
     return [];
   const sitemaps = [];
   for (const [key, sitemap] of Object.entries(sitemapConfig.sitemaps)) {
     if (key === "index")
       continue;
-    if (sitemap._route) {
+    const route = sitemap._route || sitemap.route || (key === "chunks" ? sitemapConfig.sitemaps.index?._route || sitemapConfig.sitemaps.index?.route : void 0);
+    if (route) {
       sitemaps.push({
-        name: sitemap.sitemapName || key,
-        route: sitemap._route
+        name: (sitemap.sitemapName || key).replace(/\.xml$/, ""),
+        route: route.startsWith("/") ? route : `/${route}`
       });
     }
   }
@@ -25051,11 +25635,12 @@ function createLocalSitemapLoader(event, usePublicAsset, loadedBodies) {
         bytesRead: read.result.bytesRead
       };
     }
-    loadedBodies.set(request.url, read.result.body);
+    const sourceBody = stripIndexedSitemapLastmods(read.result.body);
+    loadedBodies.set(request.url, sourceBody);
     return {
       _tag: "body",
       url: request.url,
-      body: read.result.body
+      body: sourceBody
     };
   };
 }
@@ -25138,6 +25723,7 @@ async function crawlSitemapByRoute(event, input) {
   const usePublicAsset = config.sitemapPrerendered && hasAssets(event);
   const configuredSiteUrl = createUniversalContext(event).siteUrl ?? SITEMAP_FALLBACK_ORIGIN;
   const siteUrl = parseAbsoluteUrl(configuredSiteUrl);
+  const requestOrigin = event ? getRequestURL$2(event, { xForwardedHost: true, xForwardedProto: true }).origin : void 0;
   if (siteUrl._tag === "error") {
     return {
       _tag: "failed",
@@ -25179,7 +25765,7 @@ async function crawlSitemapByRoute(event, input) {
       const target = parseAbsoluteUrl(request.url);
       if (target._tag === "error")
         return { _tag: "deny", reason: `Invalid sitemap target: ${request.url}` };
-      if (target.value.origin !== siteUrl.value.origin) {
+      if (target.value.origin !== siteUrl.value.origin && target.value.origin !== requestOrigin) {
         return {
           _tag: "deny",
           reason: `Sitemap target origin ${target.value.origin} differs from ${siteUrl.value.origin}`
@@ -25266,17 +25852,21 @@ async function fetchSitemapByRoute(event, route) {
   const result = await crawlSitemapByRoute(event, { route });
   return result._tag === "complete" ? { urls: result.urls } : { urls: result.urls, error: result.error };
 }
-async function fetchSitemapUrls(event) {
+async function fetchSitemapUrlGroups(event, names) {
   const sitemaps = getSitemapsFromConfig(event);
+  const groups = /* @__PURE__ */ new Map();
   if (sitemaps.length > 0) {
     logger$2.debug(`[sitemap] Multi-sitemap mode: ${sitemaps.length} sitemaps`);
-    const allUrls = [];
     for (const sitemap of sitemaps) {
+      if (names !== void 0 && !names.includes(sitemap.name))
+        continue;
       const { urls: urls2 } = await fetchSitemapByRoute(event, sitemap.route);
-      allUrls.push(...urls2);
+      groups.set(sitemap.name, [...groups.get(sitemap.name) || [], ...urls2]);
     }
-    return allUrls;
+    return groups;
   }
+  if (names !== void 0 && !names.includes("sitemap"))
+    return groups;
   logger$2.debug(`[sitemap] Single sitemap mode: /sitemap.xml`);
   const { urls, error } = await fetchSitemapByRoute(event, "/sitemap.xml");
   if (error) {
@@ -25284,248 +25874,112 @@ async function fetchSitemapUrls(event) {
   } else if (urls.length === 0) {
     logger$2.warn("Sitemap is empty - add routes to sitemap or configure sitemap.sources in nuxt.config");
   }
-  return urls;
+  groups.set("sitemap", urls);
+  return groups;
 }
 
 async function findMarkdownLinkAvailability() {
-  {
-    return {
-      runtimeMarkdownAvailable: true,
-      paths: /* @__PURE__ */ new Set()
-    };
-  }
+  return { runtimeMarkdownAvailable: true, paths: /* @__PURE__ */ new Set() };
 }
-function getGroupPrefix(url, depth) {
-  const segments = url.split("/").filter(Boolean);
-  if (segments.length === 0)
-    return "/";
-  if (segments.length === 1)
-    return `/${segments[0]}`;
-  return `/${segments[0]}/${segments[1]}`;
-}
-function getPathSegments(pathname) {
-  return pathname.split("/").filter((s) => Boolean(s));
-}
-function analyzePageGroups(pages) {
-  const twoSegmentCount = /* @__PURE__ */ new Map();
-  const segmentHasNested = /* @__PURE__ */ new Map();
-  for (const page of pages) {
-    const prefix = getGroupPrefix(page.pathname);
-    twoSegmentCount.set(prefix, (twoSegmentCount.get(prefix) || 0) + 1);
-    const segments = getPathSegments(page.pathname);
-    const firstSegment = segments[0] || "";
-    if (!segmentHasNested.has(firstSegment))
-      segmentHasNested.set(firstSegment, false);
-    if (segments.length > 1)
-      segmentHasNested.set(firstSegment, true);
-  }
-  return { twoSegmentCount, segmentHasNested };
-}
-function getPageGroupKey(pathname, { twoSegmentCount, segmentHasNested }) {
-  const segments = getPathSegments(pathname);
-  const firstSegment = segments[0] || "";
-  const twoSegPrefix = getGroupPrefix(pathname);
-  const twoSegCount = twoSegmentCount.get(twoSegPrefix) || 0;
-  let groupKey = twoSegCount > 1 ? twoSegPrefix : `/${firstSegment}`;
-  if (segments.length <= 1 && !segmentHasNested.get(firstSegment))
-    groupKey = "";
-  return groupKey;
-}
-function sortPagesByPath(pages) {
-  const analysis = analyzePageGroups(pages);
-  return pages.sort((a, b) => {
-    const segmentsA = getPathSegments(a.pathname);
-    const segmentsB = getPathSegments(b.pathname);
-    const groupKeyA = getPageGroupKey(a.pathname, analysis);
-    const groupKeyB = getPageGroupKey(b.pathname, analysis);
-    if (groupKeyA === "" && groupKeyB !== "")
-      return -1;
-    if (groupKeyA !== "" && groupKeyB === "")
-      return 1;
-    if (groupKeyA !== groupKeyB)
-      return groupKeyA.localeCompare(groupKeyB);
-    if (segmentsA.length === 0)
-      return -1;
-    if (segmentsB.length === 0)
-      return 1;
-    const minLen = Math.min(segmentsA.length, segmentsB.length);
-    for (let i = 0; i < minLen; i++) {
-      const cmp = segmentsA[i].localeCompare(segmentsB[i]);
-      if (cmp !== 0)
-        return cmp;
-    }
-    return segmentsA.length - segmentsB.length;
-  });
-}
-function formatPagesWithGroups(pages) {
-  if (pages.length === 0)
-    return [];
-  const analysis = analyzePageGroups(pages);
-  const lines = [];
-  let currentGroup = "";
-  let segmentGroupIndex = 0;
-  let urlsInCurrentGroup = 0;
-  for (const page of pages) {
-    const groupKey = getPageGroupKey(page.pathname, analysis);
-    if (groupKey !== currentGroup) {
-      if (urlsInCurrentGroup > 0) {
-        const shouldAddBlankLine = segmentGroupIndex === 0 || segmentGroupIndex >= 1 && segmentGroupIndex <= 2 && urlsInCurrentGroup > 1;
-        if (shouldAddBlankLine)
-          lines.push("");
-      }
-      currentGroup = groupKey;
-      segmentGroupIndex++;
-      urlsInCurrentGroup = 0;
-    }
-    urlsInCurrentGroup++;
-    lines.push(formatLlmsTxtPageLink(page));
-  }
-  return lines;
-}
-async function buildLlmsTxt(event) {
+async function buildLlmsTxtFiles(event) {
   const runtimeConfig = useRuntimeConfig$1(event);
   const aiReadyConfig = runtimeConfig["nuxt-ai-ready"];
-  const sitemapConfig = runtimeConfig.sitemap;
   const siteConfig = getSiteConfig(event);
-  const llmsTxtConfig = aiReadyConfig.llmsTxt;
+  const config = aiReadyConfig.llmsTxt;
+  const baseURL = runtimeConfig.app.baseURL;
+  const resolveUrl = (path) => withSiteUrl(event, toDeployedRoute(path, baseURL), { withBase: true });
+  const resolvePageUrl = (path) => resolveUrl(withSiteTrailingSlash(event, path));
+  const canonicalSiteUrl = siteConfig.url ? resolveUrl("/") : void 0;
   const i18n = aiReadyConfig.i18n;
   const i18nRuntime = i18n ? { _tag: "enabled", config: i18n, ...await Promise.resolve().then(function () { return llmsTxtI18n; }) } : { _tag: "disabled" };
-  const i18nContext = { host: getRequestHost$2(event, { xForwardedHost: true }) };
-  const baseURL = runtimeConfig.app.baseURL;
-  const resolvePath = (path) => withSiteTrailingSlash(event, toDeployedRoute(path, baseURL));
-  const resolveUrl = (path) => withSiteUrl(event, toDeployedRoute(path, baseURL), { withBase: true });
-  const canonicalSiteUrl = siteConfig.url ? resolveUrl("/") : void 0;
-  const parts = [];
-  parts.push(`# ${siteConfig.name || canonicalSiteUrl}`);
-  if (siteConfig.description) {
-    parts.push(`
-> ${siteConfig.description}`);
-  }
-  if (canonicalSiteUrl) {
-    parts.push(`
-Canonical Origin: ${canonicalSiteUrl}`);
-  }
-  parts.push("");
-  const sections = llmsTxtConfig.sections?.map((section) => ({
-    ...section,
-    links: section.links ? [...section.links] : void 0
-  })) ?? [];
-  if (sections[0]?.links) {
-    const sitemapRoutes = sitemapConfig?.sitemaps ? Object.values(sitemapConfig.sitemaps).map((s) => s.sitemapName) : ["sitemap.xml"];
-    for (const name of sitemapRoutes) {
-      sections[0].links.push({
-        title: name,
-        href: resolveUrl(`/${name}`),
-        description: "XML sitemap for search engines and crawlers."
-      });
+  const i18nContext = { host: getRequestHost$1(event, { xForwardedHost: true }) };
+  const parts = [`# ${(siteConfig.name || canonicalSiteUrl || "Site").replace(/\s+/g, " ").trim()}`];
+  if (siteConfig.description)
+    parts.push("", `> ${siteConfig.description.replace(/\s+/g, " ").trim()}`);
+  if (canonicalSiteUrl)
+    parts.push("", `Canonical Origin: ${canonicalSiteUrl}`);
+  const sections = config.sections?.map((section) => ({ ...section, links: section.links ? [...section.links] : void 0 })) ?? [];
+  const resources = sections.find((section) => section.title === "LLM Resources" && !section.sitemap);
+  if (resources) {
+    resources.links ||= [];
+    for (const sitemap of getSitemapsFromConfig(event).filter((sitemap2) => config.sitemaps === void 0 || config.sitemaps.includes(sitemap2.name))) {
+      resources.links.push({ title: sitemap.route.split("/").pop() || `${sitemap.name}.xml`, href: resolveUrl(toLogicalRoute(sitemap.route, baseURL)), description: "XML sitemap for search engines and crawlers." });
     }
-    sections[0].links.push({
-      title: "robots.txt",
-      href: resolveUrl("/robots.txt"),
-      description: "Crawler rules and permissions."
+    if (!getSitemapsFromConfig(event).length && (config.sitemaps === void 0 || config.sitemaps.includes("sitemap")))
+      resources.links.push({ title: "sitemap.xml", href: resolveUrl("/sitemap.xml"), description: "XML sitemap for search engines and crawlers." });
+    resources.links.push({ title: "robots.txt", href: resolveUrl("/robots.txt"), description: "Crawler rules and permissions." });
+  }
+  if (config.pages === false && !sections.some((section) => section.sitemap))
+    return Object.fromEntries(createLlmsTxtFiles({ header: parts.join("\n"), config, sections, pages: [], sitemapPages: /* @__PURE__ */ new Map(), resolveUrl }));
+  const groups = await fetchSitemapUrlGroups(event, config.sitemaps);
+  const allowedOrigin = canonicalSiteUrl ? new URL(canonicalSiteUrl).origin : void 0;
+  const requestOrigin = getRequestURL$2(event, { xForwardedHost: true, xForwardedProto: true }).origin;
+  const sitemapPaths = /* @__PURE__ */ new Map();
+  for (const [name, urls] of groups) {
+    const paths = /* @__PURE__ */ new Set();
+    for (const entry of urls) {
+      const url = URL.canParse(entry.loc, canonicalSiteUrl || "http://localhost") ? new URL(entry.loc, canonicalSiteUrl || "http://localhost") : void 0;
+      if (!url || url.search || url.hash || allowedOrigin && url.origin !== allowedOrigin && url.origin !== requestOrigin)
+        continue;
+      const path = toLogicalRoute(url.pathname, baseURL);
+      paths.add(path);
+    }
+    sitemapPaths.set(name, paths);
+  }
+  const admitted = new Set([...sitemapPaths.values()].flatMap((paths) => [...paths]));
+  let stored = [];
+  if (aiReadyConfig.database?._tag !== "Disabled") {
+    const read = config.pages === "all" ? Promise.all([queryPages(), queryPages(event, { where: { hasError: true } })]).then((results) => results.flat()) : queryPageMetadata(event, [...admitted].flatMap((path) => [path, toDeployedRoute(path, baseURL)]));
+    stored = await read.catch((error) => {
+      logger$2.warn(`[ai-ready] Database unavailable for llms.txt. Using sitemap metadata: ${error instanceof Error ? error.message : String(error)}`);
+      return [];
     });
   }
-  const normalizedContent = normalizeLlmsTxtConfig({ ...llmsTxtConfig, sections });
-  if (normalizedContent) {
-    parts.push(normalizedContent);
-    parts.push("");
-  }
-  const urlsPromise = fetchSitemapUrls(event);
-  let pages = [];
-  let errorPages = [];
-  try {
-    ;
-    [pages, errorPages] = await Promise.all([
-      queryPages(event),
-      queryPages(event, { where: { hasError: true } })
-    ]);
-  } catch (err) {
-    logger$2.warn(
-      `[ai-ready] Database unavailable for llms.txt, falling back to sitemap-only pages: ${err instanceof Error ? err.message : String(err)}`
-    );
-  }
-  const urls = await urlsPromise;
-  const sitemapPaths = urls.map((url) => toLogicalRoute(url.loc, baseURL));
-  const sitemapPathSet = new Set(sitemapPaths);
-  const seenPaths = /* @__PURE__ */ new Set();
-  const errorSet = new Set(errorPages.map((p) => normalizePersistedRoute(p.route, sitemapPathSet, baseURL)));
-  const prerendered = [];
-  for (const page of pages) {
-    const pathname = normalizePersistedRoute(page.route, sitemapPathSet, baseURL);
-    if (seenPaths.has(pathname))
-      continue;
-    seenPaths.add(pathname);
-    prerendered.push({ pathname, title: page.title, description: page.description, locale: page.locale });
-  }
-  const devModeHint = prerendered.length === 0 ? " (dev mode - run `nuxi generate` for page titles)" : "";
-  const other = [];
-  for (const pathname of sitemapPaths) {
-    if (!seenPaths.has(pathname) && !errorSet.has(pathname)) {
-      const locale = i18nRuntime._tag === "enabled" ? i18nRuntime.resolveLocaleFromRoute(pathname, i18nRuntime.config, i18nContext).locale : void 0;
-      other.push({ pathname, locale });
-      seenPaths.add(pathname);
-    }
-  }
-  let resolvePageHref = resolvePath;
-  if (llmsTxtConfig.markdownLinks) {
-    const markdownLinkAvailability = await findMarkdownLinkAvailability();
-    resolvePageHref = (pathname) => {
-      const deployedPathname = resolvePath(pathname);
-      const markdownPath = resolvePath(toMarkdownPath(pathname));
-      if (markdownLinkAvailability.paths.has(decodePath(markdownPath)) || markdownLinkAvailability.runtimeMarkdownAvailable && hasMarkdownTwin(pathname)) {
-        return markdownPath;
-      }
-      return deployedPathname;
-    };
-  }
-  for (const page of [...prerendered, ...other])
-    page.href = resolvePageHref(page.pathname);
-  if (i18nRuntime._tag === "enabled") {
-    const pageCounts = /* @__PURE__ */ new Map();
-    for (const locale of i18nRuntime.config.locales) pageCounts.set(locale.code, 0);
-    for (const p of [...prerendered, ...other]) {
-      const code = p.locale || i18nRuntime.resolveLocaleFromRoute(p.pathname, i18nRuntime.config, i18nContext).locale;
-      pageCounts.set(code, (pageCounts.get(code) ?? 0) + 1);
-    }
-    parts.push(...i18nRuntime.formatAvailableLanguagesSection(i18nRuntime.config, pageCounts, resolvePageHref, i18nContext));
-    parts.push("");
-  }
-  const isDefaultLocale = (item) => {
-    if (i18nRuntime._tag === "disabled")
-      return true;
-    const code = item.locale || i18nRuntime.resolveLocaleFromRoute(item.pathname, i18nRuntime.config, i18nContext).locale;
-    return code === i18nRuntime.config.defaultLocale;
+  const errorPaths = new Set(stored.filter((page) => page.isError).map((page) => normalizePersistedRoute(page.route, admitted, baseURL)));
+  const metadata = new Map(stored.map((page) => [normalizePersistedRoute(page.route, admitted, baseURL), page]));
+  const availability = config.markdownLinks ? await findMarkdownLinkAvailability() : void 0;
+  const href = (path) => {
+    const markdownPath = toMarkdownPath(path);
+    if (availability && (availability.paths.has(decodePath(toDeployedRoute(markdownPath, baseURL))) || availability.runtimeMarkdownAvailable && hasMarkdownTwin(path)))
+      return resolveUrl(markdownPath);
+    return resolvePageUrl(path);
   };
-  const filteredPrerendered = i18nRuntime._tag === "enabled" ? prerendered.filter(isDefaultLocale) : prerendered;
-  const filteredOther = i18nRuntime._tag === "enabled" ? other.filter(isDefaultLocale) : other;
-  const sortedPrerendered = sortPagesByPath(filteredPrerendered);
-  const sortedOther = sortPagesByPath(filteredOther);
-  if (sortedPrerendered.length > 0 && sortedOther.length > 0) {
-    parts.push(`## Prerendered Pages${devModeHint}
-`);
-    parts.push(...formatPagesWithGroups(sortedPrerendered));
-    parts.push("");
-    parts.push("## Other Pages\n");
-    parts.push(...formatPagesWithGroups(sortedOther));
-    parts.push("");
-  } else if (sortedPrerendered.length > 0) {
-    parts.push(`## Pages${devModeHint}
-`);
-    parts.push(...formatPagesWithGroups(sortedPrerendered));
-    parts.push("");
-  } else if (sortedOther.length > 0) {
-    parts.push(`## Pages${devModeHint}
-`);
-    parts.push(...formatPagesWithGroups(sortedOther));
-    parts.push("");
+  const pageMap = /* @__PURE__ */ new Map();
+  const candidates = config.pages === "all" ? /* @__PURE__ */ new Set([...admitted, ...metadata.keys()]) : admitted;
+  for (const pathname of [...candidates].sort()) {
+    if (errorPaths.has(pathname))
+      continue;
+    const page = metadata.get(pathname);
+    const locale = page?.locale || (i18nRuntime._tag === "enabled" ? i18nRuntime.resolveLocaleFromRoute(pathname, i18nRuntime.config, i18nContext).locale : void 0);
+    pageMap.set(pathname, { pathname, href: href(pathname), title: page?.title, description: page?.description, locale });
   }
-  return parts.join("\n");
+  let rootContent;
+  if (i18nRuntime._tag === "enabled") {
+    const counts = /* @__PURE__ */ new Map();
+    for (const page of pageMap.values())
+      counts.set(page.locale, (counts.get(page.locale) || 0) + 1);
+    rootContent = i18nRuntime.formatAvailableLanguagesSection(i18nRuntime.config, counts, href, i18nContext).join("\n");
+    for (const [path, page] of pageMap) {
+      if (page.locale !== i18nRuntime.config.defaultLocale)
+        pageMap.delete(path);
+    }
+  }
+  const sitemapPages = new Map([...sitemapPaths].map(([name, paths]) => [name, [...paths].flatMap((path) => pageMap.has(path) ? [pageMap.get(path)] : [])]));
+  return Object.fromEntries(createLlmsTxtFiles({ header: parts.join("\n"), config, sections, rootContent, pages: config.pages === false ? [] : [...pageMap.values()], sitemapPages, resolveUrl }));
 }
 
 const llms_txt_get = eventHandler(async (event) => {
-  const runtimeConfig = useRuntimeConfig$1(event)["nuxt-ai-ready"];
-  runtimeConfig.llmsTxtCacheSeconds;
-  const content = await buildLlmsTxt(event);
+  const runtimeConfig = useRuntimeConfig$1(event);
+  const path = toLogicalRoute(event.path.split("?")[0], runtimeConfig.app.baseURL);
+  if (path !== "/llms.txt" && !/^\/llms\/[^/]+\.txt$/i.test(path))
+    return;
+  assertMethod(event, "GET", true);
+  const config = runtimeConfig["nuxt-ai-ready"];
+  config.llmsTxtCacheSeconds;
+  const files = await buildLlmsTxtFiles(event);
+  const content = files[path];
+  if (content === void 0)
+    throw createError$1({ statusCode: 404, statusMessage: "llms.txt file not found" });
   setHeader(event, "Content-Type", "text/plain; charset=utf-8");
   return content;
 });
@@ -25535,16 +25989,40 @@ const llms_txt_get$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProp
   default: llms_txt_get
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const RE_FRONTMATTER = /^---\r?\n[\s\S]*?\r?\n---\r?\n*/;
+const RE_FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n*/;
 const RE_INLINE_WHITESPACE = /\s+/g;
+function imageMetadataFence(frontmatter) {
+  const document = parseDocument(frontmatter);
+  const meta = document.get("meta", true);
+  if (document.errors.length || !isMap(meta))
+    return;
+  const images = {};
+  for (const { key, value } of meta.items) {
+    if (!isScalar(key) || typeof key.value !== "string" || !isScalar(value))
+      continue;
+    if (key.value !== "og:image" && !key.value.startsWith("og:image:") && key.value !== "twitter:image" && !key.value.startsWith("twitter:image:"))
+      continue;
+    if (typeof value.value === "string" || typeof value.value === "number" && Number.isFinite(value.value))
+      images[key.value] = value.value;
+  }
+  if (!Object.keys(images).length)
+    return;
+  return `\`\`\`yaml
+${stringify({ meta: images }, { lineWidth: 0 }).trimEnd()}
+\`\`\``;
+}
 function formatPageForLlmsFullTxt(route, title, description, markdown, siteUrl) {
   const canonicalUrl = siteUrl ? joinURL(siteUrl, route) : route;
-  const pageTitle = (title && title !== route ? title : route).trim().replace(RE_INLINE_WHITESPACE, " ");
-  const pageDescription = description.trim().replace(RE_INLINE_WHITESPACE, " ");
+  const pageTitle = escapeMarkdownHtml((title && title !== route ? title : route).trim().replace(RE_INLINE_WHITESPACE, " "));
+  const pageDescription = escapeMarkdownHtml(description.trim().replace(RE_INLINE_WHITESPACE, " "));
   const content = markdown.replace(RE_FRONTMATTER, "").trim();
   const parts = ["---", "", `- **Page:** ${pageTitle}`, `- **Source:** ${canonicalUrl}`];
   if (pageDescription)
     parts.push(`- **Description:** ${pageDescription}`);
+  const frontmatter = markdown.match(RE_FRONTMATTER)?.[1];
+  const images = frontmatter && imageMetadataFence(frontmatter);
+  if (images)
+    parts.push("", images);
   parts.push("");
   if (content) {
     parts.push(content);
@@ -25554,9 +26032,9 @@ function formatPageForLlmsFullTxt(route, title, description, markdown, siteUrl) 
 `;
 }
 function buildLlmsFullTxtHeader(siteInfo, llmsTxtConfig) {
-  const parts = [`# ${siteInfo?.name || siteInfo?.url || "Site"}`];
+  const parts = [`# ${escapeMarkdownHtml(siteInfo?.name || siteInfo?.url || "Site")}`];
   if (siteInfo?.description)
-    parts.push("", `> ${siteInfo.description}`);
+    parts.push("", `> ${escapeMarkdownHtml(siteInfo.description)}`);
   if (siteInfo?.url)
     parts.push("", `Canonical Origin: ${siteInfo.url}`);
   if (llmsTxtConfig) {
@@ -25570,6 +26048,7 @@ function buildLlmsFullTxtHeader(siteInfo, llmsTxtConfig) {
 }
 
 const llmsFull_txt_get = eventHandler(async (event) => {
+  assertMethod(event, "GET", true);
   const runtimeConfig = useRuntimeConfig$1(event);
   const config = runtimeConfig["nuxt-ai-ready"];
   const siteConfig = getSiteConfig(event);
@@ -25623,15 +26102,17 @@ async function buildSitemapMarkdown(event) {
     );
   }
   const baseURL = useRuntimeConfig$1(event).app.baseURL;
+  const siteConfig = getSiteConfig(event);
   return buildSitemapMd(
     pages.map((page) => ({ route: page.route, title: page.title, updatedAt: page.updatedAt })),
     {
-      siteName: getSiteConfig(event).name,
-      resolveHref: (route) => toDeployedRoute(toMarkdownPath(route), baseURL)
+      siteName: siteConfig.name,
+      resolveHref: (route) => absoluteSiteUrl(toDeployedRoute(toMarkdownPath(route), baseURL), siteConfig.url)
     }
   );
 }
 const sitemap_md_get = eventHandler(async (event) => {
+  assertMethod(event, "GET", true);
   const fullRuntimeConfig = useRuntimeConfig$1(event);
   const runtimeConfig = fullRuntimeConfig["nuxt-ai-ready"];
   runtimeConfig.llmsTxtCacheSeconds ?? 600;
@@ -25718,7 +26199,7 @@ const llmsTxtI18n = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.definePropert
   resolveLocaleFromRoute: unavailable
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const devtoolsMeta = {"contentSignal":false,"mcp":{"enabled":false,"tools":false,"resources":false},"cron":false};
+const devtoolsMeta = {"contentSignal":{"search":true,"aiInput":true},"mcp":{"enabled":false,"tools":false,"resources":false},"cron":false};
 
 const devtoolsMeta$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,

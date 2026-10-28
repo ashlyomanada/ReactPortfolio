@@ -125,16 +125,11 @@
             },
             "provider": {
               "title": "Icon Provider",
-              "description": "Provider to use for fetching icons\n\n- `server` - Fetch icons with a server handler\n- `iconify` - Fetch icons with Iconify API, purely client-side\n- `none` - Do not fetch icons (use client bundle only)\n\n`server` by default; `iconify` when `ssr: false`",
-              "enum": [
-                "server",
-                "iconify",
-                "none"
-              ],
+              "description": "Provider to use for fetching icons\n\n- `server` - Fetch icons with a server handler\n- `iconify` - Fetch icons with Iconify API, purely client-side\n- `none` - Do not fetch icons (use client bundle only)\n\n`server` by default; `iconify` when `ssr: false`\n\nUse `{ server, client }` to set a different provider for SSR and for the browser,\ne.g. `{ server: 'server', client: 'iconify' }`. A string is the same as setting both sides.\nBoth `server` and `client` are required in the object form.",
               "tags": [
                 "@studioIcon material-symbols:cloud"
               ],
-              "type": "\"server\" | \"iconify\" | \"none\" | undefined",
+              "type": "IconProvider | { server: IconProvider, client: IconProvider } | undefined",
               "id": "#appConfig/icon/provider"
             },
             "iconifyApiEndpoint": {

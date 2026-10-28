@@ -50,7 +50,10 @@
             >
               <div class="flex items-center gap-3">
                 <div class="p-1.5 rounded-lg bg-slate-800 text-amber-400 border border-slate-700/50">
-                  <Icon :name="cmd.icon" class="w-4 h-4" />
+                  <Icon
+                    :name="cmd.icon"
+                    :class="['w-4 h-4', cmd.icon === 'logos:github-icon' && 'dark:brightness-0 dark:invert']"
+                  />
                 </div>
                 <div>
                   <div class="font-medium">{{ cmd.title }}</div>

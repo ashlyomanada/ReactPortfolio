@@ -27,26 +27,26 @@
         <!-- Left Content (7 Cols) -->
         <div class="lg:col-span-7 space-y-6">
           <!-- Live Status Chip -->
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs text-slate-300 shadow-sm backdrop-blur-md">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-[#111c1f] border border-slate-200 dark:border-teal-950 text-xs text-slate-600 dark:text-slate-300 shadow-sm backdrop-blur-md">
             <span class="relative flex h-2.5 w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
-            <span class="font-medium text-slate-200">{{ profile.status.label }}</span>
-            <span class="text-slate-500 hidden sm:inline">•</span>
-            <span class="text-slate-400 text-[11px] hidden sm:inline">{{ profile.status.subtext }}</span>
+            <span class="font-medium text-slate-700 dark:text-slate-200">{{ profile.status.label }}</span>
+            <span class="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
+            <span class="text-slate-500 dark:text-slate-400 text-[11px] hidden sm:inline">{{ profile.status.subtext }}</span>
           </div>
 
           <!-- Headline & Name -->
           <div>
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-(--text-primary) leading-[1.1]">
-              Hi, I'm <span class="text-amber-500 inline-block drop-shadow-sm">{{ profile.name }}</span>
+              Hi, I'm <span class="text-amber-500 dark:text-teal-300 inline-block drop-shadow-sm">{{ profile.name }}</span>
             </h1>
             <!-- Rotating Typewriter Role Line -->
-            <div class="h-10 sm:h-12 flex items-center mt-3 text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-300">
-              <span class="text-slate-400 mr-2 font-mono text-sm sm:text-base">></span>
-              <span class="text-amber-400/95 font-mono">{{ displayedRole }}</span>
-              <span class="w-2.5 h-6 bg-amber-500 ml-1 inline-block animate-pulse" />
+            <div class="h-10 sm:h-12 flex items-center mt-3 text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-700 dark:text-slate-300">
+              <span class="text-slate-500 dark:text-slate-400 mr-2 font-mono text-sm sm:text-base">></span>
+              <span class="text-amber-600 dark:text-teal-300 font-mono">{{ displayedRole }}</span>
+              <span class="w-2.5 h-6 bg-amber-500 dark:bg-teal-300 ml-1 inline-block animate-pulse" />
             </div>
           </div>
 
@@ -59,7 +59,7 @@
           <div class="flex flex-wrap items-center gap-3 pt-2">
             <a
               href="#projects"
-              class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-amber-500/20 hover:shadow-amber-500/35 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+              class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 dark:bg-teal-300 dark:hover:bg-teal-200 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-amber-500/20 dark:shadow-teal-500/15 hover:shadow-amber-500/35 transition-all duration-200 flex items-center gap-2 cursor-pointer"
             >
               <span>View Projects</span>
               <Icon name="heroicons:arrow-down" class="w-4 h-4" />
@@ -68,15 +68,15 @@
             <a
               :href="profile.resumeUrl"
               target="_blank"
-              class="px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-medium text-sm border border-slate-700/80 transition-all flex items-center gap-2"
+              class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-[#111c1f] dark:hover:bg-[#192629] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-medium text-sm border border-slate-200 dark:border-teal-950 shadow-sm transition-all flex items-center gap-2"
             >
-              <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 text-amber-400" />
+              <Icon name="heroicons:arrow-down-tray" class="w-4 h-4 text-amber-500 dark:text-teal-300" />
               <span>Download Résumé</span>
             </a>
 
             <a
               href="#contact"
-              class="px-5 py-3 rounded-xl bg-transparent hover:bg-slate-900/60 text-slate-300 hover:text-amber-400 font-medium text-sm border border-slate-800 transition-all flex items-center gap-2"
+              class="px-5 py-3 rounded-xl bg-transparent hover:bg-white dark:hover:bg-[#142326] text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-teal-200 font-medium text-sm border border-slate-300 dark:border-teal-900/70 transition-all flex items-center gap-2"
             >
               <span>Get in Touch</span>
               <Icon name="heroicons:paper-airplane" class="w-4 h-4" />
@@ -84,33 +84,33 @@
           </div>
 
           <!-- Social Links Bar -->
-          <div class="flex items-center gap-4 pt-4 text-slate-400">
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-500">Connect:</span>
+          <div class="flex items-center gap-4 pt-4 text-slate-600 dark:text-slate-400">
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">Connect:</span>
             <div class="flex items-center gap-3">
               <a
                 :href="profile.socials.github"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="p-2 rounded-lg bg-slate-900/80 hover:text-amber-400 transition-colors border border-slate-800"
+                class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-teal-200 transition-colors border border-slate-200 dark:border-teal-900/70 shadow-sm"
                 aria-label="GitHub"
               >
-                <Icon name="logos:github-icon" class="w-4 h-4" />
+                <Icon name="logos:github-icon" class="w-4 h-4 dark:brightness-0 dark:invert" />
               </a>
               <a
                 :href="profile.socials.linkedin"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="p-2 rounded-lg bg-slate-900/80 hover:text-amber-400 transition-colors border border-slate-800"
+                class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-teal-200 transition-colors border border-slate-200 dark:border-teal-900/70 shadow-sm"
                 aria-label="LinkedIn"
               >
                 <Icon name="logos:linkedin-icon" class="w-4 h-4" />
               </a>
               <button
                 type="button"
-                class="p-2 rounded-lg bg-slate-900/80 hover:text-amber-400 transition-colors border border-slate-800 flex items-center gap-1.5 text-xs font-mono text-slate-300 cursor-pointer"
+                class="p-2 rounded-lg bg-white dark:bg-[#111c1f] hover:text-amber-600 dark:hover:text-teal-200 transition-colors border border-slate-200 dark:border-teal-900/70 shadow-sm flex items-center gap-1.5 text-xs font-mono text-slate-700 dark:text-slate-300 cursor-pointer"
                 @click="copyEmail"
               >
-                <Icon name="heroicons:clipboard-document" class="w-4 h-4 text-amber-400" />
+                <Icon name="heroicons:clipboard-document" class="w-4 h-4 text-amber-500 dark:text-teal-300" />
                 <span>{{ profile.socials.email }}</span>
               </button>
             </div>
@@ -125,17 +125,17 @@
             @mouseleave="resetPortraitTilt"
           >
             <!-- Radiant Background Glow Ring -->
-            <div class="absolute -inset-2 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 rounded-3xl blur-2xl opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-subtle" />
+            <div class="absolute -inset-2 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 dark:from-teal-700 dark:via-cyan-500 dark:to-emerald-700 rounded-3xl blur-2xl opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-subtle" />
 
             <!-- Frame Container with 3D Tilt -->
             <div
-              class="relative rounded-3xl p-2 bg-gradient-to-b from-slate-800/90 to-slate-950/90 border border-amber-500/30 shadow-2xl transition-transform duration-200 ease-out"
+              class="relative rounded-3xl p-2 bg-gradient-to-b from-white/95 to-slate-100/95 dark:from-[#172629] dark:to-[#0b1214] border border-amber-500/30 dark:border-teal-800/70 shadow-2xl transition-transform duration-200 ease-out"
               :style="{
                 transform: `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
               }"
             >
               <!-- Portrait Image -->
-              <div class="overflow-hidden rounded-2xl w-64 sm:w-72 md:w-80 h-72 sm:h-80 md:h-96 relative bg-slate-900">
+              <div class="overflow-hidden rounded-2xl w-64 sm:w-72 md:w-80 h-72 sm:h-80 md:h-96 relative bg-slate-200 dark:bg-[#111c1f]">
                 <img
                   src="/images/portrait.png"
                   alt="Ashly Omanada Portrait"
@@ -159,23 +159,23 @@
 
       <!-- Bento-Grid Layout: "About Me / What I'm Into" -->
       <div class="mt-16 md:mt-24">
-        <div class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">
+        <div class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-4">
           // 01.1 — Context Matrix & Personal Notes
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div
             v-for="card in profile.bento"
             :key="card.id"
-            class="p-5 rounded-2xl glass-panel bg-slate-900/60 border border-slate-800/90 hover:border-amber-500/40 transition-all duration-300 group hover:-translate-y-1 shadow-sm"
+            class="p-5 rounded-2xl glass-panel bg-white/80 dark:bg-[#111c1f]/80 border border-slate-200 dark:border-teal-950 hover:border-amber-500/40 dark:hover:border-teal-500/50 transition-all duration-300 group hover:-translate-y-1 shadow-sm"
           >
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-mono text-amber-500 font-semibold">{{ card.title }}</span>
-              <Icon :name="card.icon || 'heroicons:sparkles'" class="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
+              <Icon :name="card.icon || 'heroicons:sparkles'" class="w-4 h-4 text-slate-500 dark:text-slate-500 group-hover:text-amber-600 dark:group-hover:text-teal-300 transition-colors" />
             </div>
-            <div class="text-sm font-bold text-slate-100 group-hover:text-white transition-colors">
+            <div class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white transition-colors">
               {{ card.content }}
             </div>
-            <p v-if="card.detail" class="mt-2 text-xs text-slate-400 leading-relaxed">
+            <p v-if="card.detail" class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               {{ card.detail }}
             </p>
           </div>
